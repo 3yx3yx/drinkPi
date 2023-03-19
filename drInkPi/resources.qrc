@@ -1,0 +1,19 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>assets/water-tap.png</file>
+        <file>assets/PLUS.png</file>
+        <file>assets/ok--v1.png</file>
+        <file>assets/free-settings-icon-3110-thumb.png</file>
+        <file>assets/3716513.png</file>
+        <file>assets/2662443.png</file>
+        <file>assets/920605.png</file>
+        <file>assets/831001.png</file>
+        <file>assets/415556.png</file>
+        <file>assets/262038.png</file>
+        <file>assets/star.png</file>
+        <file>assets/star (copy).png</file>
+    </qresource>
+    <qresource prefix="/text">
+        <file>assets/DrinkList.txt</file>
+    </qresource>
+</RCC>
