@@ -14,10 +14,10 @@ EQ            = =
 
 CC            = /home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/bin/arm-linux-gnueabihf-gcc
 CXX           = /home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/bin/arm-linux-gnueabihf-g++
-DEFINES       = -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
+DEFINES       = -DQT_QML_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -march=armv8-a -mtune=cortex-a72 -mfpu=crypto-neon-fp-armv8 -mfloat-abi=hard --sysroot=/home/ilia/rpi-qt/sysroot/ -g -Wall -Wextra -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -march=armv8-a -mtune=cortex-a72 -mfpu=crypto-neon-fp-armv8 -mfloat-abi=hard --sysroot=/home/ilia/rpi-qt/sysroot/ -g -std=gnu++1z -Wall -Wextra -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I../drInkPi -I. -I../../../rpi-qt/qt5.15/include -I../../../rpi-qt/qt5.15/include/QtWidgets -I../../../rpi-qt/qt5.15/include/QtGui -I../../../rpi-qt/qt5.15/include/QtCore -I. -I. -I../../../rpi-qt/qt5.15/mkspecs/devices/linux-rasp-pi4-v3d-g++
+INCPATH       = -I../drInkPi -I. -I../../../rpi-qt/qt5.15/include -I../../../rpi-qt/qt5.15/include/QtMultimediaWidgets -I../../../rpi-qt/qt5.15/include/QtMultimedia -I../../../rpi-qt/qt5.15/include/QtWidgets -I../../../rpi-qt/qt5.15/include/QtGui -I../../../rpi-qt/qt5.15/include/QtNetwork -I../../../rpi-qt/qt5.15/include/QtCore -I. -I. -I../../../rpi-qt/qt5.15/mkspecs/devices/linux-rasp-pi4-v3d-g++
 QMAKE         = /home/ilia/rpi-qt/qt5.15/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -39,8 +39,8 @@ COMPRESS      = gzip -9f
 DISTNAME      = drInkPi1.0.0
 DISTDIR = /home/ilia/GitHub/drinkPi/build-drInkPi-raspberry_pi-Debug/.tmp/drInkPi1.0.0
 LINK          = /home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/bin/arm-linux-gnueabihf-g++
-LFLAGS        = -mfloat-abi=hard --sysroot=/home/ilia/rpi-qt/sysroot/ -Wl,-rpath,/usr/local/qt5.15/lib -Wl,-rpath-link,/home/ilia/rpi-qt/sysroot/usr/lib/arm-linux-gnueabihf -Wl,-rpath-link,/home/ilia/rpi-qt/sysroot/lib/arm-linux-gnueabihf
-LIBS          = $(SUBLIBS) /home/ilia/rpi-qt/qt5.15/lib/libQt5Widgets.so /home/ilia/rpi-qt/qt5.15/lib/libQt5Gui.so /home/ilia/rpi-qt/qt5.15/lib/libQt5Core.so -L/home/ilia/rpi-qt/sysroot//usr/lib/arm-linux-gnueabihf -lGLESv2 -lpthread   
+LFLAGS        = -mfloat-abi=hard --sysroot=/home/ilia/rpi-qt/sysroot/ -Wl,-rpath,/usr/local/qt5.15/lib -Wl,-rpath-link,/home/ilia/rpi-qt/qt5.15/lib -Wl,-rpath-link,/home/ilia/rpi-qt/sysroot/usr/lib/arm-linux-gnueabihf -Wl,-rpath-link,/home/ilia/rpi-qt/sysroot/lib/arm-linux-gnueabihf
+LIBS          = $(SUBLIBS) /home/ilia/rpi-qt/qt5.15/lib/libQt5MultimediaWidgets.so /home/ilia/rpi-qt/qt5.15/lib/libQt5Multimedia.so /home/ilia/rpi-qt/qt5.15/lib/libQt5Widgets.so /home/ilia/rpi-qt/qt5.15/lib/libQt5Gui.so /home/ilia/rpi-qt/qt5.15/lib/libQt5Network.so /home/ilia/rpi-qt/qt5.15/lib/libQt5Core.so -L/home/ilia/rpi-qt/sysroot//usr/lib/arm-linux-gnueabihf -lGLESv2 -lpthread   
 AR            = /home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/bin/arm-linux-gnueabihf-ar cqs
 RANLIB        = 
 SED           = sed
@@ -53,16 +53,24 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = ../drInkPi/bcm2835.c \
+		../drInkPi/beverageitemwidget.cpp \
+		../drInkPi/ingredientitemwidget.cpp \
 		../drInkPi/listunitwidget.cpp \
 		../drInkPi/main.cpp \
 		../drInkPi/mainwindow.cpp qrc_resources.cpp \
+		moc_beverageitemwidget.cpp \
+		moc_ingredientitemwidget.cpp \
 		moc_listunitwidget.cpp \
 		moc_mainwindow.cpp
 OBJECTS       = bcm2835.o \
+		beverageitemwidget.o \
+		ingredientitemwidget.o \
 		listunitwidget.o \
 		main.o \
 		mainwindow.o \
 		qrc_resources.o \
+		moc_beverageitemwidget.o \
+		moc_ingredientitemwidget.o \
 		moc_listunitwidget.o \
 		moc_mainwindow.o
 DIST          = ../../../rpi-qt/qt5.15/mkspecs/features/spec_pre.prf \
@@ -263,8 +271,12 @@ DIST          = ../../../rpi-qt/qt5.15/mkspecs/features/spec_pre.prf \
 		../../../rpi-qt/qt5.15/mkspecs/features/yacc.prf \
 		../../../rpi-qt/qt5.15/mkspecs/features/lex.prf \
 		../drInkPi/drInkPi.pro ../drInkPi/bcm2835.h \
+		../drInkPi/beverageitemwidget.h \
+		../drInkPi/ingredientitemwidget.h \
 		../drInkPi/listunitwidget.h \
 		../drInkPi/mainwindow.h ../drInkPi/bcm2835.c \
+		../drInkPi/beverageitemwidget.cpp \
+		../drInkPi/ingredientitemwidget.cpp \
 		../drInkPi/listunitwidget.cpp \
 		../drInkPi/main.cpp \
 		../drInkPi/mainwindow.cpp
@@ -276,7 +288,7 @@ TARGET        = drInkPi
 first: all
 ####### Build rules
 
-drInkPi: ui_listunitwidget.h ui_mainwindow.h $(OBJECTS)  
+drInkPi: ui_beverageitemwidget.h ui_ingredientitemwidget.h ui_listunitwidget.h ui_mainwindow.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: ../drInkPi/drInkPi.pro ../../../rpi-qt/qt5.15/mkspecs/devices/linux-rasp-pi4-v3d-g++/qmake.conf ../../../rpi-qt/qt5.15/mkspecs/features/spec_pre.prf \
@@ -694,9 +706,9 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../drInkPi/resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../rpi-qt/qt5.15/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../drInkPi/bcm2835.h ../drInkPi/listunitwidget.h ../drInkPi/mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../drInkPi/bcm2835.c ../drInkPi/listunitwidget.cpp ../drInkPi/main.cpp ../drInkPi/mainwindow.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../drInkPi/listunitwidget.ui ../drInkPi/mainwindow.ui $(DISTDIR)/
+	$(COPY_FILE) --parents ../drInkPi/bcm2835.h ../drInkPi/beverageitemwidget.h ../drInkPi/ingredientitemwidget.h ../drInkPi/listunitwidget.h ../drInkPi/mainwindow.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../drInkPi/bcm2835.c ../drInkPi/beverageitemwidget.cpp ../drInkPi/ingredientitemwidget.cpp ../drInkPi/listunitwidget.cpp ../drInkPi/main.cpp ../drInkPi/mainwindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../drInkPi/beverageitemwidget.ui ../drInkPi/ingredientitemwidget.ui ../drInkPi/listunitwidget.ui ../drInkPi/mainwindow.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -725,7 +737,7 @@ compiler_rcc_clean:
 	-$(DEL_FILE) qrc_resources.cpp
 qrc_resources.cpp: ../drInkPi/resources.qrc \
 		../../../rpi-qt/qt5.15/bin/rcc \
-		../drInkPi/assets/DrinkList.txt \
+		../drInkPi/assets/config.json \
 		../drInkPi/assets/star\ (copy).png \
 		../drInkPi/assets/ok--v1.png \
 		../drInkPi/assets/2662443.png \
@@ -746,9 +758,225 @@ compiler_moc_predefs_clean:
 moc_predefs.h: ../../../rpi-qt/qt5.15/mkspecs/features/data/dummy.cpp
 	/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/bin/arm-linux-gnueabihf-g++ -march=armv8-a -mtune=cortex-a72 -mfpu=crypto-neon-fp-armv8 -mfloat-abi=hard --sysroot=/home/ilia/rpi-qt/sysroot/ -g -std=gnu++1z -Wall -Wextra -dM -E -o moc_predefs.h ../../../rpi-qt/qt5.15/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_listunitwidget.cpp moc_mainwindow.cpp
+compiler_moc_header_make_all: moc_beverageitemwidget.cpp moc_ingredientitemwidget.cpp moc_listunitwidget.cpp moc_mainwindow.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_listunitwidget.cpp moc_mainwindow.cpp
+	-$(DEL_FILE) moc_beverageitemwidget.cpp moc_ingredientitemwidget.cpp moc_listunitwidget.cpp moc_mainwindow.cpp
+moc_beverageitemwidget.cpp: ../drInkPi/beverageitemwidget.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/QWidget \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qwidget.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qtwidgetsglobal.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qtguiglobal.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qglobal.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qconfig-bootstrapped.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qconfig.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qtcore-config.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qsystemdetection.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qprocessordetection.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qcompilerdetection.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qtypeinfo.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qsysinfo.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qlogging.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qflags.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qatomic.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qbasicatomic.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qatomic_bootstrap.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qgenericatomic.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qatomic_cxx11.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qatomic_msvc.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qglobalstatic.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qmutex.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qnumeric.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qversiontagging.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qtgui-config.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qtwidgets-config.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qwindowdefs.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qobjectdefs.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qnamespace.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qobjectdefs_impl.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qwindowdefs_win.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qobject.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qstring.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qchar.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qbytearray.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qrefcount.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qarraydata.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qstringliteral.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qstringalgorithms.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qstringview.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qstringbuilder.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qlist.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qalgorithms.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qiterator.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qhashfunctions.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qpair.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qvector.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qcontainertools_impl.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qpoint.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qbytearraylist.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qstringlist.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qregexp.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qstringmatcher.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qcoreevent.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qscopedpointer.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qmetatype.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qvarlengtharray.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qcontainerfwd.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qobject_impl.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qmargins.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qpaintdevice.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qrect.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qsize.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qpalette.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qcolor.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qrgb.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qrgba64.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qbrush.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qmatrix.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qpolygon.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qregion.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qdatastream.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qiodevice.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qline.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qtransform.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qimage.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qpixelformat.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qpixmap.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qsharedpointer.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qshareddata.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qhash.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qsharedpointer_impl.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qfont.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qfontmetrics.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qfontinfo.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qsizepolicy.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qcursor.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qkeysequence.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qevent.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qvariant.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qmap.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qdebug.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qtextstream.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qlocale.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qset.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qcontiguouscache.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qurl.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qurlquery.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qfile.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qfiledevice.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qvector2d.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qtouchdevice.h \
+		moc_predefs.h \
+		../../../rpi-qt/qt5.15/bin/moc
+	/home/ilia/rpi-qt/qt5.15/bin/moc $(DEFINES) --include /home/ilia/GitHub/drinkPi/build-drInkPi-raspberry_pi-Debug/moc_predefs.h -I/home/ilia/rpi-qt/qt5.15/mkspecs/devices/linux-rasp-pi4-v3d-g++ -I/home/ilia/GitHub/drinkPi/drInkPi -I/home/ilia/rpi-qt/qt5.15/include -I/home/ilia/rpi-qt/qt5.15/include/QtMultimediaWidgets -I/home/ilia/rpi-qt/qt5.15/include/QtMultimedia -I/home/ilia/rpi-qt/qt5.15/include/QtWidgets -I/home/ilia/rpi-qt/qt5.15/include/QtGui -I/home/ilia/rpi-qt/qt5.15/include/QtNetwork -I/home/ilia/rpi-qt/qt5.15/include/QtCore -I. -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include/c++/10.3.1 -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include/c++/10.3.1/arm-linux-gnueabihf -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include/c++/10.3.1/backward -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/lib/gcc/arm-linux-gnueabihf/10.3.1/include -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/lib/gcc/arm-linux-gnueabihf/10.3.1/include-fixed -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include -I/home/ilia/rpi-qt/sysroot/usr/include ../drInkPi/beverageitemwidget.h -o moc_beverageitemwidget.cpp
+
+moc_ingredientitemwidget.cpp: ../drInkPi/ingredientitemwidget.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/QWidget \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qwidget.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qtwidgetsglobal.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qtguiglobal.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qglobal.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qconfig-bootstrapped.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qconfig.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qtcore-config.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qsystemdetection.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qprocessordetection.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qcompilerdetection.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qtypeinfo.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qsysinfo.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qlogging.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qflags.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qatomic.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qbasicatomic.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qatomic_bootstrap.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qgenericatomic.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qatomic_cxx11.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qatomic_msvc.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qglobalstatic.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qmutex.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qnumeric.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qversiontagging.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qtgui-config.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qtwidgets-config.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qwindowdefs.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qobjectdefs.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qnamespace.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qobjectdefs_impl.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qwindowdefs_win.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qobject.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qstring.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qchar.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qbytearray.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qrefcount.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qarraydata.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qstringliteral.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qstringalgorithms.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qstringview.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qstringbuilder.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qlist.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qalgorithms.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qiterator.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qhashfunctions.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qpair.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qvector.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qcontainertools_impl.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qpoint.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qbytearraylist.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qstringlist.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qregexp.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qstringmatcher.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qcoreevent.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qscopedpointer.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qmetatype.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qvarlengtharray.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qcontainerfwd.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qobject_impl.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qmargins.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qpaintdevice.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qrect.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qsize.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qpalette.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qcolor.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qrgb.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qrgba64.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qbrush.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qmatrix.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qpolygon.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qregion.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qdatastream.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qiodevice.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qline.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qtransform.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qimage.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qpixelformat.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qpixmap.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qsharedpointer.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qshareddata.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qhash.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qsharedpointer_impl.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qfont.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qfontmetrics.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qfontinfo.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qsizepolicy.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qcursor.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qkeysequence.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qevent.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qvariant.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qmap.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qdebug.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qtextstream.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qlocale.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qset.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qcontiguouscache.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qurl.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qurlquery.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qfile.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qfiledevice.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qvector2d.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qtouchdevice.h \
+		moc_predefs.h \
+		../../../rpi-qt/qt5.15/bin/moc
+	/home/ilia/rpi-qt/qt5.15/bin/moc $(DEFINES) --include /home/ilia/GitHub/drinkPi/build-drInkPi-raspberry_pi-Debug/moc_predefs.h -I/home/ilia/rpi-qt/qt5.15/mkspecs/devices/linux-rasp-pi4-v3d-g++ -I/home/ilia/GitHub/drinkPi/drInkPi -I/home/ilia/rpi-qt/qt5.15/include -I/home/ilia/rpi-qt/qt5.15/include/QtMultimediaWidgets -I/home/ilia/rpi-qt/qt5.15/include/QtMultimedia -I/home/ilia/rpi-qt/qt5.15/include/QtWidgets -I/home/ilia/rpi-qt/qt5.15/include/QtGui -I/home/ilia/rpi-qt/qt5.15/include/QtNetwork -I/home/ilia/rpi-qt/qt5.15/include/QtCore -I. -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include/c++/10.3.1 -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include/c++/10.3.1/arm-linux-gnueabihf -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include/c++/10.3.1/backward -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/lib/gcc/arm-linux-gnueabihf/10.3.1/include -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/lib/gcc/arm-linux-gnueabihf/10.3.1/include-fixed -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include -I/home/ilia/rpi-qt/sysroot/usr/include ../drInkPi/ingredientitemwidget.h -o moc_ingredientitemwidget.cpp
+
 moc_listunitwidget.cpp: ../drInkPi/listunitwidget.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/QWidget \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qwidget.h \
@@ -855,7 +1083,7 @@ moc_listunitwidget.cpp: ../drInkPi/listunitwidget.h \
 		../../../rpi-qt/qt5.15/include/QtGui/qtouchdevice.h \
 		moc_predefs.h \
 		../../../rpi-qt/qt5.15/bin/moc
-	/home/ilia/rpi-qt/qt5.15/bin/moc $(DEFINES) --include /home/ilia/GitHub/drinkPi/build-drInkPi-raspberry_pi-Debug/moc_predefs.h -I/home/ilia/rpi-qt/qt5.15/mkspecs/devices/linux-rasp-pi4-v3d-g++ -I/home/ilia/GitHub/drinkPi/drInkPi -I/home/ilia/rpi-qt/qt5.15/include -I/home/ilia/rpi-qt/qt5.15/include/QtWidgets -I/home/ilia/rpi-qt/qt5.15/include/QtGui -I/home/ilia/rpi-qt/qt5.15/include/QtCore -I. -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include/c++/10.3.1 -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include/c++/10.3.1/arm-linux-gnueabihf -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include/c++/10.3.1/backward -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/lib/gcc/arm-linux-gnueabihf/10.3.1/include -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/lib/gcc/arm-linux-gnueabihf/10.3.1/include-fixed -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include -I/home/ilia/rpi-qt/sysroot/usr/include ../drInkPi/listunitwidget.h -o moc_listunitwidget.cpp
+	/home/ilia/rpi-qt/qt5.15/bin/moc $(DEFINES) --include /home/ilia/GitHub/drinkPi/build-drInkPi-raspberry_pi-Debug/moc_predefs.h -I/home/ilia/rpi-qt/qt5.15/mkspecs/devices/linux-rasp-pi4-v3d-g++ -I/home/ilia/GitHub/drinkPi/drInkPi -I/home/ilia/rpi-qt/qt5.15/include -I/home/ilia/rpi-qt/qt5.15/include/QtMultimediaWidgets -I/home/ilia/rpi-qt/qt5.15/include/QtMultimedia -I/home/ilia/rpi-qt/qt5.15/include/QtWidgets -I/home/ilia/rpi-qt/qt5.15/include/QtGui -I/home/ilia/rpi-qt/qt5.15/include/QtNetwork -I/home/ilia/rpi-qt/qt5.15/include/QtCore -I. -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include/c++/10.3.1 -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include/c++/10.3.1/arm-linux-gnueabihf -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include/c++/10.3.1/backward -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/lib/gcc/arm-linux-gnueabihf/10.3.1/include -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/lib/gcc/arm-linux-gnueabihf/10.3.1/include-fixed -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include -I/home/ilia/rpi-qt/sysroot/usr/include ../drInkPi/listunitwidget.h -o moc_listunitwidget.cpp
 
 moc_mainwindow.cpp: ../drInkPi/mainwindow.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/QMainWindow \
@@ -965,23 +1193,161 @@ moc_mainwindow.cpp: ../drInkPi/mainwindow.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qtabwidget.h \
 		../../../rpi-qt/qt5.15/include/QtGui/qicon.h \
 		../drInkPi/bcm2835.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qboxlayout.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qlayout.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qlayoutitem.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qgridlayout.h \
+		../drInkPi/beverageitemwidget.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/QWidget \
+		../drInkPi/listunitwidget.h \
+		../../../rpi-qt/qt5.15/include/QtCore/QJsonDocument \
+		../../../rpi-qt/qt5.15/include/QtCore/qjsondocument.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qjsonvalue.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qcborvalue.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qdatetime.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qcborcommon.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qregularexpression.h \
+		../../../rpi-qt/qt5.15/include/QtCore/quuid.h \
+		../../../rpi-qt/qt5.15/include/QtCore/QJsonParseError \
+		../../../rpi-qt/qt5.15/include/QtCore/QJsonObject \
+		../../../rpi-qt/qt5.15/include/QtCore/qjsonobject.h \
+		../../../rpi-qt/qt5.15/include/QtCore/QJsonValue \
+		../../../rpi-qt/qt5.15/include/QtCore/QJsonArray \
+		../../../rpi-qt/qt5.15/include/QtCore/qjsonarray.h \
 		moc_predefs.h \
 		../../../rpi-qt/qt5.15/bin/moc
-	/home/ilia/rpi-qt/qt5.15/bin/moc $(DEFINES) --include /home/ilia/GitHub/drinkPi/build-drInkPi-raspberry_pi-Debug/moc_predefs.h -I/home/ilia/rpi-qt/qt5.15/mkspecs/devices/linux-rasp-pi4-v3d-g++ -I/home/ilia/GitHub/drinkPi/drInkPi -I/home/ilia/rpi-qt/qt5.15/include -I/home/ilia/rpi-qt/qt5.15/include/QtWidgets -I/home/ilia/rpi-qt/qt5.15/include/QtGui -I/home/ilia/rpi-qt/qt5.15/include/QtCore -I. -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include/c++/10.3.1 -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include/c++/10.3.1/arm-linux-gnueabihf -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include/c++/10.3.1/backward -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/lib/gcc/arm-linux-gnueabihf/10.3.1/include -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/lib/gcc/arm-linux-gnueabihf/10.3.1/include-fixed -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include -I/home/ilia/rpi-qt/sysroot/usr/include ../drInkPi/mainwindow.h -o moc_mainwindow.cpp
+	/home/ilia/rpi-qt/qt5.15/bin/moc $(DEFINES) --include /home/ilia/GitHub/drinkPi/build-drInkPi-raspberry_pi-Debug/moc_predefs.h -I/home/ilia/rpi-qt/qt5.15/mkspecs/devices/linux-rasp-pi4-v3d-g++ -I/home/ilia/GitHub/drinkPi/drInkPi -I/home/ilia/rpi-qt/qt5.15/include -I/home/ilia/rpi-qt/qt5.15/include/QtMultimediaWidgets -I/home/ilia/rpi-qt/qt5.15/include/QtMultimedia -I/home/ilia/rpi-qt/qt5.15/include/QtWidgets -I/home/ilia/rpi-qt/qt5.15/include/QtGui -I/home/ilia/rpi-qt/qt5.15/include/QtNetwork -I/home/ilia/rpi-qt/qt5.15/include/QtCore -I. -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include/c++/10.3.1 -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include/c++/10.3.1/arm-linux-gnueabihf -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include/c++/10.3.1/backward -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/lib/gcc/arm-linux-gnueabihf/10.3.1/include -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/lib/gcc/arm-linux-gnueabihf/10.3.1/include-fixed -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include -I/home/ilia/rpi-qt/sysroot/usr/include ../drInkPi/mainwindow.h -o moc_mainwindow.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_listunitwidget.h ui_mainwindow.h
+compiler_uic_make_all: ui_beverageitemwidget.h ui_ingredientitemwidget.h ui_listunitwidget.h ui_mainwindow.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_listunitwidget.h ui_mainwindow.h
+	-$(DEL_FILE) ui_beverageitemwidget.h ui_ingredientitemwidget.h ui_listunitwidget.h ui_mainwindow.h
+ui_beverageitemwidget.h: ../drInkPi/beverageitemwidget.ui \
+		../../../rpi-qt/qt5.15/bin/uic
+	/home/ilia/rpi-qt/qt5.15/bin/uic ../drInkPi/beverageitemwidget.ui -o ui_beverageitemwidget.h
+
+ui_ingredientitemwidget.h: ../drInkPi/ingredientitemwidget.ui \
+		../../../rpi-qt/qt5.15/bin/uic
+	/home/ilia/rpi-qt/qt5.15/bin/uic ../drInkPi/ingredientitemwidget.ui -o ui_ingredientitemwidget.h
+
 ui_listunitwidget.h: ../drInkPi/listunitwidget.ui \
 		../../../rpi-qt/qt5.15/bin/uic
 	/home/ilia/rpi-qt/qt5.15/bin/uic ../drInkPi/listunitwidget.ui -o ui_listunitwidget.h
 
 ui_mainwindow.h: ../drInkPi/mainwindow.ui \
-		../../../rpi-qt/qt5.15/bin/uic
+		../../../rpi-qt/qt5.15/bin/uic \
+		../../../rpi-qt/qt5.15/include/QtMultimediaWidgets/qvideowidget.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qwidget.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qtwidgetsglobal.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qtguiglobal.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qglobal.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qconfig-bootstrapped.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qconfig.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qtcore-config.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qsystemdetection.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qprocessordetection.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qcompilerdetection.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qtypeinfo.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qsysinfo.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qlogging.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qflags.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qatomic.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qbasicatomic.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qatomic_bootstrap.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qgenericatomic.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qatomic_cxx11.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qatomic_msvc.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qglobalstatic.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qmutex.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qnumeric.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qversiontagging.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qtgui-config.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qtwidgets-config.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qwindowdefs.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qobjectdefs.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qnamespace.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qobjectdefs_impl.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qwindowdefs_win.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qobject.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qstring.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qchar.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qbytearray.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qrefcount.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qarraydata.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qstringliteral.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qstringalgorithms.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qstringview.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qstringbuilder.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qlist.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qalgorithms.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qiterator.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qhashfunctions.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qpair.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qvector.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qcontainertools_impl.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qpoint.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qbytearraylist.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qstringlist.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qregexp.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qstringmatcher.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qcoreevent.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qscopedpointer.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qmetatype.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qvarlengtharray.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qcontainerfwd.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qobject_impl.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qmargins.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qpaintdevice.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qrect.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qsize.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qpalette.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qcolor.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qrgb.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qrgba64.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qbrush.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qmatrix.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qpolygon.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qregion.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qdatastream.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qiodevice.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qline.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qtransform.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qimage.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qpixelformat.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qpixmap.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qsharedpointer.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qshareddata.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qhash.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qsharedpointer_impl.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qfont.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qfontmetrics.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qfontinfo.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qsizepolicy.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qcursor.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qkeysequence.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qevent.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qvariant.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qmap.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qdebug.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qtextstream.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qlocale.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qset.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qcontiguouscache.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qurl.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qurlquery.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qfile.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qfiledevice.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qvector2d.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qtouchdevice.h \
+		../../../rpi-qt/qt5.15/include/QtMultimediaWidgets/qtmultimediawidgetdefs.h \
+		../../../rpi-qt/qt5.15/include/QtMultimedia/qmediabindableinterface.h \
+		../../../rpi-qt/qt5.15/include/QtMultimedia/qmediaobject.h \
+		../../../rpi-qt/qt5.15/include/QtMultimedia/qtmultimediaglobal.h \
+		../../../rpi-qt/qt5.15/include/QtMultimedia/qtmultimedia-config.h \
+		../../../rpi-qt/qt5.15/include/QtMultimedia/qmultimedia.h
 	/home/ilia/rpi-qt/qt5.15/bin/uic ../drInkPi/mainwindow.ui -o ui_mainwindow.h
 
 compiler_yacc_decl_make_all:
@@ -996,6 +1362,285 @@ compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_heade
 
 bcm2835.o: ../drInkPi/bcm2835.c ../drInkPi/bcm2835.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o bcm2835.o ../drInkPi/bcm2835.c
+
+beverageitemwidget.o: ../drInkPi/beverageitemwidget.cpp ../drInkPi/beverageitemwidget.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/QWidget \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qwidget.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qtwidgetsglobal.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qtguiglobal.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qglobal.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qconfig-bootstrapped.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qconfig.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qtcore-config.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qsystemdetection.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qprocessordetection.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qcompilerdetection.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qtypeinfo.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qsysinfo.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qlogging.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qflags.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qatomic.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qbasicatomic.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qatomic_bootstrap.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qgenericatomic.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qatomic_cxx11.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qatomic_msvc.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qglobalstatic.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qmutex.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qnumeric.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qversiontagging.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qtgui-config.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qtwidgets-config.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qwindowdefs.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qobjectdefs.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qnamespace.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qobjectdefs_impl.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qwindowdefs_win.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qobject.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qstring.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qchar.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qbytearray.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qrefcount.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qarraydata.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qstringliteral.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qstringalgorithms.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qstringview.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qstringbuilder.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qlist.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qalgorithms.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qiterator.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qhashfunctions.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qpair.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qvector.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qcontainertools_impl.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qpoint.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qbytearraylist.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qstringlist.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qregexp.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qstringmatcher.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qcoreevent.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qscopedpointer.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qmetatype.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qvarlengtharray.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qcontainerfwd.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qobject_impl.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qmargins.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qpaintdevice.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qrect.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qsize.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qpalette.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qcolor.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qrgb.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qrgba64.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qbrush.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qmatrix.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qpolygon.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qregion.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qdatastream.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qiodevice.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qline.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qtransform.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qimage.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qpixelformat.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qpixmap.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qsharedpointer.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qshareddata.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qhash.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qsharedpointer_impl.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qfont.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qfontmetrics.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qfontinfo.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qsizepolicy.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qcursor.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qkeysequence.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qevent.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qvariant.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qmap.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qdebug.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qtextstream.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qlocale.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qset.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qcontiguouscache.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qurl.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qurlquery.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qfile.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qfiledevice.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qvector2d.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qtouchdevice.h \
+		ui_beverageitemwidget.h \
+		../../../rpi-qt/qt5.15/include/QtCore/QVariant \
+		../../../rpi-qt/qt5.15/include/QtWidgets/QApplication \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qapplication.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qcoreapplication.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qeventloop.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qdesktopwidget.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qguiapplication.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qinputmethod.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/QComboBox \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qcombobox.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qabstractitemdelegate.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qstyleoption.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qabstractspinbox.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qvalidator.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qregularexpression.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qicon.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qslider.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qabstractslider.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qstyle.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qtabbar.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qtabwidget.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qrubberband.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qframe.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qabstractitemmodel.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/QGridLayout \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qgridlayout.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qlayout.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qlayoutitem.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qboxlayout.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/QHBoxLayout \
+		../../../rpi-qt/qt5.15/include/QtWidgets/QLabel \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qlabel.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o beverageitemwidget.o ../drInkPi/beverageitemwidget.cpp
+
+ingredientitemwidget.o: ../drInkPi/ingredientitemwidget.cpp ../drInkPi/ingredientitemwidget.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/QWidget \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qwidget.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qtwidgetsglobal.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qtguiglobal.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qglobal.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qconfig-bootstrapped.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qconfig.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qtcore-config.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qsystemdetection.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qprocessordetection.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qcompilerdetection.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qtypeinfo.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qsysinfo.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qlogging.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qflags.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qatomic.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qbasicatomic.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qatomic_bootstrap.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qgenericatomic.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qatomic_cxx11.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qatomic_msvc.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qglobalstatic.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qmutex.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qnumeric.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qversiontagging.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qtgui-config.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qtwidgets-config.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qwindowdefs.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qobjectdefs.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qnamespace.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qobjectdefs_impl.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qwindowdefs_win.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qobject.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qstring.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qchar.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qbytearray.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qrefcount.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qarraydata.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qstringliteral.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qstringalgorithms.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qstringview.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qstringbuilder.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qlist.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qalgorithms.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qiterator.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qhashfunctions.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qpair.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qvector.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qcontainertools_impl.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qpoint.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qbytearraylist.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qstringlist.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qregexp.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qstringmatcher.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qcoreevent.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qscopedpointer.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qmetatype.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qvarlengtharray.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qcontainerfwd.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qobject_impl.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qmargins.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qpaintdevice.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qrect.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qsize.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qpalette.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qcolor.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qrgb.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qrgba64.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qbrush.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qmatrix.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qpolygon.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qregion.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qdatastream.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qiodevice.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qline.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qtransform.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qimage.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qpixelformat.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qpixmap.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qsharedpointer.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qshareddata.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qhash.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qsharedpointer_impl.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qfont.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qfontmetrics.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qfontinfo.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qsizepolicy.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qcursor.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qkeysequence.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qevent.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qvariant.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qmap.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qdebug.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qtextstream.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qlocale.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qset.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qcontiguouscache.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qurl.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qurlquery.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qfile.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qfiledevice.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qvector2d.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qtouchdevice.h \
+		ui_ingredientitemwidget.h \
+		../../../rpi-qt/qt5.15/include/QtCore/QVariant \
+		../../../rpi-qt/qt5.15/include/QtWidgets/QApplication \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qapplication.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qcoreapplication.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qeventloop.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qdesktopwidget.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qguiapplication.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qinputmethod.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/QComboBox \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qcombobox.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qabstractitemdelegate.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qstyleoption.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qabstractspinbox.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qvalidator.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qregularexpression.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qicon.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qslider.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qabstractslider.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qstyle.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qtabbar.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qtabwidget.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qrubberband.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qframe.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qabstractitemmodel.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/QHBoxLayout \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qboxlayout.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qlayout.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qlayoutitem.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qgridlayout.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/QLabel \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qlabel.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/QSpinBox \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qspinbox.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ingredientitemwidget.o ../drInkPi/ingredientitemwidget.cpp
 
 listunitwidget.o: ../drInkPi/listunitwidget.cpp ../drInkPi/listunitwidget.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/QWidget \
@@ -1103,8 +1748,6 @@ listunitwidget.o: ../drInkPi/listunitwidget.cpp ../drInkPi/listunitwidget.h \
 		../../../rpi-qt/qt5.15/include/QtGui/qtouchdevice.h \
 		ui_listunitwidget.h \
 		../../../rpi-qt/qt5.15/include/QtCore/QVariant \
-		../../../rpi-qt/qt5.15/include/QtGui/QIcon \
-		../../../rpi-qt/qt5.15/include/QtGui/qicon.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/QApplication \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qapplication.h \
 		../../../rpi-qt/qt5.15/include/QtCore/qcoreapplication.h \
@@ -1117,12 +1760,10 @@ listunitwidget.o: ../drInkPi/listunitwidget.cpp ../drInkPi/listunitwidget.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qlayout.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qlayoutitem.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qboxlayout.h \
-		../../../rpi-qt/qt5.15/include/QtWidgets/QLabel \
-		../../../rpi-qt/qt5.15/include/QtWidgets/qlabel.h \
-		../../../rpi-qt/qt5.15/include/QtWidgets/qframe.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/QPushButton \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qpushbutton.h \
-		../../../rpi-qt/qt5.15/include/QtWidgets/qabstractbutton.h
+		../../../rpi-qt/qt5.15/include/QtWidgets/qabstractbutton.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qicon.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o listunitwidget.o ../drInkPi/listunitwidget.cpp
 
 main.o: ../drInkPi/main.cpp ../drInkPi/mainwindow.h \
@@ -1233,6 +1874,27 @@ main.o: ../drInkPi/main.cpp ../drInkPi/mainwindow.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qtabwidget.h \
 		../../../rpi-qt/qt5.15/include/QtGui/qicon.h \
 		../drInkPi/bcm2835.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qboxlayout.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qlayout.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qlayoutitem.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qgridlayout.h \
+		../drInkPi/beverageitemwidget.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/QWidget \
+		../drInkPi/listunitwidget.h \
+		../../../rpi-qt/qt5.15/include/QtCore/QJsonDocument \
+		../../../rpi-qt/qt5.15/include/QtCore/qjsondocument.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qjsonvalue.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qcborvalue.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qdatetime.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qcborcommon.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qregularexpression.h \
+		../../../rpi-qt/qt5.15/include/QtCore/quuid.h \
+		../../../rpi-qt/qt5.15/include/QtCore/QJsonParseError \
+		../../../rpi-qt/qt5.15/include/QtCore/QJsonObject \
+		../../../rpi-qt/qt5.15/include/QtCore/qjsonobject.h \
+		../../../rpi-qt/qt5.15/include/QtCore/QJsonValue \
+		../../../rpi-qt/qt5.15/include/QtCore/QJsonArray \
+		../../../rpi-qt/qt5.15/include/QtCore/qjsonarray.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/QApplication \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qapplication.h \
 		../../../rpi-qt/qt5.15/include/QtCore/qcoreapplication.h \
@@ -1261,11 +1923,6 @@ main.o: ../drInkPi/main.cpp ../drInkPi/mainwindow.h \
 		../../../rpi-qt/qt5.15/include/QtCore/qcache.h \
 		../../../rpi-qt/qt5.15/include/QtCore/qcalendar.h \
 		../../../rpi-qt/qt5.15/include/QtCore/qcborarray.h \
-		../../../rpi-qt/qt5.15/include/QtCore/qcborvalue.h \
-		../../../rpi-qt/qt5.15/include/QtCore/qdatetime.h \
-		../../../rpi-qt/qt5.15/include/QtCore/qcborcommon.h \
-		../../../rpi-qt/qt5.15/include/QtCore/qregularexpression.h \
-		../../../rpi-qt/qt5.15/include/QtCore/quuid.h \
 		../../../rpi-qt/qt5.15/include/QtCore/qcbormap.h \
 		../../../rpi-qt/qt5.15/include/QtCore/qcborstream.h \
 		../../../rpi-qt/qt5.15/include/QtCore/qcborstreamreader.h \
@@ -1301,10 +1958,6 @@ main.o: ../drInkPi/main.cpp ../drInkPi/mainwindow.h \
 		../../../rpi-qt/qt5.15/include/QtCore/qidentityproxymodel.h \
 		../../../rpi-qt/qt5.15/include/QtCore/qisenum.h \
 		../../../rpi-qt/qt5.15/include/QtCore/qitemselectionmodel.h \
-		../../../rpi-qt/qt5.15/include/QtCore/qjsonarray.h \
-		../../../rpi-qt/qt5.15/include/QtCore/qjsonvalue.h \
-		../../../rpi-qt/qt5.15/include/QtCore/qjsondocument.h \
-		../../../rpi-qt/qt5.15/include/QtCore/qjsonobject.h \
 		../../../rpi-qt/qt5.15/include/QtCore/qlibrary.h \
 		../../../rpi-qt/qt5.15/include/QtCore/qlibraryinfo.h \
 		../../../rpi-qt/qt5.15/include/QtCore/qversionnumber.h \
@@ -1483,10 +2136,6 @@ main.o: ../drInkPi/main.cpp ../drInkPi/mainwindow.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qaccessiblewidget.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qaction.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qactiongroup.h \
-		../../../rpi-qt/qt5.15/include/QtWidgets/qboxlayout.h \
-		../../../rpi-qt/qt5.15/include/QtWidgets/qlayout.h \
-		../../../rpi-qt/qt5.15/include/QtWidgets/qlayoutitem.h \
-		../../../rpi-qt/qt5.15/include/QtWidgets/qgridlayout.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qbuttongroup.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qcalendarwidget.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qcheckbox.h \
@@ -1552,7 +2201,6 @@ main.o: ../drInkPi/main.cpp ../drInkPi/mainwindow.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qmessagebox.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qmouseeventtransition.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qopenglwidget.h \
-		../../../rpi-qt/qt5.15/include/QtWidgets/QWidget \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qplaintextedit.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qtextedit.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qprogressbar.h \
@@ -1707,6 +2355,27 @@ mainwindow.o: ../drInkPi/mainwindow.cpp ../drInkPi/mainwindow.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qtabwidget.h \
 		../../../rpi-qt/qt5.15/include/QtGui/qicon.h \
 		../drInkPi/bcm2835.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qboxlayout.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qlayout.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qlayoutitem.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qgridlayout.h \
+		../drInkPi/beverageitemwidget.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/QWidget \
+		../drInkPi/listunitwidget.h \
+		../../../rpi-qt/qt5.15/include/QtCore/QJsonDocument \
+		../../../rpi-qt/qt5.15/include/QtCore/qjsondocument.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qjsonvalue.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qcborvalue.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qdatetime.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qcborcommon.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qregularexpression.h \
+		../../../rpi-qt/qt5.15/include/QtCore/quuid.h \
+		../../../rpi-qt/qt5.15/include/QtCore/QJsonParseError \
+		../../../rpi-qt/qt5.15/include/QtCore/QJsonObject \
+		../../../rpi-qt/qt5.15/include/QtCore/qjsonobject.h \
+		../../../rpi-qt/qt5.15/include/QtCore/QJsonValue \
+		../../../rpi-qt/qt5.15/include/QtCore/QJsonArray \
+		../../../rpi-qt/qt5.15/include/QtCore/qjsonarray.h \
 		ui_mainwindow.h \
 		../../../rpi-qt/qt5.15/include/QtCore/QVariant \
 		../../../rpi-qt/qt5.15/include/QtGui/QIcon \
@@ -1717,40 +2386,87 @@ mainwindow.o: ../drInkPi/mainwindow.cpp ../drInkPi/mainwindow.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qdesktopwidget.h \
 		../../../rpi-qt/qt5.15/include/QtGui/qguiapplication.h \
 		../../../rpi-qt/qt5.15/include/QtGui/qinputmethod.h \
-		../../../rpi-qt/qt5.15/include/QtWidgets/QListWidget \
-		../../../rpi-qt/qt5.15/include/QtWidgets/qlistwidget.h \
-		../../../rpi-qt/qt5.15/include/QtWidgets/qlistview.h \
-		../../../rpi-qt/qt5.15/include/QtWidgets/qabstractitemview.h \
-		../../../rpi-qt/qt5.15/include/QtWidgets/qabstractscrollarea.h \
-		../../../rpi-qt/qt5.15/include/QtWidgets/qframe.h \
-		../../../rpi-qt/qt5.15/include/QtCore/qabstractitemmodel.h \
-		../../../rpi-qt/qt5.15/include/QtCore/qitemselectionmodel.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/QComboBox \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qcombobox.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qabstractitemdelegate.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qstyleoption.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qabstractspinbox.h \
 		../../../rpi-qt/qt5.15/include/QtGui/qvalidator.h \
-		../../../rpi-qt/qt5.15/include/QtCore/qregularexpression.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qslider.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qabstractslider.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qstyle.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qtabbar.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qrubberband.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qframe.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qabstractitemmodel.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/QGridLayout \
+		../../../rpi-qt/qt5.15/include/QtWidgets/QHBoxLayout \
+		../../../rpi-qt/qt5.15/include/QtWidgets/QLabel \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qlabel.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/QLineEdit \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qlineedit.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qtextcursor.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qtextformat.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qpen.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qtextoption.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/QListView \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qlistview.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qabstractitemview.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qabstractscrollarea.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qitemselectionmodel.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/QListWidget \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qlistwidget.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/QPushButton \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qpushbutton.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qabstractbutton.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/QScrollArea \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qscrollarea.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/QSlider \
+		../../../rpi-qt/qt5.15/include/QtWidgets/QSpacerItem \
 		../../../rpi-qt/qt5.15/include/QtWidgets/QStackedWidget \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qstackedwidget.h \
-		../../../rpi-qt/qt5.15/include/QtWidgets/QWidget \
+		../../../rpi-qt/qt5.15/include/QtWidgets/QTextEdit \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qtextedit.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qtextdocument.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/QVBoxLayout \
+		../../../rpi-qt/qt5.15/include/QtMultimediaWidgets/qvideowidget.h \
+		../../../rpi-qt/qt5.15/include/QtMultimediaWidgets/qtmultimediawidgetdefs.h \
+		../../../rpi-qt/qt5.15/include/QtMultimedia/qmediabindableinterface.h \
+		../../../rpi-qt/qt5.15/include/QtMultimedia/qmediaobject.h \
+		../../../rpi-qt/qt5.15/include/QtMultimedia/qtmultimediaglobal.h \
+		../../../rpi-qt/qt5.15/include/QtMultimedia/qtmultimedia-config.h \
+		../../../rpi-qt/qt5.15/include/QtMultimedia/qmultimedia.h \
 		../../../rpi-qt/qt5.15/include/QtCore/QFile \
 		../../../rpi-qt/qt5.15/include/QtCore/QDir \
 		../../../rpi-qt/qt5.15/include/QtCore/qdir.h \
 		../../../rpi-qt/qt5.15/include/QtCore/qfileinfo.h \
 		../../../rpi-qt/qt5.15/include/QtCore/QDebug \
-		../drInkPi/listunitwidget.h
+		../../../rpi-qt/qt5.15/include/QtWidgets/QLayout \
+		../../../rpi-qt/qt5.15/include/QtMultimedia/QMediaPlayer \
+		../../../rpi-qt/qt5.15/include/QtMultimedia/qmediaplayer.h \
+		../../../rpi-qt/qt5.15/include/QtMultimedia/qmediacontent.h \
+		../../../rpi-qt/qt5.15/include/QtMultimedia/qmediaresource.h \
+		../../../rpi-qt/qt5.15/include/QtNetwork/qnetworkrequest.h \
+		../../../rpi-qt/qt5.15/include/QtNetwork/qtnetworkglobal.h \
+		../../../rpi-qt/qt5.15/include/QtNetwork/qtnetwork-config.h \
+		../../../rpi-qt/qt5.15/include/QtCore/QSharedDataPointer \
+		../../../rpi-qt/qt5.15/include/QtCore/QString \
+		../../../rpi-qt/qt5.15/include/QtCore/QUrl \
+		../../../rpi-qt/qt5.15/include/QtMultimedia/qmediaenumdebug.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qmetaobject.h \
+		../../../rpi-qt/qt5.15/include/QtMultimedia/qaudio.h \
+		../../../rpi-qt/qt5.15/include/QtNetwork/qnetworkconfiguration.h \
+		../../../rpi-qt/qt5.15/include/QtMultimediaWidgets/QVideoWidget
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../drInkPi/mainwindow.cpp
 
 qrc_resources.o: qrc_resources.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_resources.o qrc_resources.cpp
+
+moc_beverageitemwidget.o: moc_beverageitemwidget.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_beverageitemwidget.o moc_beverageitemwidget.cpp
+
+moc_ingredientitemwidget.o: moc_ingredientitemwidget.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_ingredientitemwidget.o moc_ingredientitemwidget.cpp
 
 moc_listunitwidget.o: moc_listunitwidget.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_listunitwidget.o moc_listunitwidget.cpp

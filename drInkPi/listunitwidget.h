@@ -14,12 +14,12 @@ class ListUnitWidget : public QWidget
 public:
     ListUnitWidget(QWidget *parent = nullptr);
     ~ListUnitWidget();
-    void setItem (QString s, bool star);
+    void setItemString (QString s);
     QString getText (void);
 
 
 private slots:
-    void on_starButton_clicked();
+
 
 private:
     Ui::ListUnitWidget *ui;

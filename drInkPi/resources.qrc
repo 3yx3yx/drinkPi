@@ -14,6 +14,6 @@
         <file>assets/star (copy).png</file>
     </qresource>
     <qresource prefix="/text">
-        <file>assets/DrinkList.txt</file>
+        <file>assets/config.json</file>
     </qresource>
 </RCC>

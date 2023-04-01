@@ -13,20 +13,9 @@ ListUnitWidget::~ListUnitWidget()
     delete ui;
 }
 
-void ListUnitWidget::setItem(QString s, bool star = 0)
+void ListUnitWidget::setItemString(QString s)
 {
-    ui->label->setText(s);
-    ui->starButton->setChecked(star);
+    ui->pushButton->setText(s);
 }
 
-QString ListUnitWidget::getText()
-{
-    return ui->label->text();
-
-}
-
-void ListUnitWidget::on_starButton_clicked()
-{
-    //ui->starButton->setChecked(!ui->starButton->isChecked());
-}
 

@@ -10,10 +10,8 @@
 #define UI_LISTUNITWIDGET_H
 
 #include <QtCore/QVariant>
-#include <QtGui/QIcon>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QGridLayout>
-#include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QWidget>
 
@@ -23,59 +21,61 @@ class Ui_ListUnitWidget
 {
 public:
     QGridLayout *gridLayout;
-    QPushButton *starButton;
-    QLabel *label;
+    QPushButton *pushButton;
 
     void setupUi(QWidget *ListUnitWidget)
     {
         if (ListUnitWidget->objectName().isEmpty())
             ListUnitWidget->setObjectName(QString::fromUtf8("ListUnitWidget"));
-        ListUnitWidget->resize(380, 51);
-        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
+        ListUnitWidget->resize(500, 100);
+        QSizePolicy sizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
+        sizePolicy.setHorizontalStretch(1);
+        sizePolicy.setVerticalStretch(1);
         sizePolicy.setHeightForWidth(ListUnitWidget->sizePolicy().hasHeightForWidth());
         ListUnitWidget->setSizePolicy(sizePolicy);
-        ListUnitWidget->setMinimumSize(QSize(200, 35));
-        ListUnitWidget->setAutoFillBackground(true);
+        ListUnitWidget->setMinimumSize(QSize(500, 100));
+        ListUnitWidget->setAutoFillBackground(false);
+        ListUnitWidget->setStyleSheet(QString::fromUtf8("background-color: rgb(136, 138, 133);"));
         gridLayout = new QGridLayout(ListUnitWidget);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
-        starButton = new QPushButton(ListUnitWidget);
-        starButton->setObjectName(QString::fromUtf8("starButton"));
-        starButton->setStyleSheet(QString::fromUtf8("border-radius: 10px;"));
-        QIcon icon;
-        icon.addFile(QString::fromUtf8(":/images/assets/star (copy).png"), QSize(), QIcon::Normal, QIcon::Off);
-        icon.addFile(QString::fromUtf8(":/images/assets/star.png"), QSize(), QIcon::Normal, QIcon::On);
-        starButton->setIcon(icon);
-        starButton->setIconSize(QSize(32, 32));
-        starButton->setCheckable(true);
-        starButton->setChecked(false);
-        starButton->setAutoRepeat(true);
-        starButton->setAutoExclusive(true);
-        starButton->setFlat(false);
-
-        gridLayout->addWidget(starButton, 0, 0, 1, 1);
-
-        label = new QLabel(ListUnitWidget);
-        label->setObjectName(QString::fromUtf8("label"));
+        pushButton = new QPushButton(ListUnitWidget);
+        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+        pushButton->setEnabled(true);
+        QSizePolicy sizePolicy1(QSizePolicy::Minimum, QSizePolicy::Minimum);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(pushButton->sizePolicy().hasHeightForWidth());
+        pushButton->setSizePolicy(sizePolicy1);
+        pushButton->setSizeIncrement(QSize(0, 0));
         QFont font;
+        font.setFamily(QString::fromUtf8("DejaVu Sans Mono"));
         font.setPointSize(27);
-        label->setFont(font);
-        label->setAutoFillBackground(false);
-        label->setStyleSheet(QString::fromUtf8("background-color: rgba(64, 67, 191, 4);\n"
-"color: rgb(0, 0, 0);\n"
-"border-radius: 10px;"));
-        label->setFrameShadow(QFrame::Plain);
-        label->setAlignment(Qt::AlignCenter);
+        font.setBold(false);
+        pushButton->setFont(font);
+        pushButton->setAutoFillBackground(false);
+        pushButton->setStyleSheet(QString::fromUtf8("\n"
+"QPushButton{\n"
+"background-color: rgb(66,66, 66);\n"
+"color: rgb(255, 255, 255);\n"
+"border-style: outset;\n"
+"    border-width: 1px;\n"
+"    border-radius: 5px;\n"
+"    border-color: gray;\n"
+"\n"
+"    padding: 3px;\n"
+"}\n"
+"QPushButton:: pressed{\n"
+"	\n"
+"	background-color: rgb(186, 189, 182);\n"
+"}\n"
+""));
+        pushButton->setAutoDefault(false);
+        pushButton->setFlat(false);
 
-        gridLayout->addWidget(label, 0, 1, 1, 1);
+        gridLayout->addWidget(pushButton, 0, 0, 1, 1);
 
-        gridLayout->setColumnStretch(1, 1);
 
         retranslateUi(ListUnitWidget);
-
-        starButton->setDefault(false);
-
 
         QMetaObject::connectSlotsByName(ListUnitWidget);
     } // setupUi
@@ -83,8 +83,7 @@ public:
     void retranslateUi(QWidget *ListUnitWidget)
     {
         ListUnitWidget->setWindowTitle(QCoreApplication::translate("ListUnitWidget", "Form", nullptr));
-        starButton->setText(QString());
-        label->setText(QCoreApplication::translate("ListUnitWidget", "Drink Name", nullptr));
+        pushButton->setText(QCoreApplication::translate("ListUnitWidget", "drink_name", nullptr));
     } // retranslateUi
 
 };

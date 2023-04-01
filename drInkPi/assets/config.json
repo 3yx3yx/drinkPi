@@ -1,0 +1,75 @@
+{
+    "beveragesList":
+    {
+      "beverages":
+      [
+            {
+                "name": "beverage1",
+                "pump": 0
+            },
+            {
+                "name": "beverage2",
+                "pump": 10
+            }
+      ]
+    },
+
+
+    "drinksList":
+    {
+        "drinks":
+        [
+            {
+                 "name" : "new drink",
+                 "note" : "enter note",
+                 "video": "path",
+                 "picture":"path",
+                 "audio":"path",
+                 "ingredients":
+                 [
+
+                     {
+                        "beverage": "beverage 1",
+                        "portion": 10.1
+                     },
+                     {
+                        "beverage": "beverage 2",
+                        "portion": 10.1
+                     }
+
+                 ]
+            },
+            {
+                 "name" : "new drink2",
+                 "note" : "enter note2",
+                 "video": "path",
+                 "picture":"path",
+                 "audio":"path",
+                 "ingredients":
+                 [
+
+                     {
+                        "beverage": "beverage2 1",
+                        "portion": 110.2
+                     },
+                     {
+                        "beverage": "beverage2 2",
+                        "portion": 120.3
+                     }
+
+                 ]
+            }
+
+        ]
+    }
+}
+
+
+
+
+
+
+
+
+
+

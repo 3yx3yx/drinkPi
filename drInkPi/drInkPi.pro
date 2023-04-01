@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui multimedia multimediawidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -12,16 +12,22 @@ CONFIG += c++17
 
 SOURCES += \
     bcm2835.c \
+    beverageitemwidget.cpp \
+    ingredientitemwidget.cpp \
     listunitwidget.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     bcm2835.h \
+    beverageitemwidget.h \
+    ingredientitemwidget.h \
     listunitwidget.h \
     mainwindow.h
 
 FORMS += \
+    beverageitemwidget.ui \
+    ingredientitemwidget.ui \
     listunitwidget.ui \
     mainwindow.ui
 
