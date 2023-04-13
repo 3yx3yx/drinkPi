@@ -14,10 +14,10 @@ EQ            = =
 
 CC            = /home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/bin/arm-linux-gnueabihf-gcc
 CXX           = /home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/bin/arm-linux-gnueabihf-g++
-DEFINES       = -DQT_QML_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
+DEFINES       = -DQT_QML_DEBUG -DQT_MULTIMEDIAWIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_DBUS_LIB -DQT_CORE_LIB
 CFLAGS        = -march=armv8-a -mtune=cortex-a72 -mfpu=crypto-neon-fp-armv8 -mfloat-abi=hard --sysroot=/home/ilia/rpi-qt/sysroot/ -g -Wall -Wextra -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -march=armv8-a -mtune=cortex-a72 -mfpu=crypto-neon-fp-armv8 -mfloat-abi=hard --sysroot=/home/ilia/rpi-qt/sysroot/ -g -std=gnu++1z -Wall -Wextra -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I../drInkPi -I. -I../../../rpi-qt/qt5.15/include -I../../../rpi-qt/qt5.15/include/QtMultimediaWidgets -I../../../rpi-qt/qt5.15/include/QtMultimedia -I../../../rpi-qt/qt5.15/include/QtWidgets -I../../../rpi-qt/qt5.15/include/QtGui -I../../../rpi-qt/qt5.15/include/QtNetwork -I../../../rpi-qt/qt5.15/include/QtCore -I. -I. -I../../../rpi-qt/qt5.15/mkspecs/devices/linux-rasp-pi4-v3d-g++
+INCPATH       = -I../drInkPi -I. -I../../../rpi-qt/qt5.15/include -I../../../rpi-qt/qt5.15/include/QtMultimediaWidgets -I../../../rpi-qt/qt5.15/include/QtMultimedia -I../../../rpi-qt/qt5.15/include/QtWidgets -I../../../rpi-qt/qt5.15/include/QtGui -I../../../rpi-qt/qt5.15/include/QtNetwork -I../../../rpi-qt/qt5.15/include/QtDBus -I../../../rpi-qt/qt5.15/include/QtCore -I. -I. -I../../../rpi-qt/qt5.15/mkspecs/devices/linux-rasp-pi4-v3d-g++
 QMAKE         = /home/ilia/rpi-qt/qt5.15/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -40,7 +40,7 @@ DISTNAME      = drInkPi1.0.0
 DISTDIR = /home/ilia/GitHub/drinkPi/build-drInkPi-raspberry_pi-Debug/.tmp/drInkPi1.0.0
 LINK          = /home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/bin/arm-linux-gnueabihf-g++
 LFLAGS        = -mfloat-abi=hard --sysroot=/home/ilia/rpi-qt/sysroot/ -Wl,-rpath,/usr/local/qt5.15/lib -Wl,-rpath-link,/home/ilia/rpi-qt/qt5.15/lib -Wl,-rpath-link,/home/ilia/rpi-qt/sysroot/usr/lib/arm-linux-gnueabihf -Wl,-rpath-link,/home/ilia/rpi-qt/sysroot/lib/arm-linux-gnueabihf
-LIBS          = $(SUBLIBS) /home/ilia/rpi-qt/qt5.15/lib/libQt5MultimediaWidgets.so /home/ilia/rpi-qt/qt5.15/lib/libQt5Multimedia.so /home/ilia/rpi-qt/qt5.15/lib/libQt5Widgets.so /home/ilia/rpi-qt/qt5.15/lib/libQt5Gui.so /home/ilia/rpi-qt/qt5.15/lib/libQt5Network.so /home/ilia/rpi-qt/qt5.15/lib/libQt5Core.so -L/home/ilia/rpi-qt/sysroot//usr/lib/arm-linux-gnueabihf -lGLESv2 -lpthread   
+LIBS          = $(SUBLIBS) /home/ilia/rpi-qt/qt5.15/lib/libQt5MultimediaWidgets.so /home/ilia/rpi-qt/qt5.15/lib/libQt5Multimedia.so /home/ilia/rpi-qt/qt5.15/lib/libQt5Widgets.so /home/ilia/rpi-qt/qt5.15/lib/libQt5Gui.so /home/ilia/rpi-qt/qt5.15/lib/libQt5Network.so /home/ilia/rpi-qt/qt5.15/lib/libQt5DBus.so /home/ilia/rpi-qt/qt5.15/lib/libQt5Core.so -L/home/ilia/rpi-qt/sysroot//usr/lib/arm-linux-gnueabihf -lGLESv2 -lpthread   
 AR            = /home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/bin/arm-linux-gnueabihf-ar cqs
 RANLIB        = 
 SED           = sed
@@ -261,6 +261,9 @@ DIST          = ../../../rpi-qt/qt5.15/mkspecs/features/spec_pre.prf \
 		../../../rpi-qt/qt5.15/mkspecs/features/resources_functions.prf \
 		../../../rpi-qt/qt5.15/mkspecs/features/resources.prf \
 		../../../rpi-qt/qt5.15/mkspecs/features/moc.prf \
+		../../../rpi-qt/qt5.15/mkspecs/features/dbuscommon.pri \
+		../../../rpi-qt/qt5.15/mkspecs/features/dbusinterfaces.prf \
+		../../../rpi-qt/qt5.15/mkspecs/features/dbusadaptors.prf \
 		../../../rpi-qt/qt5.15/mkspecs/features/unix/opengl.prf \
 		../../../rpi-qt/qt5.15/mkspecs/features/uic.prf \
 		../../../rpi-qt/qt5.15/mkspecs/features/unix/thread.prf \
@@ -479,6 +482,9 @@ Makefile: ../drInkPi/drInkPi.pro ../../../rpi-qt/qt5.15/mkspecs/devices/linux-ra
 		../../../rpi-qt/qt5.15/mkspecs/features/resources_functions.prf \
 		../../../rpi-qt/qt5.15/mkspecs/features/resources.prf \
 		../../../rpi-qt/qt5.15/mkspecs/features/moc.prf \
+		../../../rpi-qt/qt5.15/mkspecs/features/dbuscommon.pri \
+		../../../rpi-qt/qt5.15/mkspecs/features/dbusinterfaces.prf \
+		../../../rpi-qt/qt5.15/mkspecs/features/dbusadaptors.prf \
 		../../../rpi-qt/qt5.15/mkspecs/features/unix/opengl.prf \
 		../../../rpi-qt/qt5.15/mkspecs/features/uic.prf \
 		../../../rpi-qt/qt5.15/mkspecs/features/unix/thread.prf \
@@ -679,6 +685,9 @@ Makefile: ../drInkPi/drInkPi.pro ../../../rpi-qt/qt5.15/mkspecs/devices/linux-ra
 ../../../rpi-qt/qt5.15/mkspecs/features/resources_functions.prf:
 ../../../rpi-qt/qt5.15/mkspecs/features/resources.prf:
 ../../../rpi-qt/qt5.15/mkspecs/features/moc.prf:
+../../../rpi-qt/qt5.15/mkspecs/features/dbuscommon.pri:
+../../../rpi-qt/qt5.15/mkspecs/features/dbusinterfaces.prf:
+../../../rpi-qt/qt5.15/mkspecs/features/dbusadaptors.prf:
 ../../../rpi-qt/qt5.15/mkspecs/features/unix/opengl.prf:
 ../../../rpi-qt/qt5.15/mkspecs/features/uic.prf:
 ../../../rpi-qt/qt5.15/mkspecs/features/unix/thread.prf:
@@ -867,7 +876,7 @@ moc_beverageitemwidget.cpp: ../drInkPi/beverageitemwidget.h \
 		../../../rpi-qt/qt5.15/include/QtGui/qtouchdevice.h \
 		moc_predefs.h \
 		../../../rpi-qt/qt5.15/bin/moc
-	/home/ilia/rpi-qt/qt5.15/bin/moc $(DEFINES) --include /home/ilia/GitHub/drinkPi/build-drInkPi-raspberry_pi-Debug/moc_predefs.h -I/home/ilia/rpi-qt/qt5.15/mkspecs/devices/linux-rasp-pi4-v3d-g++ -I/home/ilia/GitHub/drinkPi/drInkPi -I/home/ilia/rpi-qt/qt5.15/include -I/home/ilia/rpi-qt/qt5.15/include/QtMultimediaWidgets -I/home/ilia/rpi-qt/qt5.15/include/QtMultimedia -I/home/ilia/rpi-qt/qt5.15/include/QtWidgets -I/home/ilia/rpi-qt/qt5.15/include/QtGui -I/home/ilia/rpi-qt/qt5.15/include/QtNetwork -I/home/ilia/rpi-qt/qt5.15/include/QtCore -I. -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include/c++/10.3.1 -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include/c++/10.3.1/arm-linux-gnueabihf -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include/c++/10.3.1/backward -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/lib/gcc/arm-linux-gnueabihf/10.3.1/include -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/lib/gcc/arm-linux-gnueabihf/10.3.1/include-fixed -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include -I/home/ilia/rpi-qt/sysroot/usr/include ../drInkPi/beverageitemwidget.h -o moc_beverageitemwidget.cpp
+	/home/ilia/rpi-qt/qt5.15/bin/moc $(DEFINES) --include /home/ilia/GitHub/drinkPi/build-drInkPi-raspberry_pi-Debug/moc_predefs.h -I/home/ilia/rpi-qt/qt5.15/mkspecs/devices/linux-rasp-pi4-v3d-g++ -I/home/ilia/GitHub/drinkPi/drInkPi -I/home/ilia/rpi-qt/qt5.15/include -I/home/ilia/rpi-qt/qt5.15/include/QtMultimediaWidgets -I/home/ilia/rpi-qt/qt5.15/include/QtMultimedia -I/home/ilia/rpi-qt/qt5.15/include/QtWidgets -I/home/ilia/rpi-qt/qt5.15/include/QtGui -I/home/ilia/rpi-qt/qt5.15/include/QtNetwork -I/home/ilia/rpi-qt/qt5.15/include/QtDBus -I/home/ilia/rpi-qt/qt5.15/include/QtCore -I. -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include/c++/10.3.1 -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include/c++/10.3.1/arm-linux-gnueabihf -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include/c++/10.3.1/backward -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/lib/gcc/arm-linux-gnueabihf/10.3.1/include -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/lib/gcc/arm-linux-gnueabihf/10.3.1/include-fixed -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include -I/home/ilia/rpi-qt/sysroot/usr/include ../drInkPi/beverageitemwidget.h -o moc_beverageitemwidget.cpp
 
 moc_ingredientitemwidget.cpp: ../drInkPi/ingredientitemwidget.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/QWidget \
@@ -975,7 +984,7 @@ moc_ingredientitemwidget.cpp: ../drInkPi/ingredientitemwidget.h \
 		../../../rpi-qt/qt5.15/include/QtGui/qtouchdevice.h \
 		moc_predefs.h \
 		../../../rpi-qt/qt5.15/bin/moc
-	/home/ilia/rpi-qt/qt5.15/bin/moc $(DEFINES) --include /home/ilia/GitHub/drinkPi/build-drInkPi-raspberry_pi-Debug/moc_predefs.h -I/home/ilia/rpi-qt/qt5.15/mkspecs/devices/linux-rasp-pi4-v3d-g++ -I/home/ilia/GitHub/drinkPi/drInkPi -I/home/ilia/rpi-qt/qt5.15/include -I/home/ilia/rpi-qt/qt5.15/include/QtMultimediaWidgets -I/home/ilia/rpi-qt/qt5.15/include/QtMultimedia -I/home/ilia/rpi-qt/qt5.15/include/QtWidgets -I/home/ilia/rpi-qt/qt5.15/include/QtGui -I/home/ilia/rpi-qt/qt5.15/include/QtNetwork -I/home/ilia/rpi-qt/qt5.15/include/QtCore -I. -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include/c++/10.3.1 -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include/c++/10.3.1/arm-linux-gnueabihf -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include/c++/10.3.1/backward -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/lib/gcc/arm-linux-gnueabihf/10.3.1/include -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/lib/gcc/arm-linux-gnueabihf/10.3.1/include-fixed -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include -I/home/ilia/rpi-qt/sysroot/usr/include ../drInkPi/ingredientitemwidget.h -o moc_ingredientitemwidget.cpp
+	/home/ilia/rpi-qt/qt5.15/bin/moc $(DEFINES) --include /home/ilia/GitHub/drinkPi/build-drInkPi-raspberry_pi-Debug/moc_predefs.h -I/home/ilia/rpi-qt/qt5.15/mkspecs/devices/linux-rasp-pi4-v3d-g++ -I/home/ilia/GitHub/drinkPi/drInkPi -I/home/ilia/rpi-qt/qt5.15/include -I/home/ilia/rpi-qt/qt5.15/include/QtMultimediaWidgets -I/home/ilia/rpi-qt/qt5.15/include/QtMultimedia -I/home/ilia/rpi-qt/qt5.15/include/QtWidgets -I/home/ilia/rpi-qt/qt5.15/include/QtGui -I/home/ilia/rpi-qt/qt5.15/include/QtNetwork -I/home/ilia/rpi-qt/qt5.15/include/QtDBus -I/home/ilia/rpi-qt/qt5.15/include/QtCore -I. -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include/c++/10.3.1 -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include/c++/10.3.1/arm-linux-gnueabihf -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include/c++/10.3.1/backward -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/lib/gcc/arm-linux-gnueabihf/10.3.1/include -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/lib/gcc/arm-linux-gnueabihf/10.3.1/include-fixed -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include -I/home/ilia/rpi-qt/sysroot/usr/include ../drInkPi/ingredientitemwidget.h -o moc_ingredientitemwidget.cpp
 
 moc_listunitwidget.cpp: ../drInkPi/listunitwidget.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/QWidget \
@@ -1083,7 +1092,7 @@ moc_listunitwidget.cpp: ../drInkPi/listunitwidget.h \
 		../../../rpi-qt/qt5.15/include/QtGui/qtouchdevice.h \
 		moc_predefs.h \
 		../../../rpi-qt/qt5.15/bin/moc
-	/home/ilia/rpi-qt/qt5.15/bin/moc $(DEFINES) --include /home/ilia/GitHub/drinkPi/build-drInkPi-raspberry_pi-Debug/moc_predefs.h -I/home/ilia/rpi-qt/qt5.15/mkspecs/devices/linux-rasp-pi4-v3d-g++ -I/home/ilia/GitHub/drinkPi/drInkPi -I/home/ilia/rpi-qt/qt5.15/include -I/home/ilia/rpi-qt/qt5.15/include/QtMultimediaWidgets -I/home/ilia/rpi-qt/qt5.15/include/QtMultimedia -I/home/ilia/rpi-qt/qt5.15/include/QtWidgets -I/home/ilia/rpi-qt/qt5.15/include/QtGui -I/home/ilia/rpi-qt/qt5.15/include/QtNetwork -I/home/ilia/rpi-qt/qt5.15/include/QtCore -I. -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include/c++/10.3.1 -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include/c++/10.3.1/arm-linux-gnueabihf -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include/c++/10.3.1/backward -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/lib/gcc/arm-linux-gnueabihf/10.3.1/include -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/lib/gcc/arm-linux-gnueabihf/10.3.1/include-fixed -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include -I/home/ilia/rpi-qt/sysroot/usr/include ../drInkPi/listunitwidget.h -o moc_listunitwidget.cpp
+	/home/ilia/rpi-qt/qt5.15/bin/moc $(DEFINES) --include /home/ilia/GitHub/drinkPi/build-drInkPi-raspberry_pi-Debug/moc_predefs.h -I/home/ilia/rpi-qt/qt5.15/mkspecs/devices/linux-rasp-pi4-v3d-g++ -I/home/ilia/GitHub/drinkPi/drInkPi -I/home/ilia/rpi-qt/qt5.15/include -I/home/ilia/rpi-qt/qt5.15/include/QtMultimediaWidgets -I/home/ilia/rpi-qt/qt5.15/include/QtMultimedia -I/home/ilia/rpi-qt/qt5.15/include/QtWidgets -I/home/ilia/rpi-qt/qt5.15/include/QtGui -I/home/ilia/rpi-qt/qt5.15/include/QtNetwork -I/home/ilia/rpi-qt/qt5.15/include/QtDBus -I/home/ilia/rpi-qt/qt5.15/include/QtCore -I. -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include/c++/10.3.1 -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include/c++/10.3.1/arm-linux-gnueabihf -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include/c++/10.3.1/backward -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/lib/gcc/arm-linux-gnueabihf/10.3.1/include -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/lib/gcc/arm-linux-gnueabihf/10.3.1/include-fixed -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include -I/home/ilia/rpi-qt/sysroot/usr/include ../drInkPi/listunitwidget.h -o moc_listunitwidget.cpp
 
 moc_mainwindow.cpp: ../drInkPi/mainwindow.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/QMainWindow \
@@ -1200,6 +1209,7 @@ moc_mainwindow.cpp: ../drInkPi/mainwindow.h \
 		../drInkPi/beverageitemwidget.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/QWidget \
 		../drInkPi/listunitwidget.h \
+		../drInkPi/ingredientitemwidget.h \
 		../../../rpi-qt/qt5.15/include/QtCore/QJsonDocument \
 		../../../rpi-qt/qt5.15/include/QtCore/qjsondocument.h \
 		../../../rpi-qt/qt5.15/include/QtCore/qjsonvalue.h \
@@ -1216,7 +1226,7 @@ moc_mainwindow.cpp: ../drInkPi/mainwindow.h \
 		../../../rpi-qt/qt5.15/include/QtCore/qjsonarray.h \
 		moc_predefs.h \
 		../../../rpi-qt/qt5.15/bin/moc
-	/home/ilia/rpi-qt/qt5.15/bin/moc $(DEFINES) --include /home/ilia/GitHub/drinkPi/build-drInkPi-raspberry_pi-Debug/moc_predefs.h -I/home/ilia/rpi-qt/qt5.15/mkspecs/devices/linux-rasp-pi4-v3d-g++ -I/home/ilia/GitHub/drinkPi/drInkPi -I/home/ilia/rpi-qt/qt5.15/include -I/home/ilia/rpi-qt/qt5.15/include/QtMultimediaWidgets -I/home/ilia/rpi-qt/qt5.15/include/QtMultimedia -I/home/ilia/rpi-qt/qt5.15/include/QtWidgets -I/home/ilia/rpi-qt/qt5.15/include/QtGui -I/home/ilia/rpi-qt/qt5.15/include/QtNetwork -I/home/ilia/rpi-qt/qt5.15/include/QtCore -I. -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include/c++/10.3.1 -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include/c++/10.3.1/arm-linux-gnueabihf -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include/c++/10.3.1/backward -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/lib/gcc/arm-linux-gnueabihf/10.3.1/include -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/lib/gcc/arm-linux-gnueabihf/10.3.1/include-fixed -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include -I/home/ilia/rpi-qt/sysroot/usr/include ../drInkPi/mainwindow.h -o moc_mainwindow.cpp
+	/home/ilia/rpi-qt/qt5.15/bin/moc $(DEFINES) --include /home/ilia/GitHub/drinkPi/build-drInkPi-raspberry_pi-Debug/moc_predefs.h -I/home/ilia/rpi-qt/qt5.15/mkspecs/devices/linux-rasp-pi4-v3d-g++ -I/home/ilia/GitHub/drinkPi/drInkPi -I/home/ilia/rpi-qt/qt5.15/include -I/home/ilia/rpi-qt/qt5.15/include/QtMultimediaWidgets -I/home/ilia/rpi-qt/qt5.15/include/QtMultimedia -I/home/ilia/rpi-qt/qt5.15/include/QtWidgets -I/home/ilia/rpi-qt/qt5.15/include/QtGui -I/home/ilia/rpi-qt/qt5.15/include/QtNetwork -I/home/ilia/rpi-qt/qt5.15/include/QtDBus -I/home/ilia/rpi-qt/qt5.15/include/QtCore -I. -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include/c++/10.3.1 -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include/c++/10.3.1/arm-linux-gnueabihf -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include/c++/10.3.1/backward -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/lib/gcc/arm-linux-gnueabihf/10.3.1/include -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/lib/gcc/arm-linux-gnueabihf/10.3.1/include-fixed -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include -I/home/ilia/rpi-qt/sysroot/usr/include ../drInkPi/mainwindow.h -o moc_mainwindow.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -1881,6 +1891,7 @@ main.o: ../drInkPi/main.cpp ../drInkPi/mainwindow.h \
 		../drInkPi/beverageitemwidget.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/QWidget \
 		../drInkPi/listunitwidget.h \
+		../drInkPi/ingredientitemwidget.h \
 		../../../rpi-qt/qt5.15/include/QtCore/QJsonDocument \
 		../../../rpi-qt/qt5.15/include/QtCore/qjsondocument.h \
 		../../../rpi-qt/qt5.15/include/QtCore/qjsonvalue.h \
@@ -2362,6 +2373,7 @@ mainwindow.o: ../drInkPi/mainwindow.cpp ../drInkPi/mainwindow.h \
 		../drInkPi/beverageitemwidget.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/QWidget \
 		../drInkPi/listunitwidget.h \
+		../drInkPi/ingredientitemwidget.h \
 		../../../rpi-qt/qt5.15/include/QtCore/QJsonDocument \
 		../../../rpi-qt/qt5.15/include/QtCore/qjsondocument.h \
 		../../../rpi-qt/qt5.15/include/QtCore/qjsonvalue.h \
@@ -2376,6 +2388,8 @@ mainwindow.o: ../drInkPi/mainwindow.cpp ../drInkPi/mainwindow.h \
 		../../../rpi-qt/qt5.15/include/QtCore/QJsonValue \
 		../../../rpi-qt/qt5.15/include/QtCore/QJsonArray \
 		../../../rpi-qt/qt5.15/include/QtCore/qjsonarray.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qscrollbar.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qabstractslider.h \
 		ui_mainwindow.h \
 		../../../rpi-qt/qt5.15/include/QtCore/QVariant \
 		../../../rpi-qt/qt5.15/include/QtGui/QIcon \
@@ -2393,7 +2407,6 @@ mainwindow.o: ../drInkPi/mainwindow.cpp ../drInkPi/mainwindow.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qabstractspinbox.h \
 		../../../rpi-qt/qt5.15/include/QtGui/qvalidator.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qslider.h \
-		../../../rpi-qt/qt5.15/include/QtWidgets/qabstractslider.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qstyle.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qtabbar.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qrubberband.h \
@@ -2456,7 +2469,147 @@ mainwindow.o: ../drInkPi/mainwindow.cpp ../drInkPi/mainwindow.h \
 		../../../rpi-qt/qt5.15/include/QtCore/qmetaobject.h \
 		../../../rpi-qt/qt5.15/include/QtMultimedia/qaudio.h \
 		../../../rpi-qt/qt5.15/include/QtNetwork/qnetworkconfiguration.h \
-		../../../rpi-qt/qt5.15/include/QtMultimediaWidgets/QVideoWidget
+		../../../rpi-qt/qt5.15/include/QtMultimediaWidgets/QVideoWidget \
+		../../../rpi-qt/qt5.15/include/QtWidgets/QScroller \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qscroller.h \
+		../../../rpi-qt/qt5.15/include/QtCore/QObject \
+		../../../rpi-qt/qt5.15/include/QtCore/QPointF \
+		../../../rpi-qt/qt5.15/include/QtWidgets/QScrollerProperties \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qscrollerproperties.h \
+		../../../rpi-qt/qt5.15/include/QtCore/QScopedPointer \
+		../../../rpi-qt/qt5.15/include/QtCore/QMetaType \
+		../../../rpi-qt/qt5.15/include/QtDBus/QtDBus \
+		../../../rpi-qt/qt5.15/include/QtDBus/QtDBusDepends \
+		../../../rpi-qt/qt5.15/include/QtCore/QtCore \
+		../../../rpi-qt/qt5.15/include/QtCore/QtCoreDepends \
+		../../../rpi-qt/qt5.15/include/QtCore/qabstractanimation.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qabstracteventdispatcher.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qabstractnativeeventfilter.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qabstractproxymodel.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qabstractstate.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qabstracttransition.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qanimationgroup.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qarraydataops.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qarraydatapointer.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qbasictimer.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qbitarray.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qbuffer.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qbytearraymatcher.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qcache.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qcalendar.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qcborarray.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qcbormap.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qcborstream.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qcborstreamreader.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qfloat16.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qcborstreamwriter.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qcollator.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qcommandlineoption.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qcommandlineparser.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qconcatenatetablesproxymodel.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qcryptographichash.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qdeadlinetimer.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qelapsedtimer.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qdiriterator.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qeasingcurve.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qendian.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qeventtransition.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qexception.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qfactoryinterface.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qfileselector.h \
+		../../../rpi-qt/qt5.15/include/QtCore/QStringList \
+		../../../rpi-qt/qt5.15/include/QtCore/qfilesystemwatcher.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qfinalstate.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qfuture.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qfutureinterface.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qrunnable.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qresultstore.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qfuturesynchronizer.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qfuturewatcher.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qhistorystate.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qidentityproxymodel.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qisenum.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qlibrary.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qlibraryinfo.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qversionnumber.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qlinkedlist.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qlockfile.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qloggingcategory.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qmath.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qmessageauthenticationcode.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qmimedata.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qmimedatabase.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qmimetype.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qobjectcleanuphandler.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qoperatingsystemversion.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qparallelanimationgroup.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qpauseanimation.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qplugin.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qpointer.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qpluginloader.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qprocess.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qpropertyanimation.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qvariantanimation.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qqueue.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qrandom.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qreadwritelock.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qresource.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qsavefile.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qscopedvaluerollback.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qscopeguard.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qsemaphore.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qsequentialanimationgroup.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qsettings.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qsharedmemory.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qsignalmapper.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qsignaltransition.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qsocketnotifier.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qsortfilterproxymodel.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qstack.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qstandardpaths.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qstate.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qstatemachine.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qstorageinfo.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qstringlistmodel.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qsystemsemaphore.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qtemporarydir.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qtemporaryfile.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qtextboundaryfinder.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qtextcodec.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qthread.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qthreadpool.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qthreadstorage.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qtimeline.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qtimer.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qtimezone.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qtranslator.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qtransposeproxymodel.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qtypetraits.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qwaitcondition.h \
+		../../../rpi-qt/qt5.15/include/QtCore/QDeadlineTimer \
+		../../../rpi-qt/qt5.15/include/QtCore/qwineventnotifier.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qxmlstream.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qtcoreversion.h \
+		../../../rpi-qt/qt5.15/include/QtDBus/qtdbusglobal.h \
+		../../../rpi-qt/qt5.15/include/QtDBus/qdbusabstractadaptor.h \
+		../../../rpi-qt/qt5.15/include/QtDBus/qdbusabstractinterface.h \
+		../../../rpi-qt/qt5.15/include/QtDBus/qdbusmessage.h \
+		../../../rpi-qt/qt5.15/include/QtDBus/qdbuserror.h \
+		../../../rpi-qt/qt5.15/include/QtDBus/qdbusextratypes.h \
+		../../../rpi-qt/qt5.15/include/QtDBus/qdbusconnection.h \
+		../../../rpi-qt/qt5.15/include/QtDBus/qdbuspendingcall.h \
+		../../../rpi-qt/qt5.15/include/QtDBus/qdbusargument.h \
+		../../../rpi-qt/qt5.15/include/QtDBus/qdbusconnectioninterface.h \
+		../../../rpi-qt/qt5.15/include/QtDBus/qdbusreply.h \
+		../../../rpi-qt/qt5.15/include/QtDBus/qdbuspendingreply.h \
+		../../../rpi-qt/qt5.15/include/QtDBus/qdbuscontext.h \
+		../../../rpi-qt/qt5.15/include/QtDBus/qdbusinterface.h \
+		../../../rpi-qt/qt5.15/include/QtDBus/qdbusmetatype.h \
+		../../../rpi-qt/qt5.15/include/QtDBus/qdbusserver.h \
+		../../../rpi-qt/qt5.15/include/QtDBus/qdbusservicewatcher.h \
+		../../../rpi-qt/qt5.15/include/QtDBus/qdbusunixfiledescriptor.h \
+		../../../rpi-qt/qt5.15/include/QtDBus/qdbusvirtualobject.h \
+		../../../rpi-qt/qt5.15/include/QtDBus/qtdbusversion.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../drInkPi/mainwindow.cpp
 
 qrc_resources.o: qrc_resources.cpp 

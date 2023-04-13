@@ -6,11 +6,15 @@
 #include <QtWidgets>
 
 
+QApplication* mainApp;
 
 int main(int argc, char *argv[]) {
     qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
-    QApplication a(argc, argv);
+    mainApp = new QApplication(argc, argv);
     MainWindow w;
-    w.show();
-    return a.exec();
+    w.setWindowFlag(Qt::WindowStaysOnBottomHint,1);
+    w.showFullScreen();
+
+
+    return mainApp->exec();
 }

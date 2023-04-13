@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "qscrollbar.h"
 #include "ui_mainwindow.h"
 #include <QFile>
 #include <QDir>
@@ -7,6 +8,9 @@
 #include <QLayout>
 #include <QMediaPlayer>
 #include <QVideoWidget>
+#include <QScroller>
+#include <QtDBus>
+#include <unistd.h>
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -35,6 +39,7 @@ MainWindow::MainWindow(QWidget *parent)
     _pump_list_scroll_layout = new QVBoxLayout;
     _widget_scroll_pump_list->setLayout(_pump_list_scroll_layout);
     ui->scrollAreaBeverages->setWidget(_widget_scroll_pump_list);
+    QScroller::grabGesture(ui->scrollAreaBeverages, QScroller::LeftMouseButtonGesture);
 
     const QVector<Beverage> beveragesList = getBeveragesList();
 
@@ -65,12 +70,17 @@ MainWindow::MainWindow(QWidget *parent)
     //    player->setVolume(100);
     //    qDebug()<< player->state();
 
+    //connect (mainApp, SIGNAL(focusChanged(QWidget*,QWidget*)),this,SLOT(focus_changed_slot(QWidget*,QWidget*)));
+
+    connect (mainApp, &QApplication::focusChanged,this,&MainWindow::focus_changed_slot);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+
 
 QJsonObject MainWindow::getJsonMainObject()
 {
@@ -312,8 +322,37 @@ void MainWindow::clearConfigJson()
     }
 }
 
+void MainWindow::focus_changed_slot(QWidget *old, QWidget *now)
+{
+    QString objNameNow = QString(now->metaObject()->className());
+    QString objNameOld;
+
+    if (old != nullptr)  objNameOld = QString(old->metaObject()->className());
+
+    if (objNameNow == QString("QLineEdit") || objNameNow == QString("QTextEdit")) {
+        qDebug()<<"line edit focused";
+
+        auto msg = QDBusMessage::createMethodCall( "org.onboard.Onboard",
+                                                   "/org/onboard/Onboard/Keyboard",
+                                                   "org.onboard.Onboard.Keyboard",
+                                                   "Show");
+
+        QDBusConnection::sessionBus().send(msg);
 
 
+    } else if (objNameOld == QString("QLineEdit") || objNameOld == QString("QTextEdit")  || objNameOld.isEmpty()) {
+        qDebug()<<"hide keybrd";
+
+        auto msg = QDBusMessage::createMethodCall("org.onboard.Onboard",
+                                                  "/org/onboard/Onboard/Keyboard",
+                                                  "org.onboard.Onboard.Keyboard",
+                                                  "Hide");
+
+        QDBusConnection::sessionBus().send(msg);
+    }
+
+
+}
 
 
 

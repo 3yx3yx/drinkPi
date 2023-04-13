@@ -15,6 +15,7 @@
 
 #define PUMP_N 16
 
+extern QApplication* mainApp;
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -60,7 +61,6 @@ public:
     ~MainWindow();
 
 
-
 private:
     Ui::MainWindow *ui;
 
@@ -89,6 +89,9 @@ private:
     QVector<ListUnitWidget*> drinksWidgetsList;
     QVector<ingredientItemWidget*> ingredientWidgetsList;
     QVector<beverageItemWidget*> beverageWidgetsList;
+
+private slots:
+    void focus_changed_slot (QWidget* old, QWidget* now);
 
 
 };

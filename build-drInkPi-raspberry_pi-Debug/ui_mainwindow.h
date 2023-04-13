@@ -167,6 +167,7 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
         MainWindow->resize(600, 1024);
+        MainWindow->setFocusPolicy(Qt::ClickFocus);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         gridLayout = new QGridLayout(centralwidget);
@@ -882,7 +883,7 @@ public:
         scrollAreaRecipe->setWidgetResizable(true);
         scrollAreaWidgetContents_3 = new QWidget();
         scrollAreaWidgetContents_3->setObjectName(QString::fromUtf8("scrollAreaWidgetContents_3"));
-        scrollAreaWidgetContents_3->setGeometry(QRect(0, 0, 98, 28));
+        scrollAreaWidgetContents_3->setGeometry(QRect(0, 0, 537, 360));
         scrollAreaRecipe->setWidget(scrollAreaWidgetContents_3);
 
         verticalLayout_3->addWidget(scrollAreaRecipe);
@@ -952,24 +953,26 @@ public:
         scrollAreaBeverages = new QScrollArea(beverageAssignPage);
         scrollAreaBeverages->setObjectName(QString::fromUtf8("scrollAreaBeverages"));
         scrollAreaBeverages->setGeometry(QRect(12, 115, 551, 491));
+        scrollAreaBeverages->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+        scrollAreaBeverages->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
         scrollAreaBeverages->setWidgetResizable(true);
         scrollAreaWidgetContents_2 = new QWidget();
         scrollAreaWidgetContents_2->setObjectName(QString::fromUtf8("scrollAreaWidgetContents_2"));
-        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 549, 489));
+        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 535, 489));
         scrollAreaBeverages->setWidget(scrollAreaWidgetContents_2);
         addBeverageBtn = new QPushButton(beverageAssignPage);
         addBeverageBtn->setObjectName(QString::fromUtf8("addBeverageBtn"));
-        addBeverageBtn->setGeometry(QRect(10, 730, 80, 25));
+        addBeverageBtn->setGeometry(QRect(450, 810, 80, 25));
         sizePolicy.setHeightForWidth(addBeverageBtn->sizePolicy().hasHeightForWidth());
         addBeverageBtn->setSizePolicy(sizePolicy);
         removeBeverageBtn = new QPushButton(beverageAssignPage);
         removeBeverageBtn->setObjectName(QString::fromUtf8("removeBeverageBtn"));
-        removeBeverageBtn->setGeometry(QRect(170, 730, 80, 25));
+        removeBeverageBtn->setGeometry(QRect(450, 740, 80, 25));
         sizePolicy.setHeightForWidth(removeBeverageBtn->sizePolicy().hasHeightForWidth());
         removeBeverageBtn->setSizePolicy(sizePolicy);
         listWidgetBeverages = new QListWidget(beverageAssignPage);
         listWidgetBeverages->setObjectName(QString::fromUtf8("listWidgetBeverages"));
-        listWidgetBeverages->setGeometry(QRect(30, 790, 256, 192));
+        listWidgetBeverages->setGeometry(QRect(20, 650, 351, 341));
         layoutWidget7 = new QWidget(beverageAssignPage);
         layoutWidget7->setObjectName(QString::fromUtf8("layoutWidget7"));
         layoutWidget7->setGeometry(QRect(12, 22, 135, 40));
@@ -1021,6 +1024,8 @@ public:
         font12.setPointSize(26);
         beveragelineEdit->setFont(font12);
         beveragelineEdit->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
+        beveragelineEdit->setInputMethodHints(Qt::ImhLatinOnly);
+        beveragelineEdit->setClearButtonEnabled(false);
 
         gridLayout_3->addWidget(beveragelineEdit, 1, 0, 1, 2);
 
@@ -1048,7 +1053,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        stackedWidget->setCurrentIndex(7);
+        stackedWidget->setCurrentIndex(6);
         newRecipeButton->setDefault(false);
 
 

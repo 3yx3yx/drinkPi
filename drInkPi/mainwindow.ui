@@ -10,6 +10,9 @@
     <height>1024</height>
    </rect>
   </property>
+  <property name="focusPolicy">
+   <enum>Qt::ClickFocus</enum>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
@@ -18,7 +21,7 @@
     <item row="0" column="0">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>7</number>
+       <number>6</number>
       </property>
       <widget class="QWidget" name="startPage">
        <widget class="QScrollArea" name="scrollArea">
@@ -1724,8 +1727,8 @@ QPushButton:focus:pressed{ background-color: black; }
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>98</width>
-              <height>28</height>
+              <width>537</width>
+              <height>360</height>
              </rect>
             </property>
            </widget>
@@ -1835,6 +1838,12 @@ hr { height: 1px; border-width: 0; }
           <height>491</height>
          </rect>
         </property>
+        <property name="verticalScrollBarPolicy">
+         <enum>Qt::ScrollBarAlwaysOn</enum>
+        </property>
+        <property name="sizeAdjustPolicy">
+         <enum>QAbstractScrollArea::AdjustToContents</enum>
+        </property>
         <property name="widgetResizable">
          <bool>true</bool>
         </property>
@@ -1843,7 +1852,7 @@ hr { height: 1px; border-width: 0; }
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>549</width>
+           <width>535</width>
            <height>489</height>
           </rect>
          </property>
@@ -1852,8 +1861,8 @@ hr { height: 1px; border-width: 0; }
        <widget class="QPushButton" name="addBeverageBtn">
         <property name="geometry">
          <rect>
-          <x>10</x>
-          <y>730</y>
+          <x>450</x>
+          <y>810</y>
           <width>80</width>
           <height>25</height>
          </rect>
@@ -1871,8 +1880,8 @@ hr { height: 1px; border-width: 0; }
        <widget class="QPushButton" name="removeBeverageBtn">
         <property name="geometry">
          <rect>
-          <x>170</x>
-          <y>730</y>
+          <x>450</x>
+          <y>740</y>
           <width>80</width>
           <height>25</height>
          </rect>
@@ -1890,10 +1899,10 @@ hr { height: 1px; border-width: 0; }
        <widget class="QListWidget" name="listWidgetBeverages">
         <property name="geometry">
          <rect>
-          <x>30</x>
-          <y>790</y>
-          <width>256</width>
-          <height>192</height>
+          <x>20</x>
+          <y>650</y>
+          <width>351</width>
+          <height>341</height>
          </rect>
         </property>
        </widget>
@@ -1980,8 +1989,14 @@ hr { height: 1px; border-width: 0; }
            <property name="styleSheet">
             <string notr="true">color: rgb(0, 0, 0);</string>
            </property>
+           <property name="inputMethodHints">
+            <set>Qt::ImhLatinOnly</set>
+           </property>
            <property name="text">
             <string/>
+           </property>
+           <property name="clearButtonEnabled">
+            <bool>false</bool>
            </property>
           </widget>
          </item>
