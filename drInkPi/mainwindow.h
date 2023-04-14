@@ -7,11 +7,15 @@
 #include "beverageitemwidget.h"
 #include "listunitwidget.h"
 #include "ingredientitemwidget.h"
+#include "qlabel.h"
 #include <QJsonDocument>
 #include <QJsonParseError>
 #include <QJsonObject>
 #include <QJsonValue>
 #include <QJsonArray>
+
+#include <QMediaPlayer>
+#include <QVideoWidget>
 
 #define PUMP_N 16
 
@@ -63,10 +67,20 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    QMediaPlayer* player;
+    QMediaPlayer* player_2;
+    QMovie* movie;
+    QLabel* show_picture;
+
+    void player_pos_slot (qint64 pos);
+
+    const QString json_config_path = "";
+    const QString pump_config_path = "";
 
     QJsonObject getJsonMainObject(void);
     QJsonArray getDrinksJsonArray(void);
     QJsonArray getBeveragesJsonArray(void);
+    void rewriteJsonConfig (QJsonObject root);
 
     QVector<Drink> getDrinkList(void);
     Drink getDrinkByName(QString name);
@@ -76,8 +90,8 @@ private:
     void addDrinkToJson (Drink d);
     void addBeverageToJson (Beverage b);
 
-    void editDrinkInJson (QString name, Drink d);
-    void editBeverageInJson (QString name, Beverage b);
+    void deleteDrinkFromJson (QString name);
+    void deleteBeverageFromJson (QString name);
 
     void clearConfigJson (void);
 
@@ -90,9 +104,53 @@ private:
     QVector<ingredientItemWidget*> ingredientWidgetsList;
     QVector<beverageItemWidget*> beverageWidgetsList;
 
+    void loadDrinkListMenu (void);
+    void loadBeveragesListMenu (void);
+
+    Drink _drink_to_prepare;
+
+    float _pump_oz_per_sec[PUMP_N] = {1.0f};
+    float get_pump_oz_per_sec (int pump);
+    void load_pump_calib_data();
+    void upd_pump_calib_data();
+
+    const uint8_t _pump_gpio[PUMP_N] = {
+        17,18,27,
+        22,23,24,25,
+        5,6,12,13,
+        19,16,26,20,21
+    };
+    void gpio_init();
+    void start_pump(int pump);
+    void stop_all_pumps (void);
+
 private slots:
     void focus_changed_slot (QWidget* old, QWidget* now);
 
+    void drinkListBtnClicked (QString name);
 
+    void on_addIngredientBtn_clicked();
+    void on_backSaveBeverage_clicked();
+    void on_addBeverageBtn_clicked();
+
+    void on_drinkPrepare_backBtn_clicked();
+    void on_settingButton_clicked();
+    void on_menuPage_backBtn_clicked();
+    void on_newRecipeButton_clicked();
+    void on_AssignPumpButton_clicked();
+    void on_cleanPumpButton_clicked();
+    void on_calibratePumpButton_clicked();
+    void on_editRecipeBtn_clicked();
+    void on_drinkPrepare_prepareBtn_clicked();
+    void on_volumeSlider_valueChanged(int value);
+    void on_stopMediaBtn_clicked();
+    void on_backBtnCalibrate_clicked();
+    void on_calibrationStart_clicked();
+    void on_calibrationSave_clicked();
+    void on_backBtnCleanPage_clicked();
+    void on_selectAllPumps_clicked();
+    void on_startClean_pressed();
+    void on_startClean_released();
+    void on_backButtonBeverages_clicked();
 };
 #endif // MAINWINDOW_H

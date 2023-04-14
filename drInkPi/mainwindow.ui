@@ -18,10 +18,10 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
+    <item row="1" column="0">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>6</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="startPage">
        <widget class="QScrollArea" name="scrollArea">
@@ -327,40 +327,36 @@ color: rgb(8, 8, 8);</string>
        </widget>
       </widget>
       <widget class="QWidget" name="showPage">
-       <widget class="QPushButton" name="stopMediaBtn">
+       <widget class="QSlider" name="timePosSlider">
         <property name="geometry">
          <rect>
-          <x>310</x>
-          <y>900</y>
-          <width>231</width>
-          <height>61</height>
+          <x>29</x>
+          <y>800</y>
+          <width>531</width>
+          <height>20</height>
          </rect>
         </property>
-        <property name="text">
-         <string>STOP</string>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
         </property>
-       </widget>
-       <widget class="QSlider" name="horizontalSlider">
-        <property name="geometry">
-         <rect>
-          <x>60</x>
-          <y>920</y>
-          <width>160</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-       <widget class="QSlider" name="horizontalSlider_2">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>869</y>
-          <width>551</width>
-          <height>21</height>
-         </rect>
+        <property name="styleSheet">
+         <string notr="true">QSlider::groove:horizontal {
+    border: 1px solid #999999;
+    height: 12px; /* the groove expands to the size of the slider by default. by giving it a height, it has a fixed size */
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #B1B1B1, stop:1 #c4c4c4);
+    margin: 2px 0;
+}
+
+QSlider::handle:horizontal {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #b4b4b4, stop:1 #8f8f8f);
+    border: 1px solid #5c5c5c;
+    width: 12px;
+    margin: -2px 0; /* handle is placed by default on the contents rect of the groove. Expand outside the groove */
+    border-radius: 3px;
+}</string>
         </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -369,113 +365,226 @@ color: rgb(8, 8, 8);</string>
        <widget class="QVideoWidget" name="videoWidget" native="true">
         <property name="geometry">
          <rect>
-          <x>10</x>
-          <y>30</y>
-          <width>561</width>
-          <height>811</height>
+          <x>1</x>
+          <y>31</y>
+          <width>579</width>
+          <height>731</height>
          </rect>
         </property>
        </widget>
-       <widget class="QLineEdit" name="lineEdit">
+       <widget class="QWidget" name="layoutWidget">
         <property name="geometry">
          <rect>
-          <x>60</x>
-          <y>960</y>
-          <width>113</width>
-          <height>25</height>
+          <x>30</x>
+          <y>830</y>
+          <width>531</width>
+          <height>163</height>
          </rect>
         </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_14" stretch="3,1">
+         <property name="spacing">
+          <number>33</number>
+         </property>
+         <property name="topMargin">
+          <number>33</number>
+         </property>
+         <property name="bottomMargin">
+          <number>33</number>
+         </property>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_10" stretch="5">
+           <item>
+            <widget class="QSlider" name="volumeSlider">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QSlider::groove:horizontal {
+    border: 1px solid #999999;
+    height: 34px; /* the groove expands to the size of the slider by default. by giving it a height, it has a fixed size */
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #B1B1B1, stop:1 #c4c4c4);
+    margin: 2px 0;
+}
+
+QSlider::handle:horizontal {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #b4b4b4, stop:1 #8f8f8f);
+    border: 1px solid #5c5c5c;
+    width: 43px;
+    margin: -2px 0; /* handle is placed by default on the contents rect of the groove. Expand outside the groove */
+    border-radius: 3px;
+}</string>
+             </property>
+             <property name="tracking">
+              <bool>false</bool>
+             </property>
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QPushButton" name="stopMediaBtn">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>STOP</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </widget>
       <widget class="QWidget" name="drinkSelectedPage">
-       <widget class="QPushButton" name="pushButton_3">
+       <widget class="QWidget" name="layoutWidget">
         <property name="geometry">
          <rect>
-          <x>70</x>
-          <y>904</y>
-          <width>181</width>
-          <height>61</height>
+          <x>50</x>
+          <y>10</y>
+          <width>491</width>
+          <height>981</height>
          </rect>
         </property>
-        <property name="text">
-         <string>BACK</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="pushButton_4">
-        <property name="geometry">
-         <rect>
-          <x>360</x>
-          <y>900</y>
-          <width>151</width>
-          <height>71</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>PREPARE</string>
-        </property>
-       </widget>
-       <widget class="QListView" name="listViewIngredients">
-        <property name="geometry">
-         <rect>
-          <x>80</x>
-          <y>90</y>
-          <width>411</width>
-          <height>192</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_10">
-        <property name="geometry">
-         <rect>
-          <x>80</x>
-          <y>60</y>
-          <width>401</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Ingedients:</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_11">
-        <property name="geometry">
-         <rect>
-          <x>80</x>
-          <y>310</y>
-          <width>401</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Notes:</string>
-        </property>
-       </widget>
-       <widget class="QListView" name="listViewNotes">
-        <property name="geometry">
-         <rect>
-          <x>80</x>
-          <y>340</y>
-          <width>411</width>
-          <height>192</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="editRecipeBtn">
-        <property name="geometry">
-         <rect>
-          <x>240</x>
-          <y>560</y>
-          <width>89</width>
-          <height>25</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>EDIT</string>
-        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_9" stretch="1,0,1,0,1,2">
+         <item>
+          <widget class="QLabel" name="label_10">
+           <property name="font">
+            <font>
+             <family>DejaVu Sans Mono</family>
+             <pointsize>24</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Ingredients:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QListWidget" name="listWidgetIngredients"/>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_11">
+           <property name="font">
+            <font>
+             <family>DejaVu Sans Mono</family>
+             <pointsize>24</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Notes:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QListWidget" name="listWidgetNotes"/>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <property name="bottomMargin">
+            <number>22</number>
+           </property>
+           <item>
+            <spacer name="horizontalSpacer_3">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QPushButton" name="editRecipeBtn">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>EDIT</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_15">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_13">
+           <property name="spacing">
+            <number>44</number>
+           </property>
+           <property name="leftMargin">
+            <number>33</number>
+           </property>
+           <property name="topMargin">
+            <number>33</number>
+           </property>
+           <property name="rightMargin">
+            <number>33</number>
+           </property>
+           <item>
+            <widget class="QPushButton" name="drinkPrepare_backBtn">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>BACK</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="drinkPrepare_prepareBtn">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>PREPARE</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
        </widget>
       </widget>
       <widget class="QWidget" name="menuPage">
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="menuPage_backBtn">
         <property name="geometry">
          <rect>
           <x>20</x>
@@ -517,17 +626,6 @@ color: rgb(8, 8, 8);</string>
            <property name="autoFillBackground">
             <bool>false</bool>
            </property>
-           <property name="styleSheet">
-            <string notr="true">
-background-color: rgb(66,66, 66);
-color: rgb(255, 255, 255);
-border-style: outset;
-    border-width: 3px;
-    border-radius:12px;
-    border-color: gray;
-
-    padding: 3px;</string>
-           </property>
            <property name="text">
             <string>Create new recipe</string>
            </property>
@@ -557,17 +655,6 @@ border-style: outset;
            <property name="autoFillBackground">
             <bool>false</bool>
            </property>
-           <property name="styleSheet">
-            <string notr="true">
-background-color: rgb(66,66, 66);
-color: rgb(255, 255, 255);
-border-style: outset;
-    border-width: 2px;
-    border-radius:12px;
-    border-color: gray;
-
-    padding: 3px;</string>
-           </property>
            <property name="text">
             <string>Assign pump</string>
            </property>
@@ -591,17 +678,6 @@ border-style: outset;
            <property name="autoFillBackground">
             <bool>false</bool>
            </property>
-           <property name="styleSheet">
-            <string notr="true">
-background-color: rgb(66,66, 66);
-color: rgb(255, 255, 255);
-border-style: outset;
-    border-width: 2px;
-    border-radius:12px;
-    border-color: gray;
-
-    padding: 3px;</string>
-           </property>
            <property name="text">
             <string>Pump clean</string>
            </property>
@@ -619,17 +695,6 @@ border-style: outset;
            <property name="autoFillBackground">
             <bool>false</bool>
            </property>
-           <property name="styleSheet">
-            <string notr="true">
-background-color: rgb(66,66, 66);
-color: rgb(255, 255, 255);
-border-style: outset;
-    border-width: 2px;
-    border-radius:12px;
-    border-color: gray;
-
-    padding: 3px;</string>
-           </property>
            <property name="text">
             <string>Calibrate</string>
            </property>
@@ -646,17 +711,6 @@ border-style: outset;
            <property name="autoFillBackground">
             <bool>false</bool>
            </property>
-           <property name="styleSheet">
-            <string notr="true">
-background-color: rgb(66,66, 66);
-color: rgb(136, 138, 133);
-border-style: outset;
-    border-width: 1px;
-    border-radius:12px;
-    border-color: gray;
-
-    padding: 3px;</string>
-           </property>
            <property name="text">
             <string>Visit our web page</string>
            </property>
@@ -672,17 +726,6 @@ border-style: outset;
            </property>
            <property name="autoFillBackground">
             <bool>false</bool>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">
-background-color: rgb(66,66, 66);
-color: rgb(136, 138, 133);
-border-style: outset;
-    border-width: 1px;
-    border-radius:12px;
-    border-color: gray;
-
-    padding: 3px;</string>
            </property>
            <property name="text">
             <string>Terms of use </string>
@@ -959,8 +1002,11 @@ liquid volume</string>
              <property name="styleSheet">
               <string notr="true">color: rgb(0, 0, 0);</string>
              </property>
+             <property name="inputMethodHints">
+              <set>Qt::ImhDigitsOnly</set>
+             </property>
              <property name="text">
-              <string>0.00</string>
+              <string>1,8</string>
              </property>
             </widget>
            </item>
@@ -1011,20 +1057,7 @@ liquid volume</string>
             </font>
            </property>
            <property name="styleSheet">
-            <string notr="true">QPushButton{
-background-color: rgb(66,66, 66);
-color: rgb(255, 255, 255);
-border-style: outset;
-    border-width: 3px;
-    border-radius:12px;
-    border-color: gray;
-
-    padding: 3px;
-}
-
-QPushButton:focus:pressed{ background-color: black; }
-
-</string>
+            <string notr="true"/>
            </property>
            <property name="text">
             <string>SAVE</string>
@@ -1040,7 +1073,7 @@ QPushButton:focus:pressed{ background-color: black; }
          <rect>
           <x>11</x>
           <y>21</y>
-          <width>531</width>
+          <width>561</width>
           <height>40</height>
          </rect>
         </property>
@@ -1079,6 +1112,15 @@ QPushButton:focus:pressed{ background-color: black; }
                 </color>
                </brush>
               </colorrole>
+              <colorrole role="Button">
+               <brush brushstyle="SolidPattern">
+                <color alpha="255">
+                 <red>211</red>
+                 <green>215</green>
+                 <blue>207</blue>
+                </color>
+               </brush>
+              </colorrole>
               <colorrole role="Text">
                <brush brushstyle="SolidPattern">
                 <color alpha="255">
@@ -1094,6 +1136,24 @@ QPushButton:focus:pressed{ background-color: black; }
                  <red>0</red>
                  <green>0</green>
                  <blue>0</blue>
+                </color>
+               </brush>
+              </colorrole>
+              <colorrole role="Base">
+               <brush brushstyle="SolidPattern">
+                <color alpha="255">
+                 <red>211</red>
+                 <green>215</green>
+                 <blue>207</blue>
+                </color>
+               </brush>
+              </colorrole>
+              <colorrole role="Window">
+               <brush brushstyle="SolidPattern">
+                <color alpha="255">
+                 <red>211</red>
+                 <green>215</green>
+                 <blue>207</blue>
                 </color>
                </brush>
               </colorrole>
@@ -1117,6 +1177,15 @@ QPushButton:focus:pressed{ background-color: black; }
                 </color>
                </brush>
               </colorrole>
+              <colorrole role="Button">
+               <brush brushstyle="SolidPattern">
+                <color alpha="255">
+                 <red>211</red>
+                 <green>215</green>
+                 <blue>207</blue>
+                </color>
+               </brush>
+              </colorrole>
               <colorrole role="Text">
                <brush brushstyle="SolidPattern">
                 <color alpha="255">
@@ -1132,6 +1201,24 @@ QPushButton:focus:pressed{ background-color: black; }
                  <red>0</red>
                  <green>0</green>
                  <blue>0</blue>
+                </color>
+               </brush>
+              </colorrole>
+              <colorrole role="Base">
+               <brush brushstyle="SolidPattern">
+                <color alpha="255">
+                 <red>211</red>
+                 <green>215</green>
+                 <blue>207</blue>
+                </color>
+               </brush>
+              </colorrole>
+              <colorrole role="Window">
+               <brush brushstyle="SolidPattern">
+                <color alpha="255">
+                 <red>211</red>
+                 <green>215</green>
+                 <blue>207</blue>
                 </color>
                </brush>
               </colorrole>
@@ -1155,6 +1242,15 @@ QPushButton:focus:pressed{ background-color: black; }
                 </color>
                </brush>
               </colorrole>
+              <colorrole role="Button">
+               <brush brushstyle="SolidPattern">
+                <color alpha="255">
+                 <red>211</red>
+                 <green>215</green>
+                 <blue>207</blue>
+                </color>
+               </brush>
+              </colorrole>
               <colorrole role="Text">
                <brush brushstyle="SolidPattern">
                 <color alpha="255">
@@ -1170,6 +1266,24 @@ QPushButton:focus:pressed{ background-color: black; }
                  <red>0</red>
                  <green>0</green>
                  <blue>0</blue>
+                </color>
+               </brush>
+              </colorrole>
+              <colorrole role="Base">
+               <brush brushstyle="SolidPattern">
+                <color alpha="255">
+                 <red>211</red>
+                 <green>215</green>
+                 <blue>207</blue>
+                </color>
+               </brush>
+              </colorrole>
+              <colorrole role="Window">
+               <brush brushstyle="SolidPattern">
+                <color alpha="255">
+                 <red>211</red>
+                 <green>215</green>
+                 <blue>207</blue>
                 </color>
                </brush>
               </colorrole>
@@ -1661,64 +1775,147 @@ QPushButton:focus:pressed{ background-color: black; }
        </widget>
       </widget>
       <widget class="QWidget" name="createRecipePage">
+       <widget class="QLabel" name="label_12">
+        <property name="geometry">
+         <rect>
+          <x>210</x>
+          <y>710</y>
+          <width>174</width>
+          <height>38</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>DejaVu Sans Mono</family>
+          <pointsize>24</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Add show:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
        <widget class="QWidget" name="layoutWidget">
         <property name="geometry">
          <rect>
-          <x>20</x>
-          <y>20</y>
-          <width>541</width>
-          <height>941</height>
+          <x>51</x>
+          <y>1</y>
+          <width>481</width>
+          <height>691</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_3">
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <layout class="QVBoxLayout" name="verticalLayout_2">
            <item>
-            <widget class="QPushButton" name="pushButton_2">
-             <property name="text">
-              <string>BACK</string>
-             </property>
-            </widget>
+            <layout class="QHBoxLayout" name="horizontalLayout_3">
+             <item>
+              <widget class="QPushButton" name="pushButton_2">
+               <property name="text">
+                <string>BACK</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_13">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeType">
+                <enum>QSizePolicy::Minimum</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_3">
+               <property name="font">
+                <font>
+                 <family>DejaVu Sans Mono</family>
+                 <pointsize>24</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: rgb(0, 0, 0);</string>
+               </property>
+               <property name="text">
+                <string>Create recipe</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_14">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
            </item>
            <item>
-            <widget class="QLabel" name="label_3">
+            <widget class="QLineEdit" name="lineEditDrinkName">
              <property name="font">
               <font>
                <family>DejaVu Sans Mono</family>
-               <pointsize>24</pointsize>
+               <pointsize>20</pointsize>
               </font>
              </property>
              <property name="styleSheet">
               <string notr="true">color: rgb(0, 0, 0);</string>
              </property>
              <property name="text">
-              <string>Create recipe</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
+              <string>Enter drink name</string>
              </property>
             </widget>
            </item>
           </layout>
          </item>
          <item>
-          <widget class="QLineEdit" name="lineEditDrinkName">
-           <property name="font">
-            <font>
-             <family>DejaVu Sans Mono</family>
-             <pointsize>20</pointsize>
-            </font>
+          <spacer name="verticalSpacer_4">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
            </property>
-           <property name="styleSheet">
-            <string notr="true">color: rgb(0, 0, 0);</string>
+           <property name="sizeType">
+            <enum>QSizePolicy::Maximum</enum>
            </property>
-           <property name="text">
-            <string>Enter drink name</string>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
            </property>
-          </widget>
+          </spacer>
          </item>
          <item>
           <widget class="QScrollArea" name="scrollAreaRecipe">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>330</height>
+            </size>
+           </property>
            <property name="widgetResizable">
             <bool>true</bool>
            </property>
@@ -1727,15 +1924,37 @@ QPushButton:focus:pressed{ background-color: black; }
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>537</width>
-              <height>360</height>
+              <width>477</width>
+              <height>328</height>
              </rect>
             </property>
            </widget>
           </widget>
          </item>
          <item>
+          <spacer name="verticalSpacer_3">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Maximum</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
           <widget class="QTextEdit" name="textEdit">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="styleSheet">
             <string notr="true">color: rgb(0, 0, 0);</string>
            </property>
@@ -1749,75 +1968,90 @@ hr { height: 1px; border-width: 0; }
            </property>
           </widget>
          </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="layoutWidget">
+        <property name="geometry">
+         <rect>
+          <x>31</x>
+          <y>764</y>
+          <width>521</width>
+          <height>221</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_6">
          <item>
-          <layout class="QGridLayout" name="gridLayout_4">
-           <item row="0" column="0" colspan="4">
-            <widget class="QPushButton" name="addShowBtn">
-             <property name="text">
-              <string>ADD SHOW</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
+          <layout class="QHBoxLayout" name="horizontalLayout_10">
+           <property name="spacing">
+            <number>33</number>
+           </property>
+           <item>
             <widget class="QPushButton" name="musicBtn">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>66</height>
+              </size>
+             </property>
              <property name="text">
               <string>MUSIC</string>
              </property>
             </widget>
            </item>
-           <item row="1" column="1" colspan="2">
+           <item>
             <widget class="QPushButton" name="pictureBtn">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>66</height>
+              </size>
+             </property>
              <property name="text">
               <string>PICTURE</string>
              </property>
             </widget>
            </item>
-           <item row="1" column="3">
+           <item>
             <widget class="QPushButton" name="videoBtn">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>66</height>
+              </size>
+             </property>
              <property name="text">
               <string>VIDEO</string>
              </property>
             </widget>
            </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="musicLabel">
-             <property name="styleSheet">
-              <string notr="true">color: rgb(0, 0, 0);</string>
-             </property>
-             <property name="text">
-              <string>TextLabel</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1" colspan="2">
-            <widget class="QLabel" name="pictureLabel">
-             <property name="styleSheet">
-              <string notr="true">color: rgb(0, 0, 0);</string>
-             </property>
-             <property name="text">
-              <string>TextLabel</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="3">
-            <widget class="QLabel" name="videoLabel">
-             <property name="styleSheet">
-              <string notr="true">color: rgb(0, 0, 0);</string>
-             </property>
-             <property name="text">
-              <string>TextLabel</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0" colspan="2">
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_11">
+           <property name="spacing">
+            <number>88</number>
+           </property>
+           <item>
             <widget class="QPushButton" name="addIngredientBtn">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>66</height>
+              </size>
+             </property>
              <property name="text">
               <string>ADD INGREDIENT</string>
              </property>
             </widget>
            </item>
-           <item row="3" column="2" colspan="2">
+           <item>
             <widget class="QPushButton" name="saveDrinkBtn">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>66</height>
+              </size>
+             </property>
              <property name="text">
               <string>SAVE</string>
              </property>
@@ -1829,124 +2063,164 @@ hr { height: 1px; border-width: 0; }
        </widget>
       </widget>
       <widget class="QWidget" name="beverageAssignPage">
-       <widget class="QScrollArea" name="scrollAreaBeverages">
-        <property name="geometry">
-         <rect>
-          <x>12</x>
-          <y>115</y>
-          <width>551</width>
-          <height>491</height>
-         </rect>
-        </property>
-        <property name="verticalScrollBarPolicy">
-         <enum>Qt::ScrollBarAlwaysOn</enum>
-        </property>
-        <property name="sizeAdjustPolicy">
-         <enum>QAbstractScrollArea::AdjustToContents</enum>
-        </property>
-        <property name="widgetResizable">
-         <bool>true</bool>
-        </property>
-        <widget class="QWidget" name="scrollAreaWidgetContents_2">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>0</y>
-           <width>535</width>
-           <height>489</height>
-          </rect>
-         </property>
-        </widget>
-       </widget>
-       <widget class="QPushButton" name="addBeverageBtn">
-        <property name="geometry">
-         <rect>
-          <x>450</x>
-          <y>810</y>
-          <width>80</width>
-          <height>25</height>
-         </rect>
-        </property>
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>ADD</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="removeBeverageBtn">
-        <property name="geometry">
-         <rect>
-          <x>450</x>
-          <y>740</y>
-          <width>80</width>
-          <height>25</height>
-         </rect>
-        </property>
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>REMOVE</string>
-        </property>
-       </widget>
-       <widget class="QListWidget" name="listWidgetBeverages">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>650</y>
-          <width>351</width>
-          <height>341</height>
-         </rect>
-        </property>
-       </widget>
        <widget class="QWidget" name="layoutWidget">
         <property name="geometry">
          <rect>
-          <x>12</x>
-          <y>22</y>
-          <width>135</width>
-          <height>40</height>
+          <x>10</x>
+          <y>90</y>
+          <width>561</width>
+          <height>911</height>
          </rect>
         </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <layout class="QVBoxLayout" name="verticalLayout_8" stretch="6,1,1,3">
          <item>
-          <widget class="QPushButton" name="backButtonBeverages">
-           <property name="text">
-            <string>   Back</string>
+          <widget class="QScrollArea" name="scrollAreaBeverages">
+           <property name="verticalScrollBarPolicy">
+            <enum>Qt::ScrollBarAlwaysOn</enum>
            </property>
-           <property name="icon">
-            <iconset theme="edit-undo">
-             <normaloff>.</normaloff>.</iconset>
+           <property name="sizeAdjustPolicy">
+            <enum>QAbstractScrollArea::AdjustToContents</enum>
            </property>
-           <property name="iconSize">
-            <size>
-             <width>32</width>
-             <height>32</height>
-            </size>
+           <property name="widgetResizable">
+            <bool>true</bool>
            </property>
+           <widget class="QWidget" name="scrollAreaWidgetContents_2">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>543</width>
+              <height>509</height>
+             </rect>
+            </property>
+           </widget>
           </widget>
          </item>
          <item>
-          <spacer name="horizontalSpacer_3">
+          <spacer name="verticalSpacer">
            <property name="orientation">
-            <enum>Qt::Horizontal</enum>
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Maximum</enum>
            </property>
            <property name="sizeHint" stdset="0">
             <size>
-             <width>40</width>
-             <height>20</height>
+             <width>20</width>
+             <height>40</height>
             </size>
            </property>
           </spacer>
          </item>
+         <item>
+          <widget class="QLabel" name="label_13">
+           <property name="font">
+            <font>
+             <family>DejaVu Sans Mono</family>
+             <pointsize>24</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Available beverages list</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_12" stretch="4,1">
+           <property name="spacing">
+            <number>33</number>
+           </property>
+           <item>
+            <widget class="QListWidget" name="listWidgetBeverages">
+             <property name="font">
+              <font>
+               <family>DejaVu Sans Mono</family>
+               <pointsize>20</pointsize>
+              </font>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_7" stretch="1,1,2">
+             <property name="spacing">
+              <number>33</number>
+             </property>
+             <property name="topMargin">
+              <number>22</number>
+             </property>
+             <property name="bottomMargin">
+              <number>12</number>
+             </property>
+             <item>
+              <widget class="QPushButton" name="removeBeverageBtn">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>REMOVE</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="editBeverageNameBtn">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>EDIT</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="addBeverageBtn">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>ADD</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </item>
         </layout>
+       </widget>
+       <widget class="QPushButton" name="backButtonBeverages">
+        <property name="geometry">
+         <rect>
+          <x>13</x>
+          <y>26</y>
+          <width>141</width>
+          <height>38</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>   Back</string>
+        </property>
+        <property name="icon">
+         <iconset theme="edit-undo">
+          <normaloff>.</normaloff>.</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
        </widget>
       </widget>
       <widget class="QWidget" name="beverageSaveNamePage">

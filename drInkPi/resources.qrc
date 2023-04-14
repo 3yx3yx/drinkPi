@@ -15,5 +15,6 @@
     </qresource>
     <qresource prefix="/text">
         <file>assets/config.json</file>
+        <file>assets/pump_calib_data.txt</file>
     </qresource>
 </RCC>

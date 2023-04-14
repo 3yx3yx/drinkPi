@@ -19,3 +19,9 @@ void ListUnitWidget::setItemString(QString s)
 }
 
 
+
+void ListUnitWidget::on_pushButton_clicked()
+{
+    emit pressed(ui->pushButton->text());
+}
+

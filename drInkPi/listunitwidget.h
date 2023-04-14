@@ -17,9 +17,15 @@ public:
     void setItemString (QString s);
     QString getText (void);
 
+public: signals:
+
+    void pressed (QString name);
+
 
 private slots:
 
+
+    void on_pushButton_clicked();
 
 private:
     Ui::ListUnitWidget *ui;

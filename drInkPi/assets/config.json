@@ -22,9 +22,9 @@
             {
                  "name" : "new drink",
                  "note" : "enter note",
-                 "video": "path",
-                 "picture":"path",
-                 "audio":"path",
+                 "video": "",
+                 "picture":"",
+                 "audio":"",
                  "ingredients":
                  [
 
@@ -42,9 +42,9 @@
             {
                  "name" : "new drink2",
                  "note" : "enter note2",
-                 "video": "path",
-                 "picture":"path",
-                 "audio":"path",
+                 "video": "",
+                 "picture":"",
+                 "audio":"",
                  "ingredients":
                  [
 

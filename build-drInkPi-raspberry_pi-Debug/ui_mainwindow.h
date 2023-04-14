@@ -17,7 +17,6 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
-#include <QtWidgets/QListView>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
@@ -48,22 +47,30 @@ public:
     QLabel *label;
     QSpacerItem *horizontalSpacer_2;
     QWidget *showPage;
-    QPushButton *stopMediaBtn;
-    QSlider *horizontalSlider;
-    QSlider *horizontalSlider_2;
+    QSlider *timePosSlider;
     QVideoWidget *videoWidget;
-    QLineEdit *lineEdit;
-    QWidget *drinkSelectedPage;
-    QPushButton *pushButton_3;
-    QPushButton *pushButton_4;
-    QListView *listViewIngredients;
-    QLabel *label_10;
-    QLabel *label_11;
-    QListView *listViewNotes;
-    QPushButton *editRecipeBtn;
-    QWidget *menuPage;
-    QPushButton *pushButton;
     QWidget *layoutWidget1;
+    QHBoxLayout *horizontalLayout_14;
+    QVBoxLayout *verticalLayout_10;
+    QSlider *volumeSlider;
+    QPushButton *stopMediaBtn;
+    QWidget *drinkSelectedPage;
+    QWidget *layoutWidget2;
+    QVBoxLayout *verticalLayout_9;
+    QLabel *label_10;
+    QListWidget *listWidgetIngredients;
+    QLabel *label_11;
+    QListWidget *listWidgetNotes;
+    QHBoxLayout *horizontalLayout_2;
+    QSpacerItem *horizontalSpacer_3;
+    QPushButton *editRecipeBtn;
+    QSpacerItem *horizontalSpacer_15;
+    QHBoxLayout *horizontalLayout_13;
+    QPushButton *drinkPrepare_backBtn;
+    QPushButton *drinkPrepare_prepareBtn;
+    QWidget *menuPage;
+    QPushButton *menuPage_backBtn;
+    QWidget *layoutWidget3;
     QVBoxLayout *verticalLayout;
     QPushButton *newRecipeButton;
     QPushButton *AssignPumpButton;
@@ -72,7 +79,7 @@ public:
     QPushButton *visitWebButton;
     QPushButton *termsOfUseButton;
     QWidget *calibrationPage;
-    QWidget *layoutWidget2;
+    QWidget *layoutWidget4;
     QVBoxLayout *verticalLayout_5;
     QHBoxLayout *horizontalLayout_7;
     QPushButton *backBtnCalibrate;
@@ -92,13 +99,13 @@ public:
     QSpacerItem *horizontalSpacer_10;
     QPushButton *calibrationSave;
     QWidget *pumpClearPage;
-    QWidget *layoutWidget3;
+    QWidget *layoutWidget5;
     QHBoxLayout *horizontalLayout_4;
     QPushButton *backBtnCleanPage;
     QSpacerItem *horizontalSpacer_4;
     QLabel *label_4;
     QSpacerItem *horizontalSpacer_5;
-    QWidget *layoutWidget4;
+    QWidget *layoutWidget6;
     QHBoxLayout *horizontalLayout_6;
     QSpacerItem *horizontalSpacer_6;
     QHBoxLayout *horizontalLayout_5;
@@ -106,7 +113,7 @@ public:
     QSpacerItem *horizontalSpacer_8;
     QPushButton *selectAllPumps;
     QSpacerItem *horizontalSpacer_7;
-    QWidget *layoutWidget5;
+    QWidget *layoutWidget7;
     QVBoxLayout *verticalLayout_4;
     QPushButton *pumpSelBtn;
     QPushButton *pumpSelBtn_2;
@@ -125,37 +132,46 @@ public:
     QPushButton *pumpSelBtn_15;
     QPushButton *pumpSelBtn_14;
     QWidget *createRecipePage;
-    QWidget *layoutWidget6;
+    QLabel *label_12;
+    QWidget *layoutWidget8;
     QVBoxLayout *verticalLayout_3;
+    QVBoxLayout *verticalLayout_2;
     QHBoxLayout *horizontalLayout_3;
     QPushButton *pushButton_2;
+    QSpacerItem *horizontalSpacer_13;
     QLabel *label_3;
+    QSpacerItem *horizontalSpacer_14;
     QLineEdit *lineEditDrinkName;
+    QSpacerItem *verticalSpacer_4;
     QScrollArea *scrollAreaRecipe;
     QWidget *scrollAreaWidgetContents_3;
+    QSpacerItem *verticalSpacer_3;
     QTextEdit *textEdit;
-    QGridLayout *gridLayout_4;
-    QPushButton *addShowBtn;
+    QWidget *layoutWidget9;
+    QVBoxLayout *verticalLayout_6;
+    QHBoxLayout *horizontalLayout_10;
     QPushButton *musicBtn;
     QPushButton *pictureBtn;
     QPushButton *videoBtn;
-    QLabel *musicLabel;
-    QLabel *pictureLabel;
-    QLabel *videoLabel;
+    QHBoxLayout *horizontalLayout_11;
     QPushButton *addIngredientBtn;
     QPushButton *saveDrinkBtn;
     QWidget *beverageAssignPage;
+    QWidget *layoutWidget10;
+    QVBoxLayout *verticalLayout_8;
     QScrollArea *scrollAreaBeverages;
     QWidget *scrollAreaWidgetContents_2;
-    QPushButton *addBeverageBtn;
-    QPushButton *removeBeverageBtn;
+    QSpacerItem *verticalSpacer;
+    QLabel *label_13;
+    QHBoxLayout *horizontalLayout_12;
     QListWidget *listWidgetBeverages;
-    QWidget *layoutWidget7;
-    QHBoxLayout *horizontalLayout_2;
+    QVBoxLayout *verticalLayout_7;
+    QPushButton *removeBeverageBtn;
+    QPushButton *editBeverageNameBtn;
+    QPushButton *addBeverageBtn;
     QPushButton *backButtonBeverages;
-    QSpacerItem *horizontalSpacer_3;
     QWidget *beverageSaveNamePage;
-    QWidget *layoutWidget8;
+    QWidget *layoutWidget11;
     QGridLayout *gridLayout_3;
     QPushButton *saveBeverage;
     QLineEdit *beveragelineEdit;
@@ -257,172 +273,233 @@ public:
         stackedWidget->addWidget(startPage);
         showPage = new QWidget();
         showPage->setObjectName(QString::fromUtf8("showPage"));
-        stopMediaBtn = new QPushButton(showPage);
-        stopMediaBtn->setObjectName(QString::fromUtf8("stopMediaBtn"));
-        stopMediaBtn->setGeometry(QRect(310, 900, 231, 61));
-        horizontalSlider = new QSlider(showPage);
-        horizontalSlider->setObjectName(QString::fromUtf8("horizontalSlider"));
-        horizontalSlider->setGeometry(QRect(60, 920, 160, 16));
-        horizontalSlider->setOrientation(Qt::Horizontal);
-        horizontalSlider_2 = new QSlider(showPage);
-        horizontalSlider_2->setObjectName(QString::fromUtf8("horizontalSlider_2"));
-        horizontalSlider_2->setGeometry(QRect(10, 869, 551, 21));
-        horizontalSlider_2->setOrientation(Qt::Horizontal);
+        timePosSlider = new QSlider(showPage);
+        timePosSlider->setObjectName(QString::fromUtf8("timePosSlider"));
+        timePosSlider->setGeometry(QRect(29, 800, 531, 20));
+        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(timePosSlider->sizePolicy().hasHeightForWidth());
+        timePosSlider->setSizePolicy(sizePolicy);
+        timePosSlider->setStyleSheet(QString::fromUtf8("QSlider::groove:horizontal {\n"
+"    border: 1px solid #999999;\n"
+"    height: 12px; /* the groove expands to the size of the slider by default. by giving it a height, it has a fixed size */\n"
+"    background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #B1B1B1, stop:1 #c4c4c4);\n"
+"    margin: 2px 0;\n"
+"}\n"
+"\n"
+"QSlider::handle:horizontal {\n"
+"    background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #b4b4b4, stop:1 #8f8f8f);\n"
+"    border: 1px solid #5c5c5c;\n"
+"    width: 12px;\n"
+"    margin: -2px 0; /* handle is placed by default on the contents rect of the groove. Expand outside the groove */\n"
+"    border-radius: 3px;\n"
+"}"));
+        timePosSlider->setOrientation(Qt::Horizontal);
         videoWidget = new QVideoWidget(showPage);
         videoWidget->setObjectName(QString::fromUtf8("videoWidget"));
-        videoWidget->setGeometry(QRect(10, 30, 561, 811));
-        lineEdit = new QLineEdit(showPage);
-        lineEdit->setObjectName(QString::fromUtf8("lineEdit"));
-        lineEdit->setGeometry(QRect(60, 960, 113, 25));
+        videoWidget->setGeometry(QRect(1, 31, 579, 731));
+        layoutWidget1 = new QWidget(showPage);
+        layoutWidget1->setObjectName(QString::fromUtf8("layoutWidget1"));
+        layoutWidget1->setGeometry(QRect(30, 830, 531, 163));
+        horizontalLayout_14 = new QHBoxLayout(layoutWidget1);
+        horizontalLayout_14->setSpacing(33);
+        horizontalLayout_14->setObjectName(QString::fromUtf8("horizontalLayout_14"));
+        horizontalLayout_14->setContentsMargins(0, 33, 0, 33);
+        verticalLayout_10 = new QVBoxLayout();
+        verticalLayout_10->setObjectName(QString::fromUtf8("verticalLayout_10"));
+        volumeSlider = new QSlider(layoutWidget1);
+        volumeSlider->setObjectName(QString::fromUtf8("volumeSlider"));
+        sizePolicy.setHeightForWidth(volumeSlider->sizePolicy().hasHeightForWidth());
+        volumeSlider->setSizePolicy(sizePolicy);
+        volumeSlider->setStyleSheet(QString::fromUtf8("QSlider::groove:horizontal {\n"
+"    border: 1px solid #999999;\n"
+"    height: 34px; /* the groove expands to the size of the slider by default. by giving it a height, it has a fixed size */\n"
+"    background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #B1B1B1, stop:1 #c4c4c4);\n"
+"    margin: 2px 0;\n"
+"}\n"
+"\n"
+"QSlider::handle:horizontal {\n"
+"    background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #b4b4b4, stop:1 #8f8f8f);\n"
+"    border: 1px solid #5c5c5c;\n"
+"    width: 43px;\n"
+"    margin: -2px 0; /* handle is placed by default on the contents rect of the groove. Expand outside the groove */\n"
+"    border-radius: 3px;\n"
+"}"));
+        volumeSlider->setTracking(false);
+        volumeSlider->setOrientation(Qt::Horizontal);
+
+        verticalLayout_10->addWidget(volumeSlider);
+
+        verticalLayout_10->setStretch(0, 5);
+
+        horizontalLayout_14->addLayout(verticalLayout_10);
+
+        stopMediaBtn = new QPushButton(layoutWidget1);
+        stopMediaBtn->setObjectName(QString::fromUtf8("stopMediaBtn"));
+        QSizePolicy sizePolicy1(QSizePolicy::Minimum, QSizePolicy::Minimum);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(stopMediaBtn->sizePolicy().hasHeightForWidth());
+        stopMediaBtn->setSizePolicy(sizePolicy1);
+
+        horizontalLayout_14->addWidget(stopMediaBtn);
+
+        horizontalLayout_14->setStretch(0, 3);
+        horizontalLayout_14->setStretch(1, 1);
         stackedWidget->addWidget(showPage);
         drinkSelectedPage = new QWidget();
         drinkSelectedPage->setObjectName(QString::fromUtf8("drinkSelectedPage"));
-        pushButton_3 = new QPushButton(drinkSelectedPage);
-        pushButton_3->setObjectName(QString::fromUtf8("pushButton_3"));
-        pushButton_3->setGeometry(QRect(70, 904, 181, 61));
-        pushButton_4 = new QPushButton(drinkSelectedPage);
-        pushButton_4->setObjectName(QString::fromUtf8("pushButton_4"));
-        pushButton_4->setGeometry(QRect(360, 900, 151, 71));
-        listViewIngredients = new QListView(drinkSelectedPage);
-        listViewIngredients->setObjectName(QString::fromUtf8("listViewIngredients"));
-        listViewIngredients->setGeometry(QRect(80, 90, 411, 192));
-        label_10 = new QLabel(drinkSelectedPage);
+        layoutWidget2 = new QWidget(drinkSelectedPage);
+        layoutWidget2->setObjectName(QString::fromUtf8("layoutWidget2"));
+        layoutWidget2->setGeometry(QRect(50, 10, 491, 981));
+        verticalLayout_9 = new QVBoxLayout(layoutWidget2);
+        verticalLayout_9->setObjectName(QString::fromUtf8("verticalLayout_9"));
+        verticalLayout_9->setContentsMargins(0, 0, 0, 0);
+        label_10 = new QLabel(layoutWidget2);
         label_10->setObjectName(QString::fromUtf8("label_10"));
-        label_10->setGeometry(QRect(80, 60, 401, 20));
-        label_11 = new QLabel(drinkSelectedPage);
+        QFont font1;
+        font1.setFamily(QString::fromUtf8("DejaVu Sans Mono"));
+        font1.setPointSize(24);
+        label_10->setFont(font1);
+        label_10->setAlignment(Qt::AlignCenter);
+
+        verticalLayout_9->addWidget(label_10);
+
+        listWidgetIngredients = new QListWidget(layoutWidget2);
+        listWidgetIngredients->setObjectName(QString::fromUtf8("listWidgetIngredients"));
+
+        verticalLayout_9->addWidget(listWidgetIngredients);
+
+        label_11 = new QLabel(layoutWidget2);
         label_11->setObjectName(QString::fromUtf8("label_11"));
-        label_11->setGeometry(QRect(80, 310, 401, 20));
-        listViewNotes = new QListView(drinkSelectedPage);
-        listViewNotes->setObjectName(QString::fromUtf8("listViewNotes"));
-        listViewNotes->setGeometry(QRect(80, 340, 411, 192));
-        editRecipeBtn = new QPushButton(drinkSelectedPage);
+        label_11->setFont(font1);
+        label_11->setAlignment(Qt::AlignCenter);
+
+        verticalLayout_9->addWidget(label_11);
+
+        listWidgetNotes = new QListWidget(layoutWidget2);
+        listWidgetNotes->setObjectName(QString::fromUtf8("listWidgetNotes"));
+
+        verticalLayout_9->addWidget(listWidgetNotes);
+
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        horizontalLayout_2->setContentsMargins(-1, -1, -1, 22);
+        horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_2->addItem(horizontalSpacer_3);
+
+        editRecipeBtn = new QPushButton(layoutWidget2);
         editRecipeBtn->setObjectName(QString::fromUtf8("editRecipeBtn"));
-        editRecipeBtn->setGeometry(QRect(240, 560, 89, 25));
+        sizePolicy.setHeightForWidth(editRecipeBtn->sizePolicy().hasHeightForWidth());
+        editRecipeBtn->setSizePolicy(sizePolicy);
+
+        horizontalLayout_2->addWidget(editRecipeBtn);
+
+        horizontalSpacer_15 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_2->addItem(horizontalSpacer_15);
+
+
+        verticalLayout_9->addLayout(horizontalLayout_2);
+
+        horizontalLayout_13 = new QHBoxLayout();
+        horizontalLayout_13->setSpacing(44);
+        horizontalLayout_13->setObjectName(QString::fromUtf8("horizontalLayout_13"));
+        horizontalLayout_13->setContentsMargins(33, 33, 33, -1);
+        drinkPrepare_backBtn = new QPushButton(layoutWidget2);
+        drinkPrepare_backBtn->setObjectName(QString::fromUtf8("drinkPrepare_backBtn"));
+        sizePolicy1.setHeightForWidth(drinkPrepare_backBtn->sizePolicy().hasHeightForWidth());
+        drinkPrepare_backBtn->setSizePolicy(sizePolicy1);
+
+        horizontalLayout_13->addWidget(drinkPrepare_backBtn);
+
+        drinkPrepare_prepareBtn = new QPushButton(layoutWidget2);
+        drinkPrepare_prepareBtn->setObjectName(QString::fromUtf8("drinkPrepare_prepareBtn"));
+        sizePolicy1.setHeightForWidth(drinkPrepare_prepareBtn->sizePolicy().hasHeightForWidth());
+        drinkPrepare_prepareBtn->setSizePolicy(sizePolicy1);
+
+        horizontalLayout_13->addWidget(drinkPrepare_prepareBtn);
+
+
+        verticalLayout_9->addLayout(horizontalLayout_13);
+
+        verticalLayout_9->setStretch(0, 1);
+        verticalLayout_9->setStretch(2, 1);
+        verticalLayout_9->setStretch(4, 1);
+        verticalLayout_9->setStretch(5, 2);
         stackedWidget->addWidget(drinkSelectedPage);
         menuPage = new QWidget();
         menuPage->setObjectName(QString::fromUtf8("menuPage"));
-        pushButton = new QPushButton(menuPage);
-        pushButton->setObjectName(QString::fromUtf8("pushButton"));
-        pushButton->setGeometry(QRect(20, 20, 121, 61));
-        layoutWidget1 = new QWidget(menuPage);
-        layoutWidget1->setObjectName(QString::fromUtf8("layoutWidget1"));
-        layoutWidget1->setGeometry(QRect(20, 100, 561, 891));
-        verticalLayout = new QVBoxLayout(layoutWidget1);
+        menuPage_backBtn = new QPushButton(menuPage);
+        menuPage_backBtn->setObjectName(QString::fromUtf8("menuPage_backBtn"));
+        menuPage_backBtn->setGeometry(QRect(20, 20, 121, 61));
+        layoutWidget3 = new QWidget(menuPage);
+        layoutWidget3->setObjectName(QString::fromUtf8("layoutWidget3"));
+        layoutWidget3->setGeometry(QRect(20, 100, 561, 891));
+        verticalLayout = new QVBoxLayout(layoutWidget3);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
-        newRecipeButton = new QPushButton(layoutWidget1);
+        newRecipeButton = new QPushButton(layoutWidget3);
         newRecipeButton->setObjectName(QString::fromUtf8("newRecipeButton"));
         newRecipeButton->setMinimumSize(QSize(0, 140));
-        QFont font1;
-        font1.setFamily(QString::fromUtf8("DejaVu Sans Mono"));
-        font1.setPointSize(31);
-        font1.setBold(true);
-        font1.setItalic(false);
-        newRecipeButton->setFont(font1);
-        newRecipeButton->setAutoFillBackground(false);
-        newRecipeButton->setStyleSheet(QString::fromUtf8("\n"
-"background-color: rgb(66,66, 66);\n"
-"color: rgb(255, 255, 255);\n"
-"border-style: outset;\n"
-"    border-width: 3px;\n"
-"    border-radius:12px;\n"
-"    border-color: gray;\n"
-"\n"
-"    padding: 3px;"));
-        newRecipeButton->setFlat(false);
-
-        verticalLayout->addWidget(newRecipeButton);
-
-        AssignPumpButton = new QPushButton(layoutWidget1);
-        AssignPumpButton->setObjectName(QString::fromUtf8("AssignPumpButton"));
-        AssignPumpButton->setMinimumSize(QSize(0, 130));
         QFont font2;
         font2.setFamily(QString::fromUtf8("DejaVu Sans Mono"));
         font2.setPointSize(31);
         font2.setBold(true);
-        AssignPumpButton->setFont(font2);
+        font2.setItalic(false);
+        newRecipeButton->setFont(font2);
+        newRecipeButton->setAutoFillBackground(false);
+        newRecipeButton->setFlat(false);
+
+        verticalLayout->addWidget(newRecipeButton);
+
+        AssignPumpButton = new QPushButton(layoutWidget3);
+        AssignPumpButton->setObjectName(QString::fromUtf8("AssignPumpButton"));
+        AssignPumpButton->setMinimumSize(QSize(0, 130));
+        QFont font3;
+        font3.setFamily(QString::fromUtf8("DejaVu Sans Mono"));
+        font3.setPointSize(31);
+        font3.setBold(true);
+        AssignPumpButton->setFont(font3);
         AssignPumpButton->setAutoFillBackground(false);
-        AssignPumpButton->setStyleSheet(QString::fromUtf8("\n"
-"background-color: rgb(66,66, 66);\n"
-"color: rgb(255, 255, 255);\n"
-"border-style: outset;\n"
-"    border-width: 2px;\n"
-"    border-radius:12px;\n"
-"    border-color: gray;\n"
-"\n"
-"    padding: 3px;"));
 
         verticalLayout->addWidget(AssignPumpButton);
 
-        cleanPumpButton = new QPushButton(layoutWidget1);
+        cleanPumpButton = new QPushButton(layoutWidget3);
         cleanPumpButton->setObjectName(QString::fromUtf8("cleanPumpButton"));
         cleanPumpButton->setMinimumSize(QSize(0, 100));
-        cleanPumpButton->setFont(font2);
+        cleanPumpButton->setFont(font3);
         cleanPumpButton->setAutoFillBackground(false);
-        cleanPumpButton->setStyleSheet(QString::fromUtf8("\n"
-"background-color: rgb(66,66, 66);\n"
-"color: rgb(255, 255, 255);\n"
-"border-style: outset;\n"
-"    border-width: 2px;\n"
-"    border-radius:12px;\n"
-"    border-color: gray;\n"
-"\n"
-"    padding: 3px;"));
 
         verticalLayout->addWidget(cleanPumpButton);
 
-        calibratePumpButton = new QPushButton(layoutWidget1);
+        calibratePumpButton = new QPushButton(layoutWidget3);
         calibratePumpButton->setObjectName(QString::fromUtf8("calibratePumpButton"));
-        QFont font3;
-        font3.setFamily(QString::fromUtf8("DejaVu Sans Mono"));
-        font3.setPointSize(30);
-        font3.setBold(true);
-        calibratePumpButton->setFont(font3);
+        QFont font4;
+        font4.setFamily(QString::fromUtf8("DejaVu Sans Mono"));
+        font4.setPointSize(30);
+        font4.setBold(true);
+        calibratePumpButton->setFont(font4);
         calibratePumpButton->setAutoFillBackground(false);
-        calibratePumpButton->setStyleSheet(QString::fromUtf8("\n"
-"background-color: rgb(66,66, 66);\n"
-"color: rgb(255, 255, 255);\n"
-"border-style: outset;\n"
-"    border-width: 2px;\n"
-"    border-radius:12px;\n"
-"    border-color: gray;\n"
-"\n"
-"    padding: 3px;"));
 
         verticalLayout->addWidget(calibratePumpButton);
 
-        visitWebButton = new QPushButton(layoutWidget1);
+        visitWebButton = new QPushButton(layoutWidget3);
         visitWebButton->setObjectName(QString::fromUtf8("visitWebButton"));
-        QFont font4;
-        font4.setFamily(QString::fromUtf8("Ubuntu Mono"));
-        font4.setPointSize(31);
-        visitWebButton->setFont(font4);
+        QFont font5;
+        font5.setFamily(QString::fromUtf8("Ubuntu Mono"));
+        font5.setPointSize(31);
+        visitWebButton->setFont(font5);
         visitWebButton->setAutoFillBackground(false);
-        visitWebButton->setStyleSheet(QString::fromUtf8("\n"
-"background-color: rgb(66,66, 66);\n"
-"color: rgb(136, 138, 133);\n"
-"border-style: outset;\n"
-"    border-width: 1px;\n"
-"    border-radius:12px;\n"
-"    border-color: gray;\n"
-"\n"
-"    padding: 3px;"));
 
         verticalLayout->addWidget(visitWebButton);
 
-        termsOfUseButton = new QPushButton(layoutWidget1);
+        termsOfUseButton = new QPushButton(layoutWidget3);
         termsOfUseButton->setObjectName(QString::fromUtf8("termsOfUseButton"));
-        termsOfUseButton->setFont(font4);
+        termsOfUseButton->setFont(font5);
         termsOfUseButton->setAutoFillBackground(false);
-        termsOfUseButton->setStyleSheet(QString::fromUtf8("\n"
-"background-color: rgb(66,66, 66);\n"
-"color: rgb(136, 138, 133);\n"
-"border-style: outset;\n"
-"    border-width: 1px;\n"
-"    border-radius:12px;\n"
-"    border-color: gray;\n"
-"\n"
-"    padding: 3px;"));
 
         verticalLayout->addWidget(termsOfUseButton);
 
@@ -432,30 +509,27 @@ public:
         stackedWidget->addWidget(menuPage);
         calibrationPage = new QWidget();
         calibrationPage->setObjectName(QString::fromUtf8("calibrationPage"));
-        layoutWidget2 = new QWidget(calibrationPage);
-        layoutWidget2->setObjectName(QString::fromUtf8("layoutWidget2"));
-        layoutWidget2->setGeometry(QRect(0, 20, 581, 871));
-        verticalLayout_5 = new QVBoxLayout(layoutWidget2);
+        layoutWidget4 = new QWidget(calibrationPage);
+        layoutWidget4->setObjectName(QString::fromUtf8("layoutWidget4"));
+        layoutWidget4->setGeometry(QRect(0, 20, 581, 871));
+        verticalLayout_5 = new QVBoxLayout(layoutWidget4);
         verticalLayout_5->setObjectName(QString::fromUtf8("verticalLayout_5"));
         verticalLayout_5->setContentsMargins(0, 0, 0, 0);
         horizontalLayout_7 = new QHBoxLayout();
         horizontalLayout_7->setObjectName(QString::fromUtf8("horizontalLayout_7"));
-        backBtnCalibrate = new QPushButton(layoutWidget2);
+        backBtnCalibrate = new QPushButton(layoutWidget4);
         backBtnCalibrate->setObjectName(QString::fromUtf8("backBtnCalibrate"));
-        QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(backBtnCalibrate->sizePolicy().hasHeightForWidth());
-        backBtnCalibrate->setSizePolicy(sizePolicy);
+        sizePolicy1.setHeightForWidth(backBtnCalibrate->sizePolicy().hasHeightForWidth());
+        backBtnCalibrate->setSizePolicy(sizePolicy1);
 
         horizontalLayout_7->addWidget(backBtnCalibrate);
 
-        label_5 = new QLabel(layoutWidget2);
+        label_5 = new QLabel(layoutWidget4);
         label_5->setObjectName(QString::fromUtf8("label_5"));
-        QFont font5;
-        font5.setFamily(QString::fromUtf8("DejaVu Sans Mono"));
-        font5.setPointSize(28);
-        label_5->setFont(font5);
+        QFont font6;
+        font6.setFamily(QString::fromUtf8("DejaVu Sans Mono"));
+        font6.setPointSize(28);
+        label_5->setFont(font6);
         label_5->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
 
         horizontalLayout_7->addWidget(label_5);
@@ -463,9 +537,9 @@ public:
 
         verticalLayout_5->addLayout(horizontalLayout_7);
 
-        label_6 = new QLabel(layoutWidget2);
+        label_6 = new QLabel(layoutWidget4);
         label_6->setObjectName(QString::fromUtf8("label_6"));
-        label_6->setFont(font5);
+        label_6->setFont(font6);
         label_6->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         label_6->setAlignment(Qt::AlignJustify|Qt::AlignVCenter);
 
@@ -477,14 +551,14 @@ public:
 
         horizontalLayout_9->addItem(horizontalSpacer_11);
 
-        label_7 = new QLabel(layoutWidget2);
+        label_7 = new QLabel(layoutWidget4);
         label_7->setObjectName(QString::fromUtf8("label_7"));
-        label_7->setFont(font5);
+        label_7->setFont(font6);
         label_7->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
 
         horizontalLayout_9->addWidget(label_7);
 
-        comboBoxCalibrate = new QComboBox(layoutWidget2);
+        comboBoxCalibrate = new QComboBox(layoutWidget4);
         comboBoxCalibrate->addItem(QString());
         comboBoxCalibrate->addItem(QString());
         comboBoxCalibrate->addItem(QString());
@@ -502,9 +576,9 @@ public:
         comboBoxCalibrate->addItem(QString());
         comboBoxCalibrate->addItem(QString());
         comboBoxCalibrate->setObjectName(QString::fromUtf8("comboBoxCalibrate"));
-        QFont font6;
-        font6.setPointSize(30);
-        comboBoxCalibrate->setFont(font6);
+        QFont font7;
+        font7.setPointSize(30);
+        comboBoxCalibrate->setFont(font7);
         comboBoxCalibrate->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
 
         horizontalLayout_9->addWidget(comboBoxCalibrate);
@@ -516,21 +590,21 @@ public:
 
         verticalLayout_5->addLayout(horizontalLayout_9);
 
-        calibrationStart = new QPushButton(layoutWidget2);
+        calibrationStart = new QPushButton(layoutWidget4);
         calibrationStart->setObjectName(QString::fromUtf8("calibrationStart"));
-        sizePolicy.setHeightForWidth(calibrationStart->sizePolicy().hasHeightForWidth());
-        calibrationStart->setSizePolicy(sizePolicy);
-        QFont font7;
-        font7.setFamily(QString::fromUtf8("DejaVu Sans Mono"));
-        font7.setPointSize(24);
-        font7.setBold(true);
-        calibrationStart->setFont(font7);
+        sizePolicy1.setHeightForWidth(calibrationStart->sizePolicy().hasHeightForWidth());
+        calibrationStart->setSizePolicy(sizePolicy1);
+        QFont font8;
+        font8.setFamily(QString::fromUtf8("DejaVu Sans Mono"));
+        font8.setPointSize(24);
+        font8.setBold(true);
+        calibrationStart->setFont(font8);
 
         verticalLayout_5->addWidget(calibrationStart);
 
-        label_8 = new QLabel(layoutWidget2);
+        label_8 = new QLabel(layoutWidget4);
         label_8->setObjectName(QString::fromUtf8("label_8"));
-        label_8->setFont(font5);
+        label_8->setFont(font6);
         label_8->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         label_8->setAlignment(Qt::AlignJustify|Qt::AlignVCenter);
 
@@ -542,18 +616,19 @@ public:
 
         horizontalLayout_8->addItem(horizontalSpacer_9);
 
-        lineEditCalibrate = new QLineEdit(layoutWidget2);
+        lineEditCalibrate = new QLineEdit(layoutWidget4);
         lineEditCalibrate->setObjectName(QString::fromUtf8("lineEditCalibrate"));
-        QFont font8;
-        font8.setPointSize(24);
-        lineEditCalibrate->setFont(font8);
+        QFont font9;
+        font9.setPointSize(24);
+        lineEditCalibrate->setFont(font9);
         lineEditCalibrate->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
+        lineEditCalibrate->setInputMethodHints(Qt::ImhDigitsOnly);
 
         horizontalLayout_8->addWidget(lineEditCalibrate);
 
-        label_9 = new QLabel(layoutWidget2);
+        label_9 = new QLabel(layoutWidget4);
         label_9->setObjectName(QString::fromUtf8("label_9"));
-        label_9->setFont(font5);
+        label_9->setFont(font6);
         label_9->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
 
         horizontalLayout_8->addWidget(label_9);
@@ -565,25 +640,12 @@ public:
 
         verticalLayout_5->addLayout(horizontalLayout_8);
 
-        calibrationSave = new QPushButton(layoutWidget2);
+        calibrationSave = new QPushButton(layoutWidget4);
         calibrationSave->setObjectName(QString::fromUtf8("calibrationSave"));
-        sizePolicy.setHeightForWidth(calibrationSave->sizePolicy().hasHeightForWidth());
-        calibrationSave->setSizePolicy(sizePolicy);
-        calibrationSave->setFont(font7);
-        calibrationSave->setStyleSheet(QString::fromUtf8("QPushButton{\n"
-"background-color: rgb(66,66, 66);\n"
-"color: rgb(255, 255, 255);\n"
-"border-style: outset;\n"
-"    border-width: 3px;\n"
-"    border-radius:12px;\n"
-"    border-color: gray;\n"
-"\n"
-"    padding: 3px;\n"
-"}\n"
-"\n"
-"QPushButton:focus:pressed{ background-color: black; }\n"
-"\n"
-""));
+        sizePolicy1.setHeightForWidth(calibrationSave->sizePolicy().hasHeightForWidth());
+        calibrationSave->setSizePolicy(sizePolicy1);
+        calibrationSave->setFont(font8);
+        calibrationSave->setStyleSheet(QString::fromUtf8(""));
 
         verticalLayout_5->addWidget(calibrationSave);
 
@@ -597,13 +659,13 @@ public:
         stackedWidget->addWidget(calibrationPage);
         pumpClearPage = new QWidget();
         pumpClearPage->setObjectName(QString::fromUtf8("pumpClearPage"));
-        layoutWidget3 = new QWidget(pumpClearPage);
-        layoutWidget3->setObjectName(QString::fromUtf8("layoutWidget3"));
-        layoutWidget3->setGeometry(QRect(11, 21, 531, 40));
-        horizontalLayout_4 = new QHBoxLayout(layoutWidget3);
+        layoutWidget5 = new QWidget(pumpClearPage);
+        layoutWidget5->setObjectName(QString::fromUtf8("layoutWidget5"));
+        layoutWidget5->setGeometry(QRect(11, 21, 561, 40));
+        horizontalLayout_4 = new QHBoxLayout(layoutWidget5);
         horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
         horizontalLayout_4->setContentsMargins(0, 0, 0, 0);
-        backBtnCleanPage = new QPushButton(layoutWidget3);
+        backBtnCleanPage = new QPushButton(layoutWidget5);
         backBtnCleanPage->setObjectName(QString::fromUtf8("backBtnCleanPage"));
 
         horizontalLayout_4->addWidget(backBtnCleanPage);
@@ -612,34 +674,42 @@ public:
 
         horizontalLayout_4->addItem(horizontalSpacer_4);
 
-        label_4 = new QLabel(layoutWidget3);
+        label_4 = new QLabel(layoutWidget5);
         label_4->setObjectName(QString::fromUtf8("label_4"));
         QPalette palette1;
         QBrush brush2(QColor(0, 0, 0, 255));
         brush2.setStyle(Qt::SolidPattern);
         palette1.setBrush(QPalette::Active, QPalette::WindowText, brush2);
+        QBrush brush3(QColor(211, 215, 207, 255));
+        brush3.setStyle(Qt::SolidPattern);
+        palette1.setBrush(QPalette::Active, QPalette::Button, brush3);
         palette1.setBrush(QPalette::Active, QPalette::Text, brush2);
         palette1.setBrush(QPalette::Active, QPalette::ButtonText, brush2);
+        palette1.setBrush(QPalette::Active, QPalette::Base, brush3);
+        palette1.setBrush(QPalette::Active, QPalette::Window, brush3);
 #if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
         palette1.setBrush(QPalette::Active, QPalette::PlaceholderText, brush2);
 #endif
         palette1.setBrush(QPalette::Inactive, QPalette::WindowText, brush2);
+        palette1.setBrush(QPalette::Inactive, QPalette::Button, brush3);
         palette1.setBrush(QPalette::Inactive, QPalette::Text, brush2);
         palette1.setBrush(QPalette::Inactive, QPalette::ButtonText, brush2);
+        palette1.setBrush(QPalette::Inactive, QPalette::Base, brush3);
+        palette1.setBrush(QPalette::Inactive, QPalette::Window, brush3);
 #if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
         palette1.setBrush(QPalette::Inactive, QPalette::PlaceholderText, brush2);
 #endif
         palette1.setBrush(QPalette::Disabled, QPalette::WindowText, brush2);
+        palette1.setBrush(QPalette::Disabled, QPalette::Button, brush3);
         palette1.setBrush(QPalette::Disabled, QPalette::Text, brush2);
         palette1.setBrush(QPalette::Disabled, QPalette::ButtonText, brush2);
+        palette1.setBrush(QPalette::Disabled, QPalette::Base, brush3);
+        palette1.setBrush(QPalette::Disabled, QPalette::Window, brush3);
 #if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
         palette1.setBrush(QPalette::Disabled, QPalette::PlaceholderText, brush2);
 #endif
         label_4->setPalette(palette1);
-        QFont font9;
-        font9.setFamily(QString::fromUtf8("DejaVu Sans Mono"));
-        font9.setPointSize(24);
-        label_4->setFont(font9);
+        label_4->setFont(font1);
         label_4->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
 
         horizontalLayout_4->addWidget(label_4);
@@ -648,10 +718,10 @@ public:
 
         horizontalLayout_4->addItem(horizontalSpacer_5);
 
-        layoutWidget4 = new QWidget(pumpClearPage);
-        layoutWidget4->setObjectName(QString::fromUtf8("layoutWidget4"));
-        layoutWidget4->setGeometry(QRect(10, 76, 561, 81));
-        horizontalLayout_6 = new QHBoxLayout(layoutWidget4);
+        layoutWidget6 = new QWidget(pumpClearPage);
+        layoutWidget6->setObjectName(QString::fromUtf8("layoutWidget6"));
+        layoutWidget6->setGeometry(QRect(10, 76, 561, 81));
+        horizontalLayout_6 = new QHBoxLayout(layoutWidget6);
         horizontalLayout_6->setObjectName(QString::fromUtf8("horizontalLayout_6"));
         horizontalLayout_6->setContentsMargins(0, 0, 0, 0);
         horizontalSpacer_6 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
@@ -660,11 +730,11 @@ public:
 
         horizontalLayout_5 = new QHBoxLayout();
         horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
-        startClean = new QPushButton(layoutWidget4);
+        startClean = new QPushButton(layoutWidget6);
         startClean->setObjectName(QString::fromUtf8("startClean"));
-        sizePolicy.setHeightForWidth(startClean->sizePolicy().hasHeightForWidth());
-        startClean->setSizePolicy(sizePolicy);
-        startClean->setFont(font6);
+        sizePolicy1.setHeightForWidth(startClean->sizePolicy().hasHeightForWidth());
+        startClean->setSizePolicy(sizePolicy1);
+        startClean->setFont(font7);
         startClean->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
 
         horizontalLayout_5->addWidget(startClean);
@@ -673,11 +743,11 @@ public:
 
         horizontalLayout_5->addItem(horizontalSpacer_8);
 
-        selectAllPumps = new QPushButton(layoutWidget4);
+        selectAllPumps = new QPushButton(layoutWidget6);
         selectAllPumps->setObjectName(QString::fromUtf8("selectAllPumps"));
-        sizePolicy.setHeightForWidth(selectAllPumps->sizePolicy().hasHeightForWidth());
-        selectAllPumps->setSizePolicy(sizePolicy);
-        selectAllPumps->setFont(font8);
+        sizePolicy1.setHeightForWidth(selectAllPumps->sizePolicy().hasHeightForWidth());
+        selectAllPumps->setSizePolicy(sizePolicy1);
+        selectAllPumps->setFont(font9);
         selectAllPumps->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
 
         horizontalLayout_5->addWidget(selectAllPumps);
@@ -689,13 +759,13 @@ public:
 
         horizontalLayout_6->addItem(horizontalSpacer_7);
 
-        layoutWidget5 = new QWidget(pumpClearPage);
-        layoutWidget5->setObjectName(QString::fromUtf8("layoutWidget5"));
-        layoutWidget5->setGeometry(QRect(10, 170, 561, 831));
-        verticalLayout_4 = new QVBoxLayout(layoutWidget5);
+        layoutWidget7 = new QWidget(pumpClearPage);
+        layoutWidget7->setObjectName(QString::fromUtf8("layoutWidget7"));
+        layoutWidget7->setGeometry(QRect(10, 170, 561, 831));
+        verticalLayout_4 = new QVBoxLayout(layoutWidget7);
         verticalLayout_4->setObjectName(QString::fromUtf8("verticalLayout_4"));
         verticalLayout_4->setContentsMargins(0, 0, 0, 0);
-        pumpSelBtn = new QPushButton(layoutWidget5);
+        pumpSelBtn = new QPushButton(layoutWidget7);
         pumpSelBtn->setObjectName(QString::fromUtf8("pumpSelBtn"));
         QFont font10;
         font10.setPointSize(18);
@@ -706,7 +776,7 @@ public:
 
         verticalLayout_4->addWidget(pumpSelBtn);
 
-        pumpSelBtn_2 = new QPushButton(layoutWidget5);
+        pumpSelBtn_2 = new QPushButton(layoutWidget7);
         pumpSelBtn_2->setObjectName(QString::fromUtf8("pumpSelBtn_2"));
         pumpSelBtn_2->setFont(font10);
         pumpSelBtn_2->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
@@ -715,7 +785,7 @@ public:
 
         verticalLayout_4->addWidget(pumpSelBtn_2);
 
-        pumpSelBtn_4 = new QPushButton(layoutWidget5);
+        pumpSelBtn_4 = new QPushButton(layoutWidget7);
         pumpSelBtn_4->setObjectName(QString::fromUtf8("pumpSelBtn_4"));
         pumpSelBtn_4->setFont(font10);
         pumpSelBtn_4->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
@@ -724,7 +794,7 @@ public:
 
         verticalLayout_4->addWidget(pumpSelBtn_4);
 
-        pumpSelBtn_3 = new QPushButton(layoutWidget5);
+        pumpSelBtn_3 = new QPushButton(layoutWidget7);
         pumpSelBtn_3->setObjectName(QString::fromUtf8("pumpSelBtn_3"));
         pumpSelBtn_3->setFont(font10);
         pumpSelBtn_3->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
@@ -733,7 +803,7 @@ public:
 
         verticalLayout_4->addWidget(pumpSelBtn_3);
 
-        pumpSelBtn_8 = new QPushButton(layoutWidget5);
+        pumpSelBtn_8 = new QPushButton(layoutWidget7);
         pumpSelBtn_8->setObjectName(QString::fromUtf8("pumpSelBtn_8"));
         pumpSelBtn_8->setFont(font10);
         pumpSelBtn_8->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
@@ -742,7 +812,7 @@ public:
 
         verticalLayout_4->addWidget(pumpSelBtn_8);
 
-        pumpSelBtn_5 = new QPushButton(layoutWidget5);
+        pumpSelBtn_5 = new QPushButton(layoutWidget7);
         pumpSelBtn_5->setObjectName(QString::fromUtf8("pumpSelBtn_5"));
         pumpSelBtn_5->setFont(font10);
         pumpSelBtn_5->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
@@ -751,7 +821,7 @@ public:
 
         verticalLayout_4->addWidget(pumpSelBtn_5);
 
-        pumpSelBtn_7 = new QPushButton(layoutWidget5);
+        pumpSelBtn_7 = new QPushButton(layoutWidget7);
         pumpSelBtn_7->setObjectName(QString::fromUtf8("pumpSelBtn_7"));
         pumpSelBtn_7->setFont(font10);
         pumpSelBtn_7->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
@@ -760,7 +830,7 @@ public:
 
         verticalLayout_4->addWidget(pumpSelBtn_7);
 
-        pumpSelBtn_6 = new QPushButton(layoutWidget5);
+        pumpSelBtn_6 = new QPushButton(layoutWidget7);
         pumpSelBtn_6->setObjectName(QString::fromUtf8("pumpSelBtn_6"));
         pumpSelBtn_6->setFont(font10);
         pumpSelBtn_6->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
@@ -769,7 +839,7 @@ public:
 
         verticalLayout_4->addWidget(pumpSelBtn_6);
 
-        pumpSelBtn_12 = new QPushButton(layoutWidget5);
+        pumpSelBtn_12 = new QPushButton(layoutWidget7);
         pumpSelBtn_12->setObjectName(QString::fromUtf8("pumpSelBtn_12"));
         pumpSelBtn_12->setFont(font10);
         pumpSelBtn_12->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
@@ -778,7 +848,7 @@ public:
 
         verticalLayout_4->addWidget(pumpSelBtn_12);
 
-        pumpSelBtn_9 = new QPushButton(layoutWidget5);
+        pumpSelBtn_9 = new QPushButton(layoutWidget7);
         pumpSelBtn_9->setObjectName(QString::fromUtf8("pumpSelBtn_9"));
         pumpSelBtn_9->setFont(font10);
         pumpSelBtn_9->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
@@ -787,7 +857,7 @@ public:
 
         verticalLayout_4->addWidget(pumpSelBtn_9);
 
-        pumpSelBtn_11 = new QPushButton(layoutWidget5);
+        pumpSelBtn_11 = new QPushButton(layoutWidget7);
         pumpSelBtn_11->setObjectName(QString::fromUtf8("pumpSelBtn_11"));
         pumpSelBtn_11->setFont(font10);
         pumpSelBtn_11->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
@@ -796,7 +866,7 @@ public:
 
         verticalLayout_4->addWidget(pumpSelBtn_11);
 
-        pumpSelBtn_10 = new QPushButton(layoutWidget5);
+        pumpSelBtn_10 = new QPushButton(layoutWidget7);
         pumpSelBtn_10->setObjectName(QString::fromUtf8("pumpSelBtn_10"));
         pumpSelBtn_10->setFont(font10);
         pumpSelBtn_10->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
@@ -805,7 +875,7 @@ public:
 
         verticalLayout_4->addWidget(pumpSelBtn_10);
 
-        pumpSelBtn_16 = new QPushButton(layoutWidget5);
+        pumpSelBtn_16 = new QPushButton(layoutWidget7);
         pumpSelBtn_16->setObjectName(QString::fromUtf8("pumpSelBtn_16"));
         pumpSelBtn_16->setFont(font10);
         pumpSelBtn_16->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
@@ -814,7 +884,7 @@ public:
 
         verticalLayout_4->addWidget(pumpSelBtn_16);
 
-        pumpSelBtn_13 = new QPushButton(layoutWidget5);
+        pumpSelBtn_13 = new QPushButton(layoutWidget7);
         pumpSelBtn_13->setObjectName(QString::fromUtf8("pumpSelBtn_13"));
         pumpSelBtn_13->setFont(font10);
         pumpSelBtn_13->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
@@ -823,7 +893,7 @@ public:
 
         verticalLayout_4->addWidget(pumpSelBtn_13);
 
-        pumpSelBtn_15 = new QPushButton(layoutWidget5);
+        pumpSelBtn_15 = new QPushButton(layoutWidget7);
         pumpSelBtn_15->setObjectName(QString::fromUtf8("pumpSelBtn_15"));
         pumpSelBtn_15->setFont(font10);
         pumpSelBtn_15->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
@@ -832,7 +902,7 @@ public:
 
         verticalLayout_4->addWidget(pumpSelBtn_15);
 
-        pumpSelBtn_14 = new QPushButton(layoutWidget5);
+        pumpSelBtn_14 = new QPushButton(layoutWidget7);
         pumpSelBtn_14->setObjectName(QString::fromUtf8("pumpSelBtn_14"));
         pumpSelBtn_14->setFont(font10);
         pumpSelBtn_14->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
@@ -844,31 +914,46 @@ public:
         stackedWidget->addWidget(pumpClearPage);
         createRecipePage = new QWidget();
         createRecipePage->setObjectName(QString::fromUtf8("createRecipePage"));
-        layoutWidget6 = new QWidget(createRecipePage);
-        layoutWidget6->setObjectName(QString::fromUtf8("layoutWidget6"));
-        layoutWidget6->setGeometry(QRect(20, 20, 541, 941));
-        verticalLayout_3 = new QVBoxLayout(layoutWidget6);
+        label_12 = new QLabel(createRecipePage);
+        label_12->setObjectName(QString::fromUtf8("label_12"));
+        label_12->setGeometry(QRect(210, 710, 174, 38));
+        label_12->setFont(font1);
+        label_12->setAlignment(Qt::AlignCenter);
+        layoutWidget8 = new QWidget(createRecipePage);
+        layoutWidget8->setObjectName(QString::fromUtf8("layoutWidget8"));
+        layoutWidget8->setGeometry(QRect(51, 1, 481, 691));
+        verticalLayout_3 = new QVBoxLayout(layoutWidget8);
         verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
         verticalLayout_3->setContentsMargins(0, 0, 0, 0);
+        verticalLayout_2 = new QVBoxLayout();
+        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
         horizontalLayout_3 = new QHBoxLayout();
         horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
-        pushButton_2 = new QPushButton(layoutWidget6);
+        pushButton_2 = new QPushButton(layoutWidget8);
         pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
 
         horizontalLayout_3->addWidget(pushButton_2);
 
-        label_3 = new QLabel(layoutWidget6);
+        horizontalSpacer_13 = new QSpacerItem(40, 20, QSizePolicy::Minimum, QSizePolicy::Minimum);
+
+        horizontalLayout_3->addItem(horizontalSpacer_13);
+
+        label_3 = new QLabel(layoutWidget8);
         label_3->setObjectName(QString::fromUtf8("label_3"));
-        label_3->setFont(font9);
+        label_3->setFont(font1);
         label_3->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         label_3->setAlignment(Qt::AlignCenter);
 
         horizontalLayout_3->addWidget(label_3);
 
+        horizontalSpacer_14 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        verticalLayout_3->addLayout(horizontalLayout_3);
+        horizontalLayout_3->addItem(horizontalSpacer_14);
 
-        lineEditDrinkName = new QLineEdit(layoutWidget6);
+
+        verticalLayout_2->addLayout(horizontalLayout_3);
+
+        lineEditDrinkName = new QLineEdit(layoutWidget8);
         lineEditDrinkName->setObjectName(QString::fromUtf8("lineEditDrinkName"));
         QFont font11;
         font11.setFamily(QString::fromUtf8("DejaVu Sans Mono"));
@@ -876,111 +961,178 @@ public:
         lineEditDrinkName->setFont(font11);
         lineEditDrinkName->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
 
-        verticalLayout_3->addWidget(lineEditDrinkName);
+        verticalLayout_2->addWidget(lineEditDrinkName);
 
-        scrollAreaRecipe = new QScrollArea(layoutWidget6);
+
+        verticalLayout_3->addLayout(verticalLayout_2);
+
+        verticalSpacer_4 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Maximum);
+
+        verticalLayout_3->addItem(verticalSpacer_4);
+
+        scrollAreaRecipe = new QScrollArea(layoutWidget8);
         scrollAreaRecipe->setObjectName(QString::fromUtf8("scrollAreaRecipe"));
+        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(scrollAreaRecipe->sizePolicy().hasHeightForWidth());
+        scrollAreaRecipe->setSizePolicy(sizePolicy2);
+        scrollAreaRecipe->setMinimumSize(QSize(0, 330));
         scrollAreaRecipe->setWidgetResizable(true);
         scrollAreaWidgetContents_3 = new QWidget();
         scrollAreaWidgetContents_3->setObjectName(QString::fromUtf8("scrollAreaWidgetContents_3"));
-        scrollAreaWidgetContents_3->setGeometry(QRect(0, 0, 537, 360));
+        scrollAreaWidgetContents_3->setGeometry(QRect(0, 0, 477, 328));
         scrollAreaRecipe->setWidget(scrollAreaWidgetContents_3);
 
         verticalLayout_3->addWidget(scrollAreaRecipe);
 
-        textEdit = new QTextEdit(layoutWidget6);
+        verticalSpacer_3 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Maximum);
+
+        verticalLayout_3->addItem(verticalSpacer_3);
+
+        textEdit = new QTextEdit(layoutWidget8);
         textEdit->setObjectName(QString::fromUtf8("textEdit"));
+        QSizePolicy sizePolicy3(QSizePolicy::Expanding, QSizePolicy::Preferred);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(textEdit->sizePolicy().hasHeightForWidth());
+        textEdit->setSizePolicy(sizePolicy3);
         textEdit->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
 
         verticalLayout_3->addWidget(textEdit);
 
-        gridLayout_4 = new QGridLayout();
-        gridLayout_4->setObjectName(QString::fromUtf8("gridLayout_4"));
-        addShowBtn = new QPushButton(layoutWidget6);
-        addShowBtn->setObjectName(QString::fromUtf8("addShowBtn"));
-
-        gridLayout_4->addWidget(addShowBtn, 0, 0, 1, 4);
-
-        musicBtn = new QPushButton(layoutWidget6);
+        layoutWidget9 = new QWidget(createRecipePage);
+        layoutWidget9->setObjectName(QString::fromUtf8("layoutWidget9"));
+        layoutWidget9->setGeometry(QRect(31, 764, 521, 221));
+        verticalLayout_6 = new QVBoxLayout(layoutWidget9);
+        verticalLayout_6->setObjectName(QString::fromUtf8("verticalLayout_6"));
+        verticalLayout_6->setContentsMargins(0, 0, 0, 0);
+        horizontalLayout_10 = new QHBoxLayout();
+        horizontalLayout_10->setSpacing(33);
+        horizontalLayout_10->setObjectName(QString::fromUtf8("horizontalLayout_10"));
+        musicBtn = new QPushButton(layoutWidget9);
         musicBtn->setObjectName(QString::fromUtf8("musicBtn"));
+        musicBtn->setMinimumSize(QSize(0, 66));
 
-        gridLayout_4->addWidget(musicBtn, 1, 0, 1, 1);
+        horizontalLayout_10->addWidget(musicBtn);
 
-        pictureBtn = new QPushButton(layoutWidget6);
+        pictureBtn = new QPushButton(layoutWidget9);
         pictureBtn->setObjectName(QString::fromUtf8("pictureBtn"));
+        pictureBtn->setMinimumSize(QSize(0, 66));
 
-        gridLayout_4->addWidget(pictureBtn, 1, 1, 1, 2);
+        horizontalLayout_10->addWidget(pictureBtn);
 
-        videoBtn = new QPushButton(layoutWidget6);
+        videoBtn = new QPushButton(layoutWidget9);
         videoBtn->setObjectName(QString::fromUtf8("videoBtn"));
+        videoBtn->setMinimumSize(QSize(0, 66));
 
-        gridLayout_4->addWidget(videoBtn, 1, 3, 1, 1);
+        horizontalLayout_10->addWidget(videoBtn);
 
-        musicLabel = new QLabel(layoutWidget6);
-        musicLabel->setObjectName(QString::fromUtf8("musicLabel"));
-        musicLabel->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
 
-        gridLayout_4->addWidget(musicLabel, 2, 0, 1, 1);
+        verticalLayout_6->addLayout(horizontalLayout_10);
 
-        pictureLabel = new QLabel(layoutWidget6);
-        pictureLabel->setObjectName(QString::fromUtf8("pictureLabel"));
-        pictureLabel->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
-
-        gridLayout_4->addWidget(pictureLabel, 2, 1, 1, 2);
-
-        videoLabel = new QLabel(layoutWidget6);
-        videoLabel->setObjectName(QString::fromUtf8("videoLabel"));
-        videoLabel->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
-
-        gridLayout_4->addWidget(videoLabel, 2, 3, 1, 1);
-
-        addIngredientBtn = new QPushButton(layoutWidget6);
+        horizontalLayout_11 = new QHBoxLayout();
+        horizontalLayout_11->setSpacing(88);
+        horizontalLayout_11->setObjectName(QString::fromUtf8("horizontalLayout_11"));
+        addIngredientBtn = new QPushButton(layoutWidget9);
         addIngredientBtn->setObjectName(QString::fromUtf8("addIngredientBtn"));
+        addIngredientBtn->setMinimumSize(QSize(0, 66));
 
-        gridLayout_4->addWidget(addIngredientBtn, 3, 0, 1, 2);
+        horizontalLayout_11->addWidget(addIngredientBtn);
 
-        saveDrinkBtn = new QPushButton(layoutWidget6);
+        saveDrinkBtn = new QPushButton(layoutWidget9);
         saveDrinkBtn->setObjectName(QString::fromUtf8("saveDrinkBtn"));
+        saveDrinkBtn->setMinimumSize(QSize(0, 66));
 
-        gridLayout_4->addWidget(saveDrinkBtn, 3, 2, 1, 2);
+        horizontalLayout_11->addWidget(saveDrinkBtn);
 
 
-        verticalLayout_3->addLayout(gridLayout_4);
+        verticalLayout_6->addLayout(horizontalLayout_11);
 
         stackedWidget->addWidget(createRecipePage);
         beverageAssignPage = new QWidget();
         beverageAssignPage->setObjectName(QString::fromUtf8("beverageAssignPage"));
-        scrollAreaBeverages = new QScrollArea(beverageAssignPage);
+        layoutWidget10 = new QWidget(beverageAssignPage);
+        layoutWidget10->setObjectName(QString::fromUtf8("layoutWidget10"));
+        layoutWidget10->setGeometry(QRect(10, 90, 561, 911));
+        verticalLayout_8 = new QVBoxLayout(layoutWidget10);
+        verticalLayout_8->setObjectName(QString::fromUtf8("verticalLayout_8"));
+        verticalLayout_8->setContentsMargins(0, 0, 0, 0);
+        scrollAreaBeverages = new QScrollArea(layoutWidget10);
         scrollAreaBeverages->setObjectName(QString::fromUtf8("scrollAreaBeverages"));
-        scrollAreaBeverages->setGeometry(QRect(12, 115, 551, 491));
         scrollAreaBeverages->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
         scrollAreaBeverages->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
         scrollAreaBeverages->setWidgetResizable(true);
         scrollAreaWidgetContents_2 = new QWidget();
         scrollAreaWidgetContents_2->setObjectName(QString::fromUtf8("scrollAreaWidgetContents_2"));
-        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 535, 489));
+        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 543, 509));
         scrollAreaBeverages->setWidget(scrollAreaWidgetContents_2);
-        addBeverageBtn = new QPushButton(beverageAssignPage);
-        addBeverageBtn->setObjectName(QString::fromUtf8("addBeverageBtn"));
-        addBeverageBtn->setGeometry(QRect(450, 810, 80, 25));
-        sizePolicy.setHeightForWidth(addBeverageBtn->sizePolicy().hasHeightForWidth());
-        addBeverageBtn->setSizePolicy(sizePolicy);
-        removeBeverageBtn = new QPushButton(beverageAssignPage);
-        removeBeverageBtn->setObjectName(QString::fromUtf8("removeBeverageBtn"));
-        removeBeverageBtn->setGeometry(QRect(450, 740, 80, 25));
-        sizePolicy.setHeightForWidth(removeBeverageBtn->sizePolicy().hasHeightForWidth());
-        removeBeverageBtn->setSizePolicy(sizePolicy);
-        listWidgetBeverages = new QListWidget(beverageAssignPage);
+
+        verticalLayout_8->addWidget(scrollAreaBeverages);
+
+        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Maximum);
+
+        verticalLayout_8->addItem(verticalSpacer);
+
+        label_13 = new QLabel(layoutWidget10);
+        label_13->setObjectName(QString::fromUtf8("label_13"));
+        label_13->setFont(font1);
+        label_13->setAlignment(Qt::AlignCenter);
+
+        verticalLayout_8->addWidget(label_13);
+
+        horizontalLayout_12 = new QHBoxLayout();
+        horizontalLayout_12->setSpacing(33);
+        horizontalLayout_12->setObjectName(QString::fromUtf8("horizontalLayout_12"));
+        listWidgetBeverages = new QListWidget(layoutWidget10);
         listWidgetBeverages->setObjectName(QString::fromUtf8("listWidgetBeverages"));
-        listWidgetBeverages->setGeometry(QRect(20, 650, 351, 341));
-        layoutWidget7 = new QWidget(beverageAssignPage);
-        layoutWidget7->setObjectName(QString::fromUtf8("layoutWidget7"));
-        layoutWidget7->setGeometry(QRect(12, 22, 135, 40));
-        horizontalLayout_2 = new QHBoxLayout(layoutWidget7);
-        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
-        horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
-        backButtonBeverages = new QPushButton(layoutWidget7);
+        listWidgetBeverages->setFont(font11);
+
+        horizontalLayout_12->addWidget(listWidgetBeverages);
+
+        verticalLayout_7 = new QVBoxLayout();
+        verticalLayout_7->setSpacing(33);
+        verticalLayout_7->setObjectName(QString::fromUtf8("verticalLayout_7"));
+        verticalLayout_7->setContentsMargins(-1, 22, -1, 12);
+        removeBeverageBtn = new QPushButton(layoutWidget10);
+        removeBeverageBtn->setObjectName(QString::fromUtf8("removeBeverageBtn"));
+        sizePolicy1.setHeightForWidth(removeBeverageBtn->sizePolicy().hasHeightForWidth());
+        removeBeverageBtn->setSizePolicy(sizePolicy1);
+
+        verticalLayout_7->addWidget(removeBeverageBtn);
+
+        editBeverageNameBtn = new QPushButton(layoutWidget10);
+        editBeverageNameBtn->setObjectName(QString::fromUtf8("editBeverageNameBtn"));
+        sizePolicy1.setHeightForWidth(editBeverageNameBtn->sizePolicy().hasHeightForWidth());
+        editBeverageNameBtn->setSizePolicy(sizePolicy1);
+
+        verticalLayout_7->addWidget(editBeverageNameBtn);
+
+        addBeverageBtn = new QPushButton(layoutWidget10);
+        addBeverageBtn->setObjectName(QString::fromUtf8("addBeverageBtn"));
+        sizePolicy1.setHeightForWidth(addBeverageBtn->sizePolicy().hasHeightForWidth());
+        addBeverageBtn->setSizePolicy(sizePolicy1);
+
+        verticalLayout_7->addWidget(addBeverageBtn);
+
+        verticalLayout_7->setStretch(0, 1);
+        verticalLayout_7->setStretch(1, 1);
+        verticalLayout_7->setStretch(2, 2);
+
+        horizontalLayout_12->addLayout(verticalLayout_7);
+
+        horizontalLayout_12->setStretch(0, 4);
+        horizontalLayout_12->setStretch(1, 1);
+
+        verticalLayout_8->addLayout(horizontalLayout_12);
+
+        verticalLayout_8->setStretch(0, 6);
+        verticalLayout_8->setStretch(1, 1);
+        verticalLayout_8->setStretch(2, 1);
+        verticalLayout_8->setStretch(3, 3);
+        backButtonBeverages = new QPushButton(beverageAssignPage);
         backButtonBeverages->setObjectName(QString::fromUtf8("backButtonBeverages"));
+        backButtonBeverages->setGeometry(QRect(13, 26, 141, 38));
         QIcon icon1;
         QString iconThemeName = QString::fromUtf8("edit-undo");
         if (QIcon::hasThemeIcon(iconThemeName)) {
@@ -990,36 +1142,26 @@ public:
         }
         backButtonBeverages->setIcon(icon1);
         backButtonBeverages->setIconSize(QSize(32, 32));
-
-        horizontalLayout_2->addWidget(backButtonBeverages);
-
-        horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout_2->addItem(horizontalSpacer_3);
-
         stackedWidget->addWidget(beverageAssignPage);
         beverageSaveNamePage = new QWidget();
         beverageSaveNamePage->setObjectName(QString::fromUtf8("beverageSaveNamePage"));
-        layoutWidget8 = new QWidget(beverageSaveNamePage);
-        layoutWidget8->setObjectName(QString::fromUtf8("layoutWidget8"));
-        layoutWidget8->setGeometry(QRect(10, 10, 561, 261));
-        gridLayout_3 = new QGridLayout(layoutWidget8);
+        layoutWidget11 = new QWidget(beverageSaveNamePage);
+        layoutWidget11->setObjectName(QString::fromUtf8("layoutWidget11"));
+        layoutWidget11->setGeometry(QRect(10, 10, 561, 261));
+        gridLayout_3 = new QGridLayout(layoutWidget11);
         gridLayout_3->setObjectName(QString::fromUtf8("gridLayout_3"));
         gridLayout_3->setContentsMargins(0, 0, 0, 0);
-        saveBeverage = new QPushButton(layoutWidget8);
+        saveBeverage = new QPushButton(layoutWidget11);
         saveBeverage->setObjectName(QString::fromUtf8("saveBeverage"));
-        sizePolicy.setHeightForWidth(saveBeverage->sizePolicy().hasHeightForWidth());
-        saveBeverage->setSizePolicy(sizePolicy);
+        sizePolicy1.setHeightForWidth(saveBeverage->sizePolicy().hasHeightForWidth());
+        saveBeverage->setSizePolicy(sizePolicy1);
 
         gridLayout_3->addWidget(saveBeverage, 2, 1, 1, 1);
 
-        beveragelineEdit = new QLineEdit(layoutWidget8);
+        beveragelineEdit = new QLineEdit(layoutWidget11);
         beveragelineEdit->setObjectName(QString::fromUtf8("beveragelineEdit"));
-        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Minimum);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(beveragelineEdit->sizePolicy().hasHeightForWidth());
-        beveragelineEdit->setSizePolicy(sizePolicy1);
+        sizePolicy.setHeightForWidth(beveragelineEdit->sizePolicy().hasHeightForWidth());
+        beveragelineEdit->setSizePolicy(sizePolicy);
         QFont font12;
         font12.setPointSize(26);
         beveragelineEdit->setFont(font12);
@@ -1029,16 +1171,16 @@ public:
 
         gridLayout_3->addWidget(beveragelineEdit, 1, 0, 1, 2);
 
-        backSaveBeverage = new QPushButton(layoutWidget8);
+        backSaveBeverage = new QPushButton(layoutWidget11);
         backSaveBeverage->setObjectName(QString::fromUtf8("backSaveBeverage"));
-        sizePolicy.setHeightForWidth(backSaveBeverage->sizePolicy().hasHeightForWidth());
-        backSaveBeverage->setSizePolicy(sizePolicy);
+        sizePolicy1.setHeightForWidth(backSaveBeverage->sizePolicy().hasHeightForWidth());
+        backSaveBeverage->setSizePolicy(sizePolicy1);
 
         gridLayout_3->addWidget(backSaveBeverage, 2, 0, 1, 1);
 
-        label_2 = new QLabel(layoutWidget8);
+        label_2 = new QLabel(layoutWidget11);
         label_2->setObjectName(QString::fromUtf8("label_2"));
-        label_2->setFont(font7);
+        label_2->setFont(font8);
         label_2->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         label_2->setAlignment(Qt::AlignCenter);
         label_2->setWordWrap(true);
@@ -1047,13 +1189,13 @@ public:
 
         stackedWidget->addWidget(beverageSaveNamePage);
 
-        gridLayout->addWidget(stackedWidget, 0, 0, 1, 1);
+        gridLayout->addWidget(stackedWidget, 1, 0, 1, 1);
 
         MainWindow->setCentralWidget(centralwidget);
 
         retranslateUi(MainWindow);
 
-        stackedWidget->setCurrentIndex(6);
+        stackedWidget->setCurrentIndex(4);
         newRecipeButton->setDefault(false);
 
 
@@ -1066,12 +1208,12 @@ public:
         settingButton->setText(QString());
         label->setText(QCoreApplication::translate("MainWindow", "Available drinks list:", nullptr));
         stopMediaBtn->setText(QCoreApplication::translate("MainWindow", "STOP", nullptr));
-        pushButton_3->setText(QCoreApplication::translate("MainWindow", "BACK", nullptr));
-        pushButton_4->setText(QCoreApplication::translate("MainWindow", "PREPARE", nullptr));
-        label_10->setText(QCoreApplication::translate("MainWindow", "Ingedients:", nullptr));
+        label_10->setText(QCoreApplication::translate("MainWindow", "Ingredients:", nullptr));
         label_11->setText(QCoreApplication::translate("MainWindow", "Notes:", nullptr));
         editRecipeBtn->setText(QCoreApplication::translate("MainWindow", "EDIT", nullptr));
-        pushButton->setText(QCoreApplication::translate("MainWindow", "BACK", nullptr));
+        drinkPrepare_backBtn->setText(QCoreApplication::translate("MainWindow", "BACK", nullptr));
+        drinkPrepare_prepareBtn->setText(QCoreApplication::translate("MainWindow", "PREPARE", nullptr));
+        menuPage_backBtn->setText(QCoreApplication::translate("MainWindow", "BACK", nullptr));
         newRecipeButton->setText(QCoreApplication::translate("MainWindow", "Create new recipe", nullptr));
         AssignPumpButton->setText(QCoreApplication::translate("MainWindow", "Assign pump", nullptr));
         cleanPumpButton->setText(QCoreApplication::translate("MainWindow", "Pump clean", nullptr));
@@ -1103,7 +1245,7 @@ public:
         calibrationStart->setText(QCoreApplication::translate("MainWindow", "START", nullptr));
         label_8->setText(QCoreApplication::translate("MainWindow", "enter the measured\n"
 "liquid volume", nullptr));
-        lineEditCalibrate->setText(QCoreApplication::translate("MainWindow", "0.00", nullptr));
+        lineEditCalibrate->setText(QCoreApplication::translate("MainWindow", "1,8", nullptr));
         label_9->setText(QCoreApplication::translate("MainWindow", "OZ", nullptr));
         calibrationSave->setText(QCoreApplication::translate("MainWindow", "SAVE", nullptr));
         backBtnCleanPage->setText(QCoreApplication::translate("MainWindow", "BACK", nullptr));
@@ -1126,6 +1268,7 @@ public:
         pumpSelBtn_13->setText(QCoreApplication::translate("MainWindow", "PUMP 14", nullptr));
         pumpSelBtn_15->setText(QCoreApplication::translate("MainWindow", "PUMP 15", nullptr));
         pumpSelBtn_14->setText(QCoreApplication::translate("MainWindow", "PUMP 16", nullptr));
+        label_12->setText(QCoreApplication::translate("MainWindow", "Add show:", nullptr));
         pushButton_2->setText(QCoreApplication::translate("MainWindow", "BACK", nullptr));
         label_3->setText(QCoreApplication::translate("MainWindow", "Create recipe", nullptr));
         lineEditDrinkName->setText(QCoreApplication::translate("MainWindow", "Enter drink name", nullptr));
@@ -1135,17 +1278,15 @@ public:
 "hr { height: 1px; border-width: 0; }\n"
 "</style></head><body style=\" font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Add note</p></body></html>", nullptr));
-        addShowBtn->setText(QCoreApplication::translate("MainWindow", "ADD SHOW", nullptr));
         musicBtn->setText(QCoreApplication::translate("MainWindow", "MUSIC", nullptr));
         pictureBtn->setText(QCoreApplication::translate("MainWindow", "PICTURE", nullptr));
         videoBtn->setText(QCoreApplication::translate("MainWindow", "VIDEO", nullptr));
-        musicLabel->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
-        pictureLabel->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
-        videoLabel->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
         addIngredientBtn->setText(QCoreApplication::translate("MainWindow", "ADD INGREDIENT", nullptr));
         saveDrinkBtn->setText(QCoreApplication::translate("MainWindow", "SAVE", nullptr));
-        addBeverageBtn->setText(QCoreApplication::translate("MainWindow", "ADD", nullptr));
+        label_13->setText(QCoreApplication::translate("MainWindow", "Available beverages list", nullptr));
         removeBeverageBtn->setText(QCoreApplication::translate("MainWindow", "REMOVE", nullptr));
+        editBeverageNameBtn->setText(QCoreApplication::translate("MainWindow", "EDIT", nullptr));
+        addBeverageBtn->setText(QCoreApplication::translate("MainWindow", "ADD", nullptr));
         backButtonBeverages->setText(QCoreApplication::translate("MainWindow", "   Back", nullptr));
         saveBeverage->setText(QCoreApplication::translate("MainWindow", "SAVE", nullptr));
         beveragelineEdit->setText(QString());
