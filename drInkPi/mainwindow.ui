@@ -21,7 +21,7 @@
     <item row="1" column="0">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>4</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="startPage">
        <widget class="QScrollArea" name="scrollArea">
@@ -453,7 +453,7 @@ QSlider::handle:horizontal {
           <height>981</height>
          </rect>
         </property>
-        <layout class="QVBoxLayout" name="verticalLayout_9" stretch="1,0,1,0,1,2">
+        <layout class="QVBoxLayout" name="verticalLayout_9" stretch="1,5,1,3,1,2">
          <item>
           <widget class="QLabel" name="label_10">
            <property name="font">
@@ -471,7 +471,14 @@ QSlider::handle:horizontal {
           </widget>
          </item>
          <item>
-          <widget class="QListWidget" name="listWidgetIngredients"/>
+          <widget class="QListWidget" name="listWidgetIngredients">
+           <property name="font">
+            <font>
+             <family>DejaVu Sans Mono</family>
+             <pointsize>24</pointsize>
+            </font>
+           </property>
+          </widget>
          </item>
          <item>
           <widget class="QLabel" name="label_11">
@@ -490,30 +497,33 @@ QSlider::handle:horizontal {
           </widget>
          </item>
          <item>
-          <widget class="QListWidget" name="listWidgetNotes"/>
+          <widget class="QListWidget" name="listWidgetNotes">
+           <property name="font">
+            <font>
+             <family>DejaVu Sans Mono</family>
+             <pointsize>16</pointsize>
+            </font>
+           </property>
+          </widget>
          </item>
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <property name="spacing">
+            <number>44</number>
+           </property>
+           <property name="leftMargin">
+            <number>33</number>
+           </property>
+           <property name="rightMargin">
+            <number>33</number>
+           </property>
            <property name="bottomMargin">
             <number>22</number>
            </property>
            <item>
-            <spacer name="horizontalSpacer_3">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item>
             <widget class="QPushButton" name="editRecipeBtn">
              <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
@@ -524,17 +534,17 @@ QSlider::handle:horizontal {
             </widget>
            </item>
            <item>
-            <spacer name="horizontalSpacer_15">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
+            <widget class="QPushButton" name="deleteDrinkButton">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
              </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
+             <property name="text">
+              <string>DELETE</string>
              </property>
-            </spacer>
+            </widget>
            </item>
           </layout>
          </item>

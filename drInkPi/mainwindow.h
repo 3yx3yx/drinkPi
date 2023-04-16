@@ -56,6 +56,11 @@ struct Drink {
     }
 };
 
+struct PumpStopEvent {
+    int next_stop_time;
+    int pump;
+};
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -67,15 +72,17 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    QMediaPlayer* player;
-    QMediaPlayer* player_2;
+    QMediaPlayer* player_video;
+    QMediaPlayer* player_audio;
     QMovie* movie;
     QLabel* show_picture;
 
-    void player_pos_slot (qint64 pos);
 
-    const QString json_config_path = "";
-    const QString pump_config_path = "";
+
+
+
+    const QString json_config_path = "/home/pi/drInkPi/config.json";
+    const QString pump_config_path = "/home/pi/drInkPi/calib.txt";
 
     QJsonObject getJsonMainObject(void);
     QJsonArray getDrinksJsonArray(void);
@@ -95,21 +102,21 @@ private:
 
     void clearConfigJson (void);
 
-    QVBoxLayout* _main_scroll_layout;
-    QWidget* _widget_scroll_main;
-    QVBoxLayout* _pump_list_scroll_layout;
-    QWidget* _widget_scroll_pump_list;
+    QVBoxLayout* _main_scroll_layout = nullptr;
+    QWidget* _widget_scroll_main = nullptr;
+    QVBoxLayout* _pump_list_scroll_layout = nullptr;
+    QWidget* _widget_scroll_pump_list = nullptr;
 
     QVector<ListUnitWidget*> drinksWidgetsList;
     QVector<ingredientItemWidget*> ingredientWidgetsList;
     QVector<beverageItemWidget*> beverageWidgetsList;
 
-    void loadDrinkListMenu (void);
+    void updateDrinkListMenu (void);
     void loadBeveragesListMenu (void);
 
     Drink _drink_to_prepare;
 
-    float _pump_oz_per_sec[PUMP_N] = {1.0f};
+    float _pump_oz_per_sec[PUMP_N] = {0.0f};
     float get_pump_oz_per_sec (int pump);
     void load_pump_calib_data();
     void upd_pump_calib_data();
@@ -122,11 +129,17 @@ private:
     };
     void gpio_init();
     void start_pump(int pump);
+    void stop_pump(int pump);
     void stop_all_pumps (void);
+
+    QTimer* timer;
+    QVector <PumpStopEvent> pumpStopEvents;
 
 private slots:
     void focus_changed_slot (QWidget* old, QWidget* now);
-
+    void timer_slot(void);
+    void player_pos_slot (qint64 pos);
+    void player_duration_changed_slot (qint64 dur);
     void drinkListBtnClicked (QString name);
 
     void on_addIngredientBtn_clicked();
@@ -152,5 +165,7 @@ private slots:
     void on_startClean_pressed();
     void on_startClean_released();
     void on_backButtonBeverages_clicked();
+
+    void on_deleteDrinkButton_clicked();
 };
 #endif // MAINWINDOW_H

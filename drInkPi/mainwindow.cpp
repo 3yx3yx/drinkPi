@@ -1,4 +1,6 @@
 #include "mainwindow.h"
+#include "qerrormessage.h"
+#include "qmessagebox.h"
 #include "qmovie.h"
 #include "qscrollbar.h"
 #include "ui_mainwindow.h"
@@ -12,6 +14,7 @@
 #include <QtDBus>
 #include <unistd.h>
 
+#define TEST
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -22,32 +25,56 @@ MainWindow::MainWindow(QWidget *parent)
     gpio_init();
     stop_all_pumps();
 
-    // ui->stackedWidget->setCurrentWidget(ui->startPage);
-    _widget_scroll_main = new QWidget (this);
-    _main_scroll_layout = new QVBoxLayout;
-    _widget_scroll_main->setLayout(_main_scroll_layout);
-    ui->scrollArea->setWidget(_widget_scroll_main);
+#ifdef TEST
+    clearConfigJson(); // for test
 
-    loadDrinkListMenu();
+    Drink d;
+    d.name = "Whisky";
+    Beverage b;
+    b.name="whisky";
+    b.pump=1;
+    addBeverageToJson(b);
+    d.ingredients.append(Ingredient{b,1.2});
+    b.name="cola";
+    b.pump=2;
+    addBeverageToJson(b);
+    d.ingredients.append(Ingredient{b,3.1});
+    b.name="jin";
+    b.pump=3;
+    addBeverageToJson(b);
+    d.ingredients.append(Ingredient{b,5.2});
+    d.note = "blabla";
+    d.videoPath = "/home/pi/Videos/smpa.mp4";
 
-    _widget_scroll_pump_list = new QWidget (this);
-    _pump_list_scroll_layout = new QVBoxLayout;
-    _widget_scroll_pump_list->setLayout(_pump_list_scroll_layout);
-    ui->scrollAreaBeverages->setWidget(_widget_scroll_pump_list);
-    QScroller::grabGesture(ui->scrollAreaBeverages, QScroller::LeftMouseButtonGesture);
+    addDrinkToJson(d);
+#endif
 
+
+
+
+
+    updateDrinkListMenu();
     loadBeveragesListMenu();
 
-    player = new QMediaPlayer;
-    player->setVideoOutput(ui->videoWidget);
-    player_2 = new QMediaPlayer;
-    movie = new QMovie;
-    show_picture = new QLabel;
+    QScroller::grabGesture(ui->scrollAreaBeverages, QScroller::LeftMouseButtonGesture);
+    QScroller::grabGesture(ui->scrollArea, QScroller::LeftMouseButtonGesture);
 
+    player_video = new QMediaPlayer(this);
+    player_video->setVideoOutput(ui->videoWidget);
+    player_audio = new QMediaPlayer(this);
+    movie = new QMovie(this);
+    show_picture = new QLabel(this);
+
+    timer = new QTimer(this);
+    timer->setSingleShot(true);
     connect (mainApp, &QApplication::focusChanged,this,&MainWindow::focus_changed_slot);
+
+    connect (timer,&QTimer::timeout,this,&MainWindow::timer_slot);
 
     ui->stackedWidget->setCurrentWidget(ui->startPage);
     load_pump_calib_data();
+
+    ui->volumeSlider->setValue(50);
 
 }
 
@@ -55,8 +82,6 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
-
-
 
 QJsonObject MainWindow::getJsonMainObject()
 {
@@ -75,6 +100,8 @@ QJsonObject MainWindow::getJsonMainObject()
             qDebug() << "json parsing error";
         }
         mainObj = jsonDoc.object();
+    } else {
+        clearConfigJson();
     }
     return mainObj;
 }
@@ -84,11 +111,12 @@ QJsonArray MainWindow::getDrinksJsonArray()
     QJsonArray array;
 
     QJsonObject jsonMainObj = getJsonMainObject();
-    if (jsonMainObj.contains("drinksList"))
+    if (jsonMainObj.contains("drinks"))
     {
-        array = jsonMainObj["drinksList"].toObject().value("drinks").toArray();
+        array = jsonMainObj["drinks"].toArray();
     } else {
         qDebug()<< "json not found drinklist";
+        clearConfigJson();
     }
 
     return array;
@@ -99,11 +127,12 @@ QJsonArray MainWindow::getBeveragesJsonArray()
     QJsonArray array;
 
     QJsonObject jsonMainObj = getJsonMainObject();
-    if (jsonMainObj.contains("beveragesList"))
+    if (jsonMainObj.contains("beverages"))
     {
-        array = jsonMainObj["beveragesList"].toObject().value("beverages").toArray();
+        array = jsonMainObj["beverages"].toArray();
     } else {
         qDebug()<< "json not found beveragesList";
+        clearConfigJson();
     }
 
     return array;
@@ -119,14 +148,16 @@ void MainWindow::rewriteJsonConfig(QJsonObject root)
         file.write(finalData);
         qDebug()<<" json file is updated";
     }
+    file.close();
 }
 
 QVector<Drink> MainWindow::getDrinkList()
 {
     QVector<Drink> List;
-    QJsonArray array = getDrinksJsonArray();
+    QJsonArray arrayDrinks = getDrinksJsonArray();
+    QJsonArray arrayBeverages = getBeveragesJsonArray();
 
-    for (auto&& a : array) {
+    for (auto&& a : arrayDrinks) {
         auto obj = a.toObject();
         Drink d;
         d.name = obj["name"].toString("");
@@ -142,6 +173,15 @@ QVector<Drink> MainWindow::getDrinkList()
             Ingredient ing;
 
             ing.beverage.name = ingObj.value("beverage").toString();
+
+            for (auto &&bev : arrayBeverages) {
+                auto bevObj = bev.toObject();
+                if (bevObj.value("name") == ing.beverage.name) {
+                    ing.beverage.pump = bevObj.value("pump").toInt();
+                    break;
+                }
+            }
+
             ing.portion = ingObj.value("portion").toDouble();
 
             d.ingredients.append(ing);
@@ -228,10 +268,15 @@ void MainWindow::addDrinkToJson(Drink d)
         qDebug()<<"json error empty root";
         clearConfigJson();
 
-    } else if (root.contains("drinksList")) {
-        QJsonArray array = root["drinksList"].toObject().value("drinks").toArray();
+    } else if (root.contains("drinks")) {
+        QJsonArray array = root["drinks"].toArray();
         array.push_back(obj);
+        root.remove("drinks");
+        root.insert("drinks", array);
         qDebug()<<"saved new array element to json object drinks";
+    } else {
+        qDebug()<<"error json drinks arr key not found";
+        clearConfigJson();
     }
 
     rewriteJsonConfig(root);
@@ -252,10 +297,15 @@ void MainWindow::addBeverageToJson(Beverage b)
         qDebug()<<"json error empty root";
         clearConfigJson();
 
-    } else if (root.contains("beveragesList")) {
-        QJsonArray array = root["beveragesList"].toObject().value("beverages").toArray();
+    } else if (root.contains("beverages")) {
+        QJsonArray array = root["beverages"].toArray();
         array.push_back(obj);
+        root.remove("beverages");
+        root.insert("beverages",array);
         qDebug()<<"saved new array element to json object beverages";
+    } else {
+        qDebug()<<"error json beverages arr key not found";
+        clearConfigJson();
     }
 
     rewriteJsonConfig(root);
@@ -270,8 +320,8 @@ void MainWindow::deleteDrinkFromJson(QString name)
          qDebug()<<"json error empty root";
          clearConfigJson();
 
-     }  else if (root.contains("drinksList")) {
-         QJsonArray array = root["drinksList"].toObject().value("drinks").toArray();
+     }  else if (root.contains("drinks")) {
+         QJsonArray array = root["drinks"].toArray();
 
          int i = 0;
          for (auto&& a : array) {
@@ -279,10 +329,16 @@ void MainWindow::deleteDrinkFromJson(QString name)
 
              if (obj.value("name").toString() == name) {
                 array.removeAt(i);
+                break;
              }
              ++i;
          }
+         root.remove("drinks");
+         root.insert("drinks", array);
 
+     } else {
+         qDebug()<<"error json drinks arr key not found";
+         clearConfigJson();
      }
 
 
@@ -299,8 +355,8 @@ void MainWindow::deleteBeverageFromJson(QString name)
         qDebug()<<"json error empty root";
         clearConfigJson();
 
-    } else if (root.contains("beveragesList")) {
-        QJsonArray array = root["beveragesList"].toObject().value("beverages").toArray();
+    } else if (root.contains("beverages")) {
+        QJsonArray array = root["beverages"].toArray();
 
         int i = 0;
         for (auto&& a : array) {
@@ -311,7 +367,12 @@ void MainWindow::deleteBeverageFromJson(QString name)
             }
             ++i;
         }
+        root.remove("beverages");
+        root.insert("beverages", array);
 
+    } else {
+        qDebug()<<"error json beverages arr key not found";
+        clearConfigJson();
     }
 
     rewriteJsonConfig(root);
@@ -325,34 +386,33 @@ void MainWindow::deleteBeverageFromJson(QString name)
 void MainWindow::clearConfigJson()
 {
     QJsonObject root;
-    QJsonObject drinkListObj;
-    QJsonObject beverageListObj;
     QJsonArray drinksArray;
     QJsonArray bevArray;
-    drinkListObj.insert("drinks",drinksArray);
-    beverageListObj.insert("beverages",bevArray);
-    root.insert("drinksList",drinksArray);
-    root.insert("beveragesList",bevArray);
+
+    root.insert("drinks",drinksArray);
+    root.insert("beverages",bevArray);
+
+    qDebug() << "json file cleared new objects created ";
 
     rewriteJsonConfig(root);
 }
 
-void MainWindow::loadDrinkListMenu()
+void MainWindow::updateDrinkListMenu()
 {
-    qDebug()<<"cleaning drinks list menu";
-    for (auto w : qAsConst(drinksWidgetsList)) { // clear
-        drinksWidgetsList.removeFirst();
-        if (w != nullptr) {
-            _main_scroll_layout->removeWidget(w);
-            delete w;
-        }
-    }
-    qDebug()<<"cleaning drinks list menu done";
+    delete _widget_scroll_main;
+    delete _main_scroll_layout;
+
+    _widget_scroll_main = new QWidget (this);
+    _main_scroll_layout = new QVBoxLayout;
+    _widget_scroll_main->setLayout(_main_scroll_layout);
+    ui->scrollArea->setWidget(_widget_scroll_main);
+    drinksWidgetsList.clear();
+
 
     const QVector<Drink> drinksList = getDrinkList();  // fill
     for (const auto& d : drinksList)
     {
-        auto unit = new ListUnitWidget(this);
+        auto unit = new ListUnitWidget(_widget_scroll_main);
         drinksWidgetsList.append(unit);
         unit->setItemString(d.name);
         qDebug()<<d.name;
@@ -370,15 +430,12 @@ void MainWindow::loadDrinkListMenu()
 
 void MainWindow::loadBeveragesListMenu()
 {
-    qDebug()<<"cleaning beverages list menu";
-    for (auto w : qAsConst(beverageWidgetsList)){
-        beverageWidgetsList.removeFirst();
-        if (w != nullptr) {
-            _pump_list_scroll_layout->removeWidget(w);
-            delete w;
-        }
-    }
-    qDebug()<<"cleaning beverages list menu done";
+
+    _widget_scroll_pump_list = new QWidget (this);
+    _pump_list_scroll_layout = new QVBoxLayout;
+    _widget_scroll_pump_list->setLayout(_pump_list_scroll_layout);
+    ui->scrollAreaBeverages->setWidget(_widget_scroll_pump_list);
+
     const QVector<Beverage> beveragesList = getBeveragesList();
     QStringList list;
     for (const auto&b : beveragesList) list.append(b.name);
@@ -386,7 +443,7 @@ void MainWindow::loadBeveragesListMenu()
     ui->listWidgetBeverages->addItems(list);
 
     for (int i = 1; i<= PUMP_N; ++i) {
-        auto unit = new beverageItemWidget (this);
+        auto unit = new beverageItemWidget (_widget_scroll_pump_list);
         beverageWidgetsList.append(unit);
         for (const auto &b : beveragesList) {
             if (b.pump == i) {
@@ -403,6 +460,7 @@ void MainWindow::loadBeveragesListMenu()
 
 float MainWindow::get_pump_oz_per_sec(int pump)
 {
+    qDebug() << pump <<"pump" << _pump_oz_per_sec[pump] <<"oz per sec";
     return _pump_oz_per_sec[pump];
 }
 
@@ -426,6 +484,8 @@ void MainWindow::load_pump_calib_data()
                 qDebug()<< "error reading pump config";
             }
         }
+    } else {
+        upd_pump_calib_data();
     }
 
     file.close();
@@ -465,7 +525,14 @@ void MainWindow::gpio_init()
 void MainWindow::start_pump(int pump)
 {
     if (pump >= 0 && pump < PUMP_N) {
-        bcm2835_gpio_write((uint8_t)pump, HIGH);
+        bcm2835_gpio_write(_pump_gpio[pump], HIGH);
+    }
+}
+
+void MainWindow::stop_pump(int pump)
+{
+    if (pump >= 0 && pump < PUMP_N) {
+        bcm2835_gpio_write(_pump_gpio[pump], LOW);
     }
 }
 
@@ -481,31 +548,25 @@ void MainWindow::stop_all_pumps()
 
 void MainWindow::focus_changed_slot(QWidget *old, QWidget *now)
 {
-    QString objNameNow = QString(now->metaObject()->className());
+    QString objNameNow;
     QString objNameOld;
 
+    if (now != nullptr) objNameNow =  QString(now->metaObject()->className());
     if (old != nullptr)  objNameOld = QString(old->metaObject()->className());
 
     if (objNameNow == QString("QLineEdit") || objNameNow == QString("QTextEdit")) {
-        //qDebug()<<"line edit focused";
 
-        auto msg = QDBusMessage::createMethodCall("org.onboard.Onboard",
-                                                  "/org/onboard/Onboard/Keyboard",
-                                                  "org.onboard.Onboard.Keyboard",
-                                                  "Hide");
-
-        QDBusConnection::sessionBus().send(msg);
-
-        msg = QDBusMessage::createMethodCall( "org.onboard.Onboard",
+        auto msg = QDBusMessage::createMethodCall( "org.onboard.Onboard",
                                                    "/org/onboard/Onboard/Keyboard",
                                                    "org.onboard.Onboard.Keyboard",
                                                    "Show");
 
         QDBusConnection::sessionBus().send(msg);
 
+        this->showMaximized();
+
 
     } else {
-        //qDebug()<<"hide keybrd";
 
         auto msg = QDBusMessage::createMethodCall("org.onboard.Onboard",
                                                   "/org/onboard/Onboard/Keyboard",
@@ -513,10 +574,13 @@ void MainWindow::focus_changed_slot(QWidget *old, QWidget *now)
                                                   "Hide");
 
         QDBusConnection::sessionBus().send(msg);
+
+        this->showFullScreen();
     }
 
 
 }
+
 
 
 
@@ -602,6 +666,10 @@ void MainWindow::on_editRecipeBtn_clicked()
 {
 
 }
+void MainWindow::on_deleteDrinkButton_clicked()
+{
+    deleteDrinkFromJson(_drink_to_prepare.name);
+}
 void MainWindow::on_drinkPrepare_backBtn_clicked()
 {
     //loadDrinkListMenu();
@@ -613,13 +681,11 @@ void MainWindow::on_drinkPrepare_prepareBtn_clicked()
     //PREPARING
     ui->stackedWidget->setCurrentWidget(ui->showPage);
 
-
+    bool hasVideo = false, hasAudio = false;
 
     if (!_drink_to_prepare.videoPath.isEmpty()){
-        player->setMedia(QUrl::fromLocalFile(_drink_to_prepare.videoPath));
-        player->play();
-        ui->videoWidget->show();
-        ui->videoWidget->raise();
+        player_video->setMedia(QUrl::fromLocalFile(_drink_to_prepare.videoPath));
+        hasVideo = true;
 
     } else if (!_drink_to_prepare.picturePath.isEmpty()) {
         QString path  = _drink_to_prepare.picturePath;
@@ -636,44 +702,141 @@ void MainWindow::on_drinkPrepare_prepareBtn_clicked()
     }
 
     if (!_drink_to_prepare.audioPath.isEmpty()){
-
-        player_2->setMedia(QUrl::fromLocalFile(_drink_to_prepare.audioPath));
-        player_2->play();
+        hasAudio = true;
+        player_audio->setMedia(QUrl::fromLocalFile(_drink_to_prepare.audioPath));
     }
 
-    player->setVolume(ui->volumeSlider->value());
-    player_2->setVolume(ui->volumeSlider->value());
-    qDebug()<< player->state();
-    qDebug()<< player_2->state();
+    player_video->setVolume(ui->volumeSlider->value());
+    player_audio->setVolume(ui->volumeSlider->value());
 
-    qint64 duration = 0;
-    if (player->duration() > player_2->duration()) {
-        duration = player->duration();
-        player_2->blockSignals(1);
-        player->blockSignals(0);
-        disconnect (player_2,&QMediaPlayer::positionChanged, this, &MainWindow::player_pos_slot);
-        connect (player,&QMediaPlayer::positionChanged, this, &MainWindow::player_pos_slot);
+    if (hasVideo) {
+
+        disconnect (player_audio,&QMediaPlayer::positionChanged, this, &MainWindow::player_pos_slot);
+        connect (player_video,&QMediaPlayer::positionChanged, this, &MainWindow::player_pos_slot);
+        disconnect (player_audio,&QMediaPlayer::durationChanged, this, &MainWindow::player_duration_changed_slot);
+        connect (player_video,&QMediaPlayer::durationChanged, this, &MainWindow::player_duration_changed_slot);
+
     }
-    else{
-      duration = player_2->duration();
-      player_2->blockSignals(0);
-      player->blockSignals(1);
-      disconnect (player,&QMediaPlayer::positionChanged, this, &MainWindow::player_pos_slot);
-      connect (player_2,&QMediaPlayer::positionChanged, this, &MainWindow::player_pos_slot);
+    else if (hasAudio){
+
+      disconnect (player_video,&QMediaPlayer::positionChanged, this, &MainWindow::player_pos_slot);
+      connect (player_audio,&QMediaPlayer::positionChanged, this, &MainWindow::player_pos_slot);
+      disconnect (player_video,&QMediaPlayer::durationChanged, this, &MainWindow::player_duration_changed_slot);
+      connect (player_audio,&QMediaPlayer::durationChanged, this, &MainWindow::player_duration_changed_slot);
+
     }
 
-    ui->timePosSlider->setMaximum(duration);
+    if (hasAudio) player_audio->play();
+    if (hasVideo) player_video->play();
 
+    Drink d = _drink_to_prepare;
+
+    qDebug() << "start preparing drink" << d.name;
+
+    if (d.ingredients.isEmpty()){
+        qDebug()<<"empty ingredients";
+        return;
+    }
+
+    int i,j,min_idx;
+    for (i = 0; i<d.ingredients.length()-1; ++i) {
+        min_idx = i;
+        for (j = i+1; j < d.ingredients.length(); ++j) {
+
+            if (d.ingredients.at(j).portion <  d.ingredients.at(min_idx).portion) {
+                min_idx = j;
+            }
+        }
+
+        d.ingredients.swapItemsAt(min_idx,i);
+    }
+
+    for (auto&& ing : d.ingredients){
+
+        qDebug()<<"beverage"<<ing.beverage.name<<"portion"<<ing.portion <<"pump"<<ing.beverage.pump;
+        if (ing.beverage.pump < 1 || ing.beverage.pump > PUMP_N){
+            qDebug()<<"no pump specified";
+            QMessageBox mb;
+            mb.setInformativeText("no pump specified: "+ing.beverage.name);
+            mb.setStandardButtons(QMessageBox::Ok);
+            mb.exec();
+            ui->stackedWidget->setCurrentWidget(ui->startPage);
+            return;
+        }
+
+    }
+    pumpStopEvents.clear();
+
+
+    float first_pump_off_t_sec = d.ingredients.first().portion / get_pump_oz_per_sec(d.ingredients.first().beverage.pump-1);
+    int prev_pump = d.ingredients.first().beverage.pump;
+    float prev_t_sec = first_pump_off_t_sec;
+
+    d.ingredients.removeFirst();
+
+    if (!d.ingredients.isEmpty()) {
+
+        for (auto && ing : d.ingredients) {
+            PumpStopEvent e;
+            float t_sec = ing.portion / get_pump_oz_per_sec(ing.beverage.pump-1);
+            int interval_ms = (t_sec-prev_t_sec) * 1000;
+            e.next_stop_time = interval_ms;
+            e.pump = prev_pump;
+            pumpStopEvents.append(e);
+            prev_t_sec = t_sec;
+            prev_pump = ing.beverage.pump;
+        }
+
+    }
+
+    PumpStopEvent eLast;
+    eLast.next_stop_time = 0;
+    eLast.pump = prev_pump;
+    pumpStopEvents.append(eLast);
+
+    for (auto && e : pumpStopEvents) {
+
+        if (e.pump > 0 && e.pump <= PUMP_N) {
+            e.pump-=1;
+            start_pump(e.pump);
+            qDebug()<<"pump started"<<e.pump<<"next stop time"<<e.next_stop_time;
+        }
+    }
+    timer->setSingleShot(1);
+    timer->start(first_pump_off_t_sec*1000);
+    qDebug()<<"wait "<<first_pump_off_t_sec*1000<<"ms";
 
 }
 //drink prepare page slots  end
 
+
+void MainWindow::timer_slot()
+{
+    if (pumpStopEvents.isEmpty()) {
+        stop_all_pumps();
+        qDebug()<<"preparing finished";
+        return;
+    }
+
+    PumpStopEvent e = pumpStopEvents.first();
+    stop_pump(e.pump);
+    qDebug()<<"pump stopped "<<e.pump;
+    timer->start(e.next_stop_time);
+    qDebug()<<"wait "<<e.next_stop_time<<"ms";
+    pumpStopEvents.removeFirst();
+}
+
+
 // player slots
 void MainWindow::on_volumeSlider_valueChanged(int value)
 {
-    player->setVolume(value);
-    player_2->setVolume(value);
+    player_video->setVolume(value);
+    player_audio->setVolume(value);
 
+}
+
+void MainWindow::player_duration_changed_slot (qint64 dur){
+    ui->timePosSlider->setMaximum(dur);
 }
 
 void MainWindow::player_pos_slot (qint64 pos) {
@@ -682,8 +845,8 @@ void MainWindow::player_pos_slot (qint64 pos) {
 
 void MainWindow::on_stopMediaBtn_clicked()
 {
-    player->stop();
-    player_2->stop();
+    player_video->stop();
+    player_audio->stop();
 
     ui->stackedWidget->setCurrentWidget(ui->startPage);
 }
@@ -787,4 +950,9 @@ void MainWindow::on_backButtonBeverages_clicked()
 {
     ui->stackedWidget->setCurrentWidget(ui->menuPage);
 }
+
+
+
+
+
 

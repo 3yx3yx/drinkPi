@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[31];
-    char stringdata0[685];
+    QByteArrayData data[36];
+    char stringdata0[749];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -38,35 +38,42 @@ QT_MOC_LITERAL(2, 30, 0), // ""
 QT_MOC_LITERAL(3, 31, 8), // "QWidget*"
 QT_MOC_LITERAL(4, 40, 3), // "old"
 QT_MOC_LITERAL(5, 44, 3), // "now"
-QT_MOC_LITERAL(6, 48, 19), // "drinkListBtnClicked"
-QT_MOC_LITERAL(7, 68, 4), // "name"
-QT_MOC_LITERAL(8, 73, 27), // "on_addIngredientBtn_clicked"
-QT_MOC_LITERAL(9, 101, 27), // "on_backSaveBeverage_clicked"
-QT_MOC_LITERAL(10, 129, 25), // "on_addBeverageBtn_clicked"
-QT_MOC_LITERAL(11, 155, 31), // "on_drinkPrepare_backBtn_clicked"
-QT_MOC_LITERAL(12, 187, 24), // "on_settingButton_clicked"
-QT_MOC_LITERAL(13, 212, 27), // "on_menuPage_backBtn_clicked"
-QT_MOC_LITERAL(14, 240, 26), // "on_newRecipeButton_clicked"
-QT_MOC_LITERAL(15, 267, 27), // "on_AssignPumpButton_clicked"
-QT_MOC_LITERAL(16, 295, 26), // "on_cleanPumpButton_clicked"
-QT_MOC_LITERAL(17, 322, 30), // "on_calibratePumpButton_clicked"
-QT_MOC_LITERAL(18, 353, 24), // "on_editRecipeBtn_clicked"
-QT_MOC_LITERAL(19, 378, 34), // "on_drinkPrepare_prepareBtn_cl..."
-QT_MOC_LITERAL(20, 413, 28), // "on_volumeSlider_valueChanged"
-QT_MOC_LITERAL(21, 442, 5), // "value"
-QT_MOC_LITERAL(22, 448, 23), // "on_stopMediaBtn_clicked"
-QT_MOC_LITERAL(23, 472, 27), // "on_backBtnCalibrate_clicked"
-QT_MOC_LITERAL(24, 500, 27), // "on_calibrationStart_clicked"
-QT_MOC_LITERAL(25, 528, 26), // "on_calibrationSave_clicked"
-QT_MOC_LITERAL(26, 555, 27), // "on_backBtnCleanPage_clicked"
-QT_MOC_LITERAL(27, 583, 25), // "on_selectAllPumps_clicked"
-QT_MOC_LITERAL(28, 609, 21), // "on_startClean_pressed"
-QT_MOC_LITERAL(29, 631, 22), // "on_startClean_released"
-QT_MOC_LITERAL(30, 654, 30) // "on_backButtonBeverages_clicked"
+QT_MOC_LITERAL(6, 48, 10), // "timer_slot"
+QT_MOC_LITERAL(7, 59, 15), // "player_pos_slot"
+QT_MOC_LITERAL(8, 75, 3), // "pos"
+QT_MOC_LITERAL(9, 79, 28), // "player_duration_changed_slot"
+QT_MOC_LITERAL(10, 108, 3), // "dur"
+QT_MOC_LITERAL(11, 112, 19), // "drinkListBtnClicked"
+QT_MOC_LITERAL(12, 132, 4), // "name"
+QT_MOC_LITERAL(13, 137, 27), // "on_addIngredientBtn_clicked"
+QT_MOC_LITERAL(14, 165, 27), // "on_backSaveBeverage_clicked"
+QT_MOC_LITERAL(15, 193, 25), // "on_addBeverageBtn_clicked"
+QT_MOC_LITERAL(16, 219, 31), // "on_drinkPrepare_backBtn_clicked"
+QT_MOC_LITERAL(17, 251, 24), // "on_settingButton_clicked"
+QT_MOC_LITERAL(18, 276, 27), // "on_menuPage_backBtn_clicked"
+QT_MOC_LITERAL(19, 304, 26), // "on_newRecipeButton_clicked"
+QT_MOC_LITERAL(20, 331, 27), // "on_AssignPumpButton_clicked"
+QT_MOC_LITERAL(21, 359, 26), // "on_cleanPumpButton_clicked"
+QT_MOC_LITERAL(22, 386, 30), // "on_calibratePumpButton_clicked"
+QT_MOC_LITERAL(23, 417, 24), // "on_editRecipeBtn_clicked"
+QT_MOC_LITERAL(24, 442, 34), // "on_drinkPrepare_prepareBtn_cl..."
+QT_MOC_LITERAL(25, 477, 28), // "on_volumeSlider_valueChanged"
+QT_MOC_LITERAL(26, 506, 5), // "value"
+QT_MOC_LITERAL(27, 512, 23), // "on_stopMediaBtn_clicked"
+QT_MOC_LITERAL(28, 536, 27), // "on_backBtnCalibrate_clicked"
+QT_MOC_LITERAL(29, 564, 27), // "on_calibrationStart_clicked"
+QT_MOC_LITERAL(30, 592, 26), // "on_calibrationSave_clicked"
+QT_MOC_LITERAL(31, 619, 27), // "on_backBtnCleanPage_clicked"
+QT_MOC_LITERAL(32, 647, 25), // "on_selectAllPumps_clicked"
+QT_MOC_LITERAL(33, 673, 21), // "on_startClean_pressed"
+QT_MOC_LITERAL(34, 695, 22), // "on_startClean_released"
+QT_MOC_LITERAL(35, 718, 30) // "on_backButtonBeverages_clicked"
 
     },
     "MainWindow\0focus_changed_slot\0\0QWidget*\0"
-    "old\0now\0drinkListBtnClicked\0name\0"
+    "old\0now\0timer_slot\0player_pos_slot\0"
+    "pos\0player_duration_changed_slot\0dur\0"
+    "drinkListBtnClicked\0name\0"
     "on_addIngredientBtn_clicked\0"
     "on_backSaveBeverage_clicked\0"
     "on_addBeverageBtn_clicked\0"
@@ -97,7 +104,7 @@ static const uint qt_meta_data_MainWindow[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-      24,   14, // methods
+      27,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -105,34 +112,40 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    2,  134,    2, 0x08 /* Private */,
-       6,    1,  139,    2, 0x08 /* Private */,
-       8,    0,  142,    2, 0x08 /* Private */,
-       9,    0,  143,    2, 0x08 /* Private */,
-      10,    0,  144,    2, 0x08 /* Private */,
-      11,    0,  145,    2, 0x08 /* Private */,
-      12,    0,  146,    2, 0x08 /* Private */,
-      13,    0,  147,    2, 0x08 /* Private */,
-      14,    0,  148,    2, 0x08 /* Private */,
-      15,    0,  149,    2, 0x08 /* Private */,
-      16,    0,  150,    2, 0x08 /* Private */,
-      17,    0,  151,    2, 0x08 /* Private */,
-      18,    0,  152,    2, 0x08 /* Private */,
-      19,    0,  153,    2, 0x08 /* Private */,
-      20,    1,  154,    2, 0x08 /* Private */,
-      22,    0,  157,    2, 0x08 /* Private */,
-      23,    0,  158,    2, 0x08 /* Private */,
-      24,    0,  159,    2, 0x08 /* Private */,
-      25,    0,  160,    2, 0x08 /* Private */,
-      26,    0,  161,    2, 0x08 /* Private */,
-      27,    0,  162,    2, 0x08 /* Private */,
-      28,    0,  163,    2, 0x08 /* Private */,
-      29,    0,  164,    2, 0x08 /* Private */,
-      30,    0,  165,    2, 0x08 /* Private */,
+       1,    2,  149,    2, 0x08 /* Private */,
+       6,    0,  154,    2, 0x08 /* Private */,
+       7,    1,  155,    2, 0x08 /* Private */,
+       9,    1,  158,    2, 0x08 /* Private */,
+      11,    1,  161,    2, 0x08 /* Private */,
+      13,    0,  164,    2, 0x08 /* Private */,
+      14,    0,  165,    2, 0x08 /* Private */,
+      15,    0,  166,    2, 0x08 /* Private */,
+      16,    0,  167,    2, 0x08 /* Private */,
+      17,    0,  168,    2, 0x08 /* Private */,
+      18,    0,  169,    2, 0x08 /* Private */,
+      19,    0,  170,    2, 0x08 /* Private */,
+      20,    0,  171,    2, 0x08 /* Private */,
+      21,    0,  172,    2, 0x08 /* Private */,
+      22,    0,  173,    2, 0x08 /* Private */,
+      23,    0,  174,    2, 0x08 /* Private */,
+      24,    0,  175,    2, 0x08 /* Private */,
+      25,    1,  176,    2, 0x08 /* Private */,
+      27,    0,  179,    2, 0x08 /* Private */,
+      28,    0,  180,    2, 0x08 /* Private */,
+      29,    0,  181,    2, 0x08 /* Private */,
+      30,    0,  182,    2, 0x08 /* Private */,
+      31,    0,  183,    2, 0x08 /* Private */,
+      32,    0,  184,    2, 0x08 /* Private */,
+      33,    0,  185,    2, 0x08 /* Private */,
+      34,    0,  186,    2, 0x08 /* Private */,
+      35,    0,  187,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void, 0x80000000 | 3, 0x80000000 | 3,    4,    5,
-    QMetaType::Void, QMetaType::QString,    7,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::LongLong,    8,
+    QMetaType::Void, QMetaType::LongLong,   10,
+    QMetaType::Void, QMetaType::QString,   12,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -145,7 +158,7 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int,   21,
+    QMetaType::Void, QMetaType::Int,   26,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -166,29 +179,32 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->focus_changed_slot((*reinterpret_cast< QWidget*(*)>(_a[1])),(*reinterpret_cast< QWidget*(*)>(_a[2]))); break;
-        case 1: _t->drinkListBtnClicked((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 2: _t->on_addIngredientBtn_clicked(); break;
-        case 3: _t->on_backSaveBeverage_clicked(); break;
-        case 4: _t->on_addBeverageBtn_clicked(); break;
-        case 5: _t->on_drinkPrepare_backBtn_clicked(); break;
-        case 6: _t->on_settingButton_clicked(); break;
-        case 7: _t->on_menuPage_backBtn_clicked(); break;
-        case 8: _t->on_newRecipeButton_clicked(); break;
-        case 9: _t->on_AssignPumpButton_clicked(); break;
-        case 10: _t->on_cleanPumpButton_clicked(); break;
-        case 11: _t->on_calibratePumpButton_clicked(); break;
-        case 12: _t->on_editRecipeBtn_clicked(); break;
-        case 13: _t->on_drinkPrepare_prepareBtn_clicked(); break;
-        case 14: _t->on_volumeSlider_valueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 15: _t->on_stopMediaBtn_clicked(); break;
-        case 16: _t->on_backBtnCalibrate_clicked(); break;
-        case 17: _t->on_calibrationStart_clicked(); break;
-        case 18: _t->on_calibrationSave_clicked(); break;
-        case 19: _t->on_backBtnCleanPage_clicked(); break;
-        case 20: _t->on_selectAllPumps_clicked(); break;
-        case 21: _t->on_startClean_pressed(); break;
-        case 22: _t->on_startClean_released(); break;
-        case 23: _t->on_backButtonBeverages_clicked(); break;
+        case 1: _t->timer_slot(); break;
+        case 2: _t->player_pos_slot((*reinterpret_cast< qint64(*)>(_a[1]))); break;
+        case 3: _t->player_duration_changed_slot((*reinterpret_cast< qint64(*)>(_a[1]))); break;
+        case 4: _t->drinkListBtnClicked((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 5: _t->on_addIngredientBtn_clicked(); break;
+        case 6: _t->on_backSaveBeverage_clicked(); break;
+        case 7: _t->on_addBeverageBtn_clicked(); break;
+        case 8: _t->on_drinkPrepare_backBtn_clicked(); break;
+        case 9: _t->on_settingButton_clicked(); break;
+        case 10: _t->on_menuPage_backBtn_clicked(); break;
+        case 11: _t->on_newRecipeButton_clicked(); break;
+        case 12: _t->on_AssignPumpButton_clicked(); break;
+        case 13: _t->on_cleanPumpButton_clicked(); break;
+        case 14: _t->on_calibratePumpButton_clicked(); break;
+        case 15: _t->on_editRecipeBtn_clicked(); break;
+        case 16: _t->on_drinkPrepare_prepareBtn_clicked(); break;
+        case 17: _t->on_volumeSlider_valueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 18: _t->on_stopMediaBtn_clicked(); break;
+        case 19: _t->on_backBtnCalibrate_clicked(); break;
+        case 20: _t->on_calibrationStart_clicked(); break;
+        case 21: _t->on_calibrationSave_clicked(); break;
+        case 22: _t->on_backBtnCleanPage_clicked(); break;
+        case 23: _t->on_selectAllPumps_clicked(); break;
+        case 24: _t->on_startClean_pressed(); break;
+        case 25: _t->on_startClean_released(); break;
+        case 26: _t->on_backButtonBeverages_clicked(); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -235,13 +251,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 24)
+        if (_id < 27)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 24;
+        _id -= 27;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 24)
+        if (_id < 27)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 24;
+        _id -= 27;
     }
     return _id;
 }

@@ -368,6 +368,7 @@ public:
 
         listWidgetIngredients = new QListWidget(layoutWidget2);
         listWidgetIngredients->setObjectName(QString::fromUtf8("listWidgetIngredients"));
+        listWidgetIngredients->setFont(font1);
 
         verticalLayout_9->addWidget(listWidgetIngredients);
 
@@ -380,6 +381,10 @@ public:
 
         listWidgetNotes = new QListWidget(layoutWidget2);
         listWidgetNotes->setObjectName(QString::fromUtf8("listWidgetNotes"));
+        QFont font2;
+        font2.setFamily(QString::fromUtf8("DejaVu Sans Mono"));
+        font2.setPointSize(16);
+        listWidgetNotes->setFont(font2);
 
         verticalLayout_9->addWidget(listWidgetNotes);
 
@@ -426,7 +431,9 @@ public:
         verticalLayout_9->addLayout(horizontalLayout_13);
 
         verticalLayout_9->setStretch(0, 1);
+        verticalLayout_9->setStretch(1, 5);
         verticalLayout_9->setStretch(2, 1);
+        verticalLayout_9->setStretch(3, 3);
         verticalLayout_9->setStretch(4, 1);
         verticalLayout_9->setStretch(5, 2);
         stackedWidget->addWidget(drinkSelectedPage);
@@ -444,12 +451,12 @@ public:
         newRecipeButton = new QPushButton(layoutWidget3);
         newRecipeButton->setObjectName(QString::fromUtf8("newRecipeButton"));
         newRecipeButton->setMinimumSize(QSize(0, 140));
-        QFont font2;
-        font2.setFamily(QString::fromUtf8("DejaVu Sans Mono"));
-        font2.setPointSize(31);
-        font2.setBold(true);
-        font2.setItalic(false);
-        newRecipeButton->setFont(font2);
+        QFont font3;
+        font3.setFamily(QString::fromUtf8("DejaVu Sans Mono"));
+        font3.setPointSize(31);
+        font3.setBold(true);
+        font3.setItalic(false);
+        newRecipeButton->setFont(font3);
         newRecipeButton->setAutoFillBackground(false);
         newRecipeButton->setFlat(false);
 
@@ -458,11 +465,11 @@ public:
         AssignPumpButton = new QPushButton(layoutWidget3);
         AssignPumpButton->setObjectName(QString::fromUtf8("AssignPumpButton"));
         AssignPumpButton->setMinimumSize(QSize(0, 130));
-        QFont font3;
-        font3.setFamily(QString::fromUtf8("DejaVu Sans Mono"));
-        font3.setPointSize(31);
-        font3.setBold(true);
-        AssignPumpButton->setFont(font3);
+        QFont font4;
+        font4.setFamily(QString::fromUtf8("DejaVu Sans Mono"));
+        font4.setPointSize(31);
+        font4.setBold(true);
+        AssignPumpButton->setFont(font4);
         AssignPumpButton->setAutoFillBackground(false);
 
         verticalLayout->addWidget(AssignPumpButton);
@@ -470,35 +477,35 @@ public:
         cleanPumpButton = new QPushButton(layoutWidget3);
         cleanPumpButton->setObjectName(QString::fromUtf8("cleanPumpButton"));
         cleanPumpButton->setMinimumSize(QSize(0, 100));
-        cleanPumpButton->setFont(font3);
+        cleanPumpButton->setFont(font4);
         cleanPumpButton->setAutoFillBackground(false);
 
         verticalLayout->addWidget(cleanPumpButton);
 
         calibratePumpButton = new QPushButton(layoutWidget3);
         calibratePumpButton->setObjectName(QString::fromUtf8("calibratePumpButton"));
-        QFont font4;
-        font4.setFamily(QString::fromUtf8("DejaVu Sans Mono"));
-        font4.setPointSize(30);
-        font4.setBold(true);
-        calibratePumpButton->setFont(font4);
+        QFont font5;
+        font5.setFamily(QString::fromUtf8("DejaVu Sans Mono"));
+        font5.setPointSize(30);
+        font5.setBold(true);
+        calibratePumpButton->setFont(font5);
         calibratePumpButton->setAutoFillBackground(false);
 
         verticalLayout->addWidget(calibratePumpButton);
 
         visitWebButton = new QPushButton(layoutWidget3);
         visitWebButton->setObjectName(QString::fromUtf8("visitWebButton"));
-        QFont font5;
-        font5.setFamily(QString::fromUtf8("Ubuntu Mono"));
-        font5.setPointSize(31);
-        visitWebButton->setFont(font5);
+        QFont font6;
+        font6.setFamily(QString::fromUtf8("Ubuntu Mono"));
+        font6.setPointSize(31);
+        visitWebButton->setFont(font6);
         visitWebButton->setAutoFillBackground(false);
 
         verticalLayout->addWidget(visitWebButton);
 
         termsOfUseButton = new QPushButton(layoutWidget3);
         termsOfUseButton->setObjectName(QString::fromUtf8("termsOfUseButton"));
-        termsOfUseButton->setFont(font5);
+        termsOfUseButton->setFont(font6);
         termsOfUseButton->setAutoFillBackground(false);
 
         verticalLayout->addWidget(termsOfUseButton);
@@ -526,10 +533,10 @@ public:
 
         label_5 = new QLabel(layoutWidget4);
         label_5->setObjectName(QString::fromUtf8("label_5"));
-        QFont font6;
-        font6.setFamily(QString::fromUtf8("DejaVu Sans Mono"));
-        font6.setPointSize(28);
-        label_5->setFont(font6);
+        QFont font7;
+        font7.setFamily(QString::fromUtf8("DejaVu Sans Mono"));
+        font7.setPointSize(28);
+        label_5->setFont(font7);
         label_5->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
 
         horizontalLayout_7->addWidget(label_5);
@@ -539,7 +546,7 @@ public:
 
         label_6 = new QLabel(layoutWidget4);
         label_6->setObjectName(QString::fromUtf8("label_6"));
-        label_6->setFont(font6);
+        label_6->setFont(font7);
         label_6->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         label_6->setAlignment(Qt::AlignJustify|Qt::AlignVCenter);
 
@@ -553,7 +560,7 @@ public:
 
         label_7 = new QLabel(layoutWidget4);
         label_7->setObjectName(QString::fromUtf8("label_7"));
-        label_7->setFont(font6);
+        label_7->setFont(font7);
         label_7->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
 
         horizontalLayout_9->addWidget(label_7);
@@ -576,9 +583,9 @@ public:
         comboBoxCalibrate->addItem(QString());
         comboBoxCalibrate->addItem(QString());
         comboBoxCalibrate->setObjectName(QString::fromUtf8("comboBoxCalibrate"));
-        QFont font7;
-        font7.setPointSize(30);
-        comboBoxCalibrate->setFont(font7);
+        QFont font8;
+        font8.setPointSize(30);
+        comboBoxCalibrate->setFont(font8);
         comboBoxCalibrate->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
 
         horizontalLayout_9->addWidget(comboBoxCalibrate);
@@ -594,17 +601,17 @@ public:
         calibrationStart->setObjectName(QString::fromUtf8("calibrationStart"));
         sizePolicy1.setHeightForWidth(calibrationStart->sizePolicy().hasHeightForWidth());
         calibrationStart->setSizePolicy(sizePolicy1);
-        QFont font8;
-        font8.setFamily(QString::fromUtf8("DejaVu Sans Mono"));
-        font8.setPointSize(24);
-        font8.setBold(true);
-        calibrationStart->setFont(font8);
+        QFont font9;
+        font9.setFamily(QString::fromUtf8("DejaVu Sans Mono"));
+        font9.setPointSize(24);
+        font9.setBold(true);
+        calibrationStart->setFont(font9);
 
         verticalLayout_5->addWidget(calibrationStart);
 
         label_8 = new QLabel(layoutWidget4);
         label_8->setObjectName(QString::fromUtf8("label_8"));
-        label_8->setFont(font6);
+        label_8->setFont(font7);
         label_8->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         label_8->setAlignment(Qt::AlignJustify|Qt::AlignVCenter);
 
@@ -618,9 +625,9 @@ public:
 
         lineEditCalibrate = new QLineEdit(layoutWidget4);
         lineEditCalibrate->setObjectName(QString::fromUtf8("lineEditCalibrate"));
-        QFont font9;
-        font9.setPointSize(24);
-        lineEditCalibrate->setFont(font9);
+        QFont font10;
+        font10.setPointSize(24);
+        lineEditCalibrate->setFont(font10);
         lineEditCalibrate->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         lineEditCalibrate->setInputMethodHints(Qt::ImhDigitsOnly);
 
@@ -628,7 +635,7 @@ public:
 
         label_9 = new QLabel(layoutWidget4);
         label_9->setObjectName(QString::fromUtf8("label_9"));
-        label_9->setFont(font6);
+        label_9->setFont(font7);
         label_9->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
 
         horizontalLayout_8->addWidget(label_9);
@@ -644,7 +651,7 @@ public:
         calibrationSave->setObjectName(QString::fromUtf8("calibrationSave"));
         sizePolicy1.setHeightForWidth(calibrationSave->sizePolicy().hasHeightForWidth());
         calibrationSave->setSizePolicy(sizePolicy1);
-        calibrationSave->setFont(font8);
+        calibrationSave->setFont(font9);
         calibrationSave->setStyleSheet(QString::fromUtf8(""));
 
         verticalLayout_5->addWidget(calibrationSave);
@@ -734,7 +741,7 @@ public:
         startClean->setObjectName(QString::fromUtf8("startClean"));
         sizePolicy1.setHeightForWidth(startClean->sizePolicy().hasHeightForWidth());
         startClean->setSizePolicy(sizePolicy1);
-        startClean->setFont(font7);
+        startClean->setFont(font8);
         startClean->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
 
         horizontalLayout_5->addWidget(startClean);
@@ -747,7 +754,7 @@ public:
         selectAllPumps->setObjectName(QString::fromUtf8("selectAllPumps"));
         sizePolicy1.setHeightForWidth(selectAllPumps->sizePolicy().hasHeightForWidth());
         selectAllPumps->setSizePolicy(sizePolicy1);
-        selectAllPumps->setFont(font9);
+        selectAllPumps->setFont(font10);
         selectAllPumps->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
 
         horizontalLayout_5->addWidget(selectAllPumps);
@@ -767,9 +774,9 @@ public:
         verticalLayout_4->setContentsMargins(0, 0, 0, 0);
         pumpSelBtn = new QPushButton(layoutWidget7);
         pumpSelBtn->setObjectName(QString::fromUtf8("pumpSelBtn"));
-        QFont font10;
-        font10.setPointSize(18);
-        pumpSelBtn->setFont(font10);
+        QFont font11;
+        font11.setPointSize(18);
+        pumpSelBtn->setFont(font11);
         pumpSelBtn->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         pumpSelBtn->setCheckable(true);
         pumpSelBtn->setChecked(false);
@@ -778,7 +785,7 @@ public:
 
         pumpSelBtn_2 = new QPushButton(layoutWidget7);
         pumpSelBtn_2->setObjectName(QString::fromUtf8("pumpSelBtn_2"));
-        pumpSelBtn_2->setFont(font10);
+        pumpSelBtn_2->setFont(font11);
         pumpSelBtn_2->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         pumpSelBtn_2->setCheckable(true);
         pumpSelBtn_2->setChecked(false);
@@ -787,7 +794,7 @@ public:
 
         pumpSelBtn_4 = new QPushButton(layoutWidget7);
         pumpSelBtn_4->setObjectName(QString::fromUtf8("pumpSelBtn_4"));
-        pumpSelBtn_4->setFont(font10);
+        pumpSelBtn_4->setFont(font11);
         pumpSelBtn_4->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         pumpSelBtn_4->setCheckable(true);
         pumpSelBtn_4->setChecked(false);
@@ -796,7 +803,7 @@ public:
 
         pumpSelBtn_3 = new QPushButton(layoutWidget7);
         pumpSelBtn_3->setObjectName(QString::fromUtf8("pumpSelBtn_3"));
-        pumpSelBtn_3->setFont(font10);
+        pumpSelBtn_3->setFont(font11);
         pumpSelBtn_3->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         pumpSelBtn_3->setCheckable(true);
         pumpSelBtn_3->setChecked(false);
@@ -805,7 +812,7 @@ public:
 
         pumpSelBtn_8 = new QPushButton(layoutWidget7);
         pumpSelBtn_8->setObjectName(QString::fromUtf8("pumpSelBtn_8"));
-        pumpSelBtn_8->setFont(font10);
+        pumpSelBtn_8->setFont(font11);
         pumpSelBtn_8->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         pumpSelBtn_8->setCheckable(true);
         pumpSelBtn_8->setChecked(false);
@@ -814,7 +821,7 @@ public:
 
         pumpSelBtn_5 = new QPushButton(layoutWidget7);
         pumpSelBtn_5->setObjectName(QString::fromUtf8("pumpSelBtn_5"));
-        pumpSelBtn_5->setFont(font10);
+        pumpSelBtn_5->setFont(font11);
         pumpSelBtn_5->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         pumpSelBtn_5->setCheckable(true);
         pumpSelBtn_5->setChecked(false);
@@ -823,7 +830,7 @@ public:
 
         pumpSelBtn_7 = new QPushButton(layoutWidget7);
         pumpSelBtn_7->setObjectName(QString::fromUtf8("pumpSelBtn_7"));
-        pumpSelBtn_7->setFont(font10);
+        pumpSelBtn_7->setFont(font11);
         pumpSelBtn_7->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         pumpSelBtn_7->setCheckable(true);
         pumpSelBtn_7->setChecked(false);
@@ -832,7 +839,7 @@ public:
 
         pumpSelBtn_6 = new QPushButton(layoutWidget7);
         pumpSelBtn_6->setObjectName(QString::fromUtf8("pumpSelBtn_6"));
-        pumpSelBtn_6->setFont(font10);
+        pumpSelBtn_6->setFont(font11);
         pumpSelBtn_6->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         pumpSelBtn_6->setCheckable(true);
         pumpSelBtn_6->setChecked(false);
@@ -841,7 +848,7 @@ public:
 
         pumpSelBtn_12 = new QPushButton(layoutWidget7);
         pumpSelBtn_12->setObjectName(QString::fromUtf8("pumpSelBtn_12"));
-        pumpSelBtn_12->setFont(font10);
+        pumpSelBtn_12->setFont(font11);
         pumpSelBtn_12->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         pumpSelBtn_12->setCheckable(true);
         pumpSelBtn_12->setChecked(false);
@@ -850,7 +857,7 @@ public:
 
         pumpSelBtn_9 = new QPushButton(layoutWidget7);
         pumpSelBtn_9->setObjectName(QString::fromUtf8("pumpSelBtn_9"));
-        pumpSelBtn_9->setFont(font10);
+        pumpSelBtn_9->setFont(font11);
         pumpSelBtn_9->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         pumpSelBtn_9->setCheckable(true);
         pumpSelBtn_9->setChecked(false);
@@ -859,7 +866,7 @@ public:
 
         pumpSelBtn_11 = new QPushButton(layoutWidget7);
         pumpSelBtn_11->setObjectName(QString::fromUtf8("pumpSelBtn_11"));
-        pumpSelBtn_11->setFont(font10);
+        pumpSelBtn_11->setFont(font11);
         pumpSelBtn_11->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         pumpSelBtn_11->setCheckable(true);
         pumpSelBtn_11->setChecked(false);
@@ -868,7 +875,7 @@ public:
 
         pumpSelBtn_10 = new QPushButton(layoutWidget7);
         pumpSelBtn_10->setObjectName(QString::fromUtf8("pumpSelBtn_10"));
-        pumpSelBtn_10->setFont(font10);
+        pumpSelBtn_10->setFont(font11);
         pumpSelBtn_10->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         pumpSelBtn_10->setCheckable(true);
         pumpSelBtn_10->setChecked(false);
@@ -877,7 +884,7 @@ public:
 
         pumpSelBtn_16 = new QPushButton(layoutWidget7);
         pumpSelBtn_16->setObjectName(QString::fromUtf8("pumpSelBtn_16"));
-        pumpSelBtn_16->setFont(font10);
+        pumpSelBtn_16->setFont(font11);
         pumpSelBtn_16->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         pumpSelBtn_16->setCheckable(true);
         pumpSelBtn_16->setChecked(false);
@@ -886,7 +893,7 @@ public:
 
         pumpSelBtn_13 = new QPushButton(layoutWidget7);
         pumpSelBtn_13->setObjectName(QString::fromUtf8("pumpSelBtn_13"));
-        pumpSelBtn_13->setFont(font10);
+        pumpSelBtn_13->setFont(font11);
         pumpSelBtn_13->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         pumpSelBtn_13->setCheckable(true);
         pumpSelBtn_13->setChecked(false);
@@ -895,7 +902,7 @@ public:
 
         pumpSelBtn_15 = new QPushButton(layoutWidget7);
         pumpSelBtn_15->setObjectName(QString::fromUtf8("pumpSelBtn_15"));
-        pumpSelBtn_15->setFont(font10);
+        pumpSelBtn_15->setFont(font11);
         pumpSelBtn_15->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         pumpSelBtn_15->setCheckable(true);
         pumpSelBtn_15->setChecked(false);
@@ -904,7 +911,7 @@ public:
 
         pumpSelBtn_14 = new QPushButton(layoutWidget7);
         pumpSelBtn_14->setObjectName(QString::fromUtf8("pumpSelBtn_14"));
-        pumpSelBtn_14->setFont(font10);
+        pumpSelBtn_14->setFont(font11);
         pumpSelBtn_14->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         pumpSelBtn_14->setCheckable(true);
         pumpSelBtn_14->setChecked(false);
@@ -955,10 +962,10 @@ public:
 
         lineEditDrinkName = new QLineEdit(layoutWidget8);
         lineEditDrinkName->setObjectName(QString::fromUtf8("lineEditDrinkName"));
-        QFont font11;
-        font11.setFamily(QString::fromUtf8("DejaVu Sans Mono"));
-        font11.setPointSize(20);
-        lineEditDrinkName->setFont(font11);
+        QFont font12;
+        font12.setFamily(QString::fromUtf8("DejaVu Sans Mono"));
+        font12.setPointSize(20);
+        lineEditDrinkName->setFont(font12);
         lineEditDrinkName->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
 
         verticalLayout_2->addWidget(lineEditDrinkName);
@@ -1086,7 +1093,7 @@ public:
         horizontalLayout_12->setObjectName(QString::fromUtf8("horizontalLayout_12"));
         listWidgetBeverages = new QListWidget(layoutWidget10);
         listWidgetBeverages->setObjectName(QString::fromUtf8("listWidgetBeverages"));
-        listWidgetBeverages->setFont(font11);
+        listWidgetBeverages->setFont(font12);
 
         horizontalLayout_12->addWidget(listWidgetBeverages);
 
@@ -1162,9 +1169,9 @@ public:
         beveragelineEdit->setObjectName(QString::fromUtf8("beveragelineEdit"));
         sizePolicy.setHeightForWidth(beveragelineEdit->sizePolicy().hasHeightForWidth());
         beveragelineEdit->setSizePolicy(sizePolicy);
-        QFont font12;
-        font12.setPointSize(26);
-        beveragelineEdit->setFont(font12);
+        QFont font13;
+        font13.setPointSize(26);
+        beveragelineEdit->setFont(font13);
         beveragelineEdit->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         beveragelineEdit->setInputMethodHints(Qt::ImhLatinOnly);
         beveragelineEdit->setClearButtonEnabled(false);
@@ -1180,7 +1187,7 @@ public:
 
         label_2 = new QLabel(layoutWidget11);
         label_2->setObjectName(QString::fromUtf8("label_2"));
-        label_2->setFont(font8);
+        label_2->setFont(font9);
         label_2->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         label_2->setAlignment(Qt::AlignCenter);
         label_2->setWordWrap(true);
@@ -1195,7 +1202,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        stackedWidget->setCurrentIndex(4);
+        stackedWidget->setCurrentIndex(2);
         newRecipeButton->setDefault(false);
 
 

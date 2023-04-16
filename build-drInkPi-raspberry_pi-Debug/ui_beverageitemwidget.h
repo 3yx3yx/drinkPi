@@ -51,7 +51,6 @@ public:
         horizontalLayout->addWidget(pumpNumLabel);
 
         comboBox = new QComboBox(beverageItemWidget);
-        comboBox->addItem(QString());
         comboBox->setObjectName(QString::fromUtf8("comboBox"));
         sizePolicy.setHeightForWidth(comboBox->sizePolicy().hasHeightForWidth());
         comboBox->setSizePolicy(sizePolicy);
@@ -75,8 +74,6 @@ public:
     {
         beverageItemWidget->setWindowTitle(QCoreApplication::translate("beverageItemWidget", "Form", nullptr));
         pumpNumLabel->setText(QCoreApplication::translate("beverageItemWidget", "0", nullptr));
-        comboBox->setItemText(0, QCoreApplication::translate("beverageItemWidget", "Cola", nullptr));
-
     } // retranslateUi
 
 };

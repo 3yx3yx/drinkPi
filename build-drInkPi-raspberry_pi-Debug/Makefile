@@ -2459,6 +2459,9 @@ mainwindow.o: ../drInkPi/mainwindow.cpp ../drInkPi/mainwindow.h \
 		../../../rpi-qt/qt5.15/include/QtMultimediaWidgets/qvideowidget.h \
 		../../../rpi-qt/qt5.15/include/QtMultimediaWidgets/qtmultimediawidgetdefs.h \
 		../../../rpi-qt/qt5.15/include/QtMultimedia/qmediabindableinterface.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qerrormessage.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qdialog.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qmessagebox.h \
 		../../../rpi-qt/qt5.15/include/QtGui/qmovie.h \
 		../../../rpi-qt/qt5.15/include/QtGui/qimagereader.h \
 		../../../rpi-qt/qt5.15/include/QtCore/qcoreapplication.h \
