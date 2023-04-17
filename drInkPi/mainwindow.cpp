@@ -25,33 +25,33 @@ MainWindow::MainWindow(QWidget *parent)
     gpio_init();
     stop_all_pumps();
 
-/*#ifdef TEST
-    clearConfigJson(); // for test
+//#ifdef TEST
+//    clearConfigJson(); // for test
 
-    Drink d;
-    d.name = "Whisky";
-    Beverage b;
-    b.name="whisky";
-    b.pump=1;
-    addBeverageToJson(b);
-    d.ingredients.append(Ingredient{b,1.2});
-    b.name="cola";
-    b.pump=2;
-    addBeverageToJson(b);
-    d.ingredients.append(Ingredient{b,3.1});
-    b.name="gin";
-    b.pump=3;
-    addBeverageToJson(b);
-    d.ingredients.append(Ingredient{b,5.2});
-    b.name="soda";
-    b.pump=4;
-    addBeverageToJson(b);
-    d.ingredients.append(Ingredient{b,1.2});
-    d.note = "blabla";
-    d.videoPath = "/home/pi/Videos/smpa.mp4";
+//    Drink d;
+//    d.name = "Whisky";
+//    Beverage b;
+//    b.name="whisky";
+//    b.pump=1;
+//    addBeverageToJson(b);
+//    d.ingredients.append(Ingredient{b,1.2});
+//    b.name="cola";
+//    b.pump=2;
+//    addBeverageToJson(b);
+//    d.ingredients.append(Ingredient{b,3.1});
+//    b.name="gin";
+//    b.pump=3;
+//    addBeverageToJson(b);
+//    d.ingredients.append(Ingredient{b,5.2});
+//    b.name="soda";
+//    b.pump=4;
+//    addBeverageToJson(b);
+//    d.ingredients.append(Ingredient{b,1.2});
+//    d.note = "blabla";
+//    d.videoPath = "/home/pi/Videos/smpa.mp4";
 
-    addDrinkToJson(d);
-#endif*/
+//    addDrinkToJson(d);
+//#endif
 
     updateDrinkListMenu();
     loadBeveragesListMenu();
@@ -63,8 +63,8 @@ MainWindow::MainWindow(QWidget *parent)
     player_video = new QMediaPlayer(this);
     player_video->setVideoOutput(ui->videoWidget);
     player_audio = new QMediaPlayer(this);
-    movie = new QMovie(this);
-    show_picture = new QLabel(this);
+    movie = new QMovie(ui->videoWidget);
+    show_picture = new QLabel(ui->videoWidget);
 
     timer = new QTimer(this);
     timer->setSingleShot(true);
@@ -446,7 +446,7 @@ void MainWindow::updateDrinkListMenu()
     delete _main_scroll_layout;
     delete _widget_scroll_main;
 
-    _widget_scroll_main = new QWidget (this);
+    _widget_scroll_main = new QWidget (ui->scrollArea);
     _main_scroll_layout = new QVBoxLayout;
     _widget_scroll_main->setLayout(_main_scroll_layout);
     ui->scrollArea->setWidget(_widget_scroll_main);
@@ -475,7 +475,7 @@ void MainWindow::updateDrinkListMenu()
 void MainWindow::loadBeveragesListMenu()
 {
 
-    _widget_scroll_pump_list = new QWidget (this);
+    _widget_scroll_pump_list = new QWidget (ui->scrollAreaBeverages);
     _pump_list_scroll_layout = new QVBoxLayout;
     _widget_scroll_pump_list->setLayout(_pump_list_scroll_layout);
     ui->scrollAreaBeverages->setWidget(_widget_scroll_pump_list);
@@ -677,7 +677,14 @@ void MainWindow::drinkListBtnClicked(QString name)
     Drink d = getDrinkByName(name);
 
     if (d.name.isEmpty()) {
+
         qDebug()<<"error in drink data";
+        QMessageBox mb;
+        mb.setFont(QFont("Times", 23, QFont::Bold));
+        mb.setInformativeText("drink recipe reading error");
+        mb.setStandardButtons(QMessageBox::Ok);
+        mb.exec();
+
         return;
     }
 
@@ -712,7 +719,7 @@ void MainWindow::on_newRecipeButton_clicked()
     delete   _widget_scroll_ingredient_list;
 
     _ingredient_list_scroll_layout = new QVBoxLayout;
-    _widget_scroll_ingredient_list = new QWidget;
+    _widget_scroll_ingredient_list = new QWidget(ui->scrollAreaRecipe);
     _widget_scroll_ingredient_list->setLayout(_ingredient_list_scroll_layout);
     ui->scrollAreaRecipe->setWidget(_widget_scroll_ingredient_list);
 
@@ -994,6 +1001,13 @@ void MainWindow::on_calibrationSave_clicked()
 
         upd_pump_calib_data(); // save changes to file
     }
+
+    QMessageBox mb;
+    mb.setFont(QFont("Times", 23, QFont::Bold));
+    mb.setInformativeText("Saved");
+    mb.setStandardButtons(QMessageBox::Ok);
+    mb.exec();
+
 }
 //pump calibration page slots end
 
@@ -1229,6 +1243,7 @@ void MainWindow::on_videoBtn_clicked()
                                          "Open Image", "/home/pi/Videos", "Video files (*.mp4 *.mov *.wmv *.avi *.webm);;All files (*.*)");
 
     if (!path.isEmpty()) ui->videoBtn->setChecked(true);
+    else ui->videoBtn->setChecked(false);
 
     _new_drink.videoPath = path;
 
@@ -1258,6 +1273,7 @@ void MainWindow::on_pictureBtn_clicked()
                                          "Open Image", "/home/pi/Pictures", "Images (*.gif *.jpeg *.png *.bmp);;All files (*.*)");
 
     if (!path.isEmpty()) ui->pictureBtn->setChecked(true);
+    else ui->pictureBtn->setChecked(false);
 
     _new_drink.picturePath = path;
 }
@@ -1271,6 +1287,7 @@ void MainWindow::on_musicBtn_clicked()
                                          "Audio (*.mp3 *.wav *.aac *.flac *.ogg);;All files (*.*)");
 
     if (!path.isEmpty()) ui->musicBtn->setChecked(true);
+    else ui->musicBtn->setChecked(false);
 
     _new_drink.audioPath = path;
 
@@ -1296,6 +1313,14 @@ void MainWindow::on_musicBtn_clicked()
 void MainWindow::on_saveDrinkBtn_clicked()
 {
     _new_drink.name = ui->lineEditDrinkName->text();
+    if (_new_drink.name.length()<2) {
+        QMessageBox mb;
+        mb.setFont(QFont("Times", 23, QFont::Bold));
+        mb.setInformativeText("Name is too short");
+        mb.setStandardButtons(QMessageBox::Ok);
+        mb.exec();
+        return;
+    }
     _new_drink.note = ui->textEdit->toPlainText();
     _new_drink.ingredients.clear();
 
@@ -1354,6 +1379,14 @@ void MainWindow::on_saveDrinkBtn_clicked()
     addDrinkToJson(_new_drink);
 
     updateDrinkListMenu();
+
+    QMessageBox mb;
+    mb.setFont(QFont("Times", 23, QFont::Bold));
+    mb.setInformativeText("Saved");
+    mb.setStandardButtons(QMessageBox::Ok);
+    mb.exec();
+
+    //ui->stackedWidget->setCurrentWidget(ui->menuPage);
 }
     // edit recipe page end slots
 

@@ -28,12 +28,38 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">
+QPushButton {
+	
+	color: rgb(0, 0, 0);
+    border: 2px solid #8f8f91;
+    border-radius: 12px;
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                      stop: 0 #f6f7fa, stop: 1 #dadbde);
+    min-width: 80px;
+}
+
+QPushButton:pressed {
+    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                      stop: 0 #dadbde, stop: 1 #f6f7fa);
+}
+QPushButton:checked {
+	
+	background-color: rgb(85, 84, 84);
+}
+
+</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="1" column="0">
+    <item row="0" column="0" rowspan="2">
      <widget class="QStackedWidget" name="stackedWidget">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>6</number>
       </property>
       <widget class="QWidget" name="startPage">
        <widget class="QScrollArea" name="scrollArea">
@@ -633,7 +659,7 @@ QSlider::handle:horizontal {
           <widget class="QPushButton" name="newRecipeButton">
            <property name="minimumSize">
             <size>
-             <width>0</width>
+             <width>84</width>
              <height>140</height>
             </size>
            </property>
@@ -663,7 +689,7 @@ QSlider::handle:horizontal {
           <widget class="QPushButton" name="AssignPumpButton">
            <property name="minimumSize">
             <size>
-             <width>0</width>
+             <width>84</width>
              <height>130</height>
             </size>
            </property>
@@ -686,7 +712,7 @@ QSlider::handle:horizontal {
           <widget class="QPushButton" name="cleanPumpButton">
            <property name="minimumSize">
             <size>
-             <width>0</width>
+             <width>84</width>
              <height>100</height>
             </size>
            </property>
@@ -763,25 +789,56 @@ QSlider::handle:horizontal {
          <rect>
           <x>0</x>
           <y>20</y>
-          <width>581</width>
+          <width>603</width>
           <height>871</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_5" stretch="1,1,2,1,1,1,1">
+         <property name="spacing">
+          <number>33</number>
+         </property>
+         <property name="leftMargin">
+          <number>45</number>
+         </property>
+         <property name="rightMargin">
+          <number>45</number>
+         </property>
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_7">
            <item>
             <widget class="QPushButton" name="backBtnCalibrate">
              <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+              <sizepolicy hsizetype="Fixed" vsizetype="Maximum">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>84</width>
+               <height>45</height>
+              </size>
              </property>
              <property name="text">
               <string>BACK</string>
              </property>
             </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_3">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Maximum</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
            </item>
            <item>
             <widget class="QLabel" name="label_5">
@@ -1096,12 +1153,24 @@ liquid volume</string>
           <x>11</x>
           <y>21</y>
           <width>561</width>
-          <height>40</height>
+          <height>47</height>
          </rect>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_4">
          <item>
           <widget class="QPushButton" name="backBtnCleanPage">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>84</width>
+             <height>45</height>
+            </size>
+           </property>
            <property name="text">
             <string>BACK</string>
            </property>
@@ -1453,10 +1522,19 @@ liquid volume</string>
           <x>10</x>
           <y>170</y>
           <width>561</width>
-          <height>831</height>
+          <height>843</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_4">
+         <property name="spacing">
+          <number>3</number>
+         </property>
+         <property name="leftMargin">
+          <number>78</number>
+         </property>
+         <property name="rightMargin">
+          <number>78</number>
+         </property>
          <item>
           <widget class="QPushButton" name="pumpSelBtn">
            <property name="font">
@@ -1813,6 +1891,18 @@ liquid volume</string>
             <layout class="QHBoxLayout" name="horizontalLayout_3">
              <item>
               <widget class="QPushButton" name="pushButton_2">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>84</width>
+                 <height>45</height>
+                </size>
+               </property>
                <property name="text">
                 <string>BACK</string>
                </property>
@@ -1929,7 +2019,7 @@ liquid volume</string>
               <x>0</x>
               <y>0</y>
               <width>517</width>
-              <height>370</height>
+              <height>363</height>
              </rect>
             </property>
            </widget>
@@ -2011,7 +2101,7 @@ hr { height: 1px; border-width: 0; }
             <widget class="QPushButton" name="musicBtn">
              <property name="minimumSize">
               <size>
-               <width>0</width>
+               <width>84</width>
                <height>66</height>
               </size>
              </property>
@@ -2027,7 +2117,7 @@ hr { height: 1px; border-width: 0; }
             <widget class="QPushButton" name="pictureBtn">
              <property name="minimumSize">
               <size>
-               <width>0</width>
+               <width>84</width>
                <height>66</height>
               </size>
              </property>
@@ -2043,7 +2133,7 @@ hr { height: 1px; border-width: 0; }
             <widget class="QPushButton" name="videoBtn">
              <property name="minimumSize">
               <size>
-               <width>0</width>
+               <width>84</width>
                <height>66</height>
               </size>
              </property>
@@ -2069,7 +2159,7 @@ hr { height: 1px; border-width: 0; }
             <widget class="QPushButton" name="addIngredientBtn">
              <property name="minimumSize">
               <size>
-               <width>0</width>
+               <width>84</width>
                <height>66</height>
               </size>
              </property>
@@ -2082,7 +2172,7 @@ hr { height: 1px; border-width: 0; }
             <widget class="QPushButton" name="saveDrinkBtn">
              <property name="minimumSize">
               <size>
-               <width>0</width>
+               <width>84</width>
                <height>66</height>
               </size>
              </property>
@@ -2264,20 +2354,39 @@ hr { height: 1px; border-width: 0; }
           <x>10</x>
           <y>10</y>
           <width>561</width>
-          <height>261</height>
+          <height>361</height>
          </rect>
         </property>
         <layout class="QGridLayout" name="gridLayout_3">
-         <item row="2" column="1">
-          <widget class="QPushButton" name="saveBeverage">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
+         <property name="leftMargin">
+          <number>5</number>
+         </property>
+         <property name="rightMargin">
+          <number>5</number>
+         </property>
+         <property name="spacing">
+          <number>67</number>
+         </property>
+         <item row="0" column="0" colspan="2">
+          <widget class="QLabel" name="label_2">
+           <property name="font">
+            <font>
+             <family>DejaVu Sans Mono</family>
+             <pointsize>24</pointsize>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgb(0, 0, 0);</string>
            </property>
            <property name="text">
-            <string>SAVE</string>
+            <string>New beverage name:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="wordWrap">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -2308,6 +2417,19 @@ hr { height: 1px; border-width: 0; }
            </property>
           </widget>
          </item>
+         <item row="2" column="1">
+          <widget class="QPushButton" name="saveBeverage">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>SAVE</string>
+           </property>
+          </widget>
+         </item>
          <item row="2" column="0">
           <widget class="QPushButton" name="backSaveBeverage">
            <property name="sizePolicy">
@@ -2318,29 +2440,6 @@ hr { height: 1px; border-width: 0; }
            </property>
            <property name="text">
             <string>BACK</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0" colspan="2">
-          <widget class="QLabel" name="label_2">
-           <property name="font">
-            <font>
-             <family>DejaVu Sans Mono</family>
-             <pointsize>24</pointsize>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">color: rgb(0, 0, 0);</string>
-           </property>
-           <property name="text">
-            <string>New beverage name:</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-           <property name="wordWrap">
-            <bool>true</bool>
            </property>
           </widget>
          </item>
