@@ -92,6 +92,9 @@ MainWindow::MainWindow(QWidget *parent)
         });
     chromeProcess = new QProcess; // pointer to chrome browser process
 
+    timer_chrome_running_check = new QTimer(this);
+    connect (timer_chrome_running_check,&QTimer::timeout,this,&MainWindow::timer_chrome_running_check_slot);
+    timer_chrome_running_check->start(1000);
 }
 
 MainWindow::~MainWindow()
@@ -1446,5 +1449,18 @@ void MainWindow::on_visitWebButton_clicked()
 
     chromeProcess->start("chromium-browser",args);
     this->showMinimized();
+}
+
+void MainWindow::timer_chrome_running_check_slot()
+{
+    if (chromeProcess != nullptr) {
+
+        if (chromeProcess->state() == QProcess::Running){
+            this->showMinimized();
+        } else{
+            this->showFullScreen();
+        }
+
+    }
 }
 

@@ -148,7 +148,10 @@ private:
 
     QProcess* chromeProcess = nullptr;
 
+    QTimer* timer_chrome_running_check;
+
 private slots:
+
     void focus_changed_slot (QWidget* old, QWidget* now);
     void timer_slot(void);
     void player_pos_slot (qint64 pos);
@@ -192,5 +195,7 @@ private slots:
     void on_saveDrinkBtn_clicked();
     void on_termsOfUseButton_clicked();
     void on_visitWebButton_clicked();
+
+    void timer_chrome_running_check_slot (void);
 };
 #endif // MAINWINDOW_H
