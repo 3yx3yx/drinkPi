@@ -179,12 +179,18 @@ QVector<Drink> MainWindow::getDrinkList()
 
             ing.beverage.name = ingObj.value("beverage").toString();
 
+            bool beverageFound = false;
             for (auto &&bev : arrayBeverages) {
                 auto bevObj = bev.toObject();
                 if (bevObj.value("name") == ing.beverage.name) {
                     ing.beverage.pump = bevObj.value("pump").toInt();
+                    beverageFound = true;
                     break;
                 }
+            }
+
+            if (!beverageFound) {
+                qDebug()<<"cannot find beverage "<<ing.beverage.name<<"in drink"<<d.name;
             }
 
             ing.portion = ingObj.value("portion").toDouble();
@@ -203,7 +209,21 @@ Drink MainWindow::getDrinkByName(QString name)
     QVector<Drink> list = getDrinkList();
 
     for (const auto& d : list){
-        if (d.name == name) return d;
+        if (d.name == name)
+        {
+          for (const auto& ing : d.ingredients) {
+              QString beverageToSearch = ing.beverage.name;
+              if (getBeverageByName(beverageToSearch).name.isEmpty()) {
+                  QMessageBox mb;
+                  mb.setFont(QFont("Times", 23, QFont::Bold));
+                  mb.setInformativeText("cannot find beverage "+beverageToSearch);
+                  mb.setStandardButtons(QMessageBox::Ok);
+                  mb.exec();
+                  return Drink();
+              }
+          }
+          return d;
+        }
     }
 
     return Drink();
@@ -632,6 +652,11 @@ void MainWindow::drinkListBtnClicked(QString name)
 {
     Drink d = getDrinkByName(name);
 
+    if (d.name.isEmpty()) {
+        qDebug()<<"error in drink data";
+        return;
+    }
+
     ui->stackedWidget->setCurrentWidget(ui->drinkSelectedPage);
 
     QStringList ingList;
@@ -682,7 +707,23 @@ void MainWindow::on_editRecipeBtn_clicked()
 }
 void MainWindow::on_deleteDrinkButton_clicked()
 {
-    deleteDrinkFromJson(_drink_to_prepare.name);
+    QMessageBox mb;
+    mb.setInformativeText("Delete drink?");
+    mb.setStandardButtons(QMessageBox::No | QMessageBox::Yes);
+    int ret = mb.exec();
+
+    switch (ret) {
+    case QMessageBox::No :
+        return;
+        break;
+    case QMessageBox::Yes:
+        deleteDrinkFromJson(_drink_to_prepare.name);
+        break;
+    default:
+        break;
+    }
+
+
 }
 void MainWindow::on_drinkPrepare_backBtn_clicked()
 {
@@ -765,16 +806,19 @@ void MainWindow::on_drinkPrepare_prepareBtn_clicked()
         d.ingredients.swapItemsAt(min_idx,i);
     }
 
-    for (auto&& ing : d.ingredients){
+    for (auto&& ing : d.ingredients) {
 
         qDebug()<<"beverage"<<ing.beverage.name<<"portion"<<ing.portion <<"pump"<<ing.beverage.pump;
         if (ing.beverage.pump < 1 || ing.beverage.pump > PUMP_N){
             qDebug()<<"no pump specified";
             QMessageBox mb;
+            mb.setFont(QFont("Times", 23, QFont::Bold));
             mb.setInformativeText("no pump specified: "+ing.beverage.name);
             mb.setStandardButtons(QMessageBox::Ok);
             mb.exec();
             ui->stackedWidget->setCurrentWidget(ui->startPage);
+            player_audio->stop();
+            player_video->stop();
             return;
         }
 
