@@ -1274,7 +1274,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        stackedWidget->setCurrentIndex(4);
+        stackedWidget->setCurrentIndex(6);
         newRecipeButton->setDefault(false);
 
 

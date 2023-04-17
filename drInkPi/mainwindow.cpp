@@ -1355,6 +1355,20 @@ void MainWindow::on_saveDrinkBtn_clicked()
         ing.beverage.name = w->getSelected();
         ing.portion = w->getOz();
 
+        //qDebug()<<"reding selected comboboxes"<<ing.beverage.name;
+
+        for (const auto& iw : qAsConst(ingredientWidgetsList)) {
+            QString name = iw->getSelected();
+            if (name == ing.beverage.name && iw!=w) {
+                QMessageBox mb;
+                mb.setFont(QFont("Times", 23, QFont::Bold));
+                mb.setInformativeText(name + " - multiple times selected");
+                mb.setStandardButtons(QMessageBox::Ok);
+                mb.exec();
+                return;
+            }
+        }
+
         if (ing.portion != 0) {
             _new_drink.ingredients.append(ing);
         } else {
@@ -1374,6 +1388,8 @@ void MainWindow::on_saveDrinkBtn_clicked()
             default: break;
             }
         }
+
+
 
     }
     addDrinkToJson(_new_drink);
