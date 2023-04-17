@@ -1213,6 +1213,7 @@ moc_mainwindow.cpp: ../drInkPi/mainwindow.h \
 		../drInkPi/ingredientitemwidget.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qlabel.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qframe.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qprocess.h \
 		../../../rpi-qt/qt5.15/include/QtCore/QJsonDocument \
 		../../../rpi-qt/qt5.15/include/QtCore/qjsondocument.h \
 		../../../rpi-qt/qt5.15/include/QtCore/qjsonvalue.h \
@@ -1250,6 +1251,11 @@ moc_mainwindow.cpp: ../drInkPi/mainwindow.h \
 		../../../rpi-qt/qt5.15/include/QtMultimediaWidgets/qvideowidget.h \
 		../../../rpi-qt/qt5.15/include/QtMultimediaWidgets/qtmultimediawidgetdefs.h \
 		../../../rpi-qt/qt5.15/include/QtMultimedia/qmediabindableinterface.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/QFileDialog \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qfiledialog.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qdir.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qfileinfo.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qdialog.h \
 		moc_predefs.h \
 		../../../rpi-qt/qt5.15/bin/moc
 	/home/ilia/rpi-qt/qt5.15/bin/moc $(DEFINES) --include /home/ilia/GitHub/drinkPi/build-drInkPi-raspberry_pi-Debug/moc_predefs.h -I/home/ilia/rpi-qt/qt5.15/mkspecs/devices/linux-rasp-pi4-v3d-g++ -I/home/ilia/GitHub/drinkPi/drInkPi -I/home/ilia/rpi-qt/qt5.15/include -I/home/ilia/rpi-qt/qt5.15/include/QtMultimediaWidgets -I/home/ilia/rpi-qt/qt5.15/include/QtMultimedia -I/home/ilia/rpi-qt/qt5.15/include/QtWidgets -I/home/ilia/rpi-qt/qt5.15/include/QtGui -I/home/ilia/rpi-qt/qt5.15/include/QtNetwork -I/home/ilia/rpi-qt/qt5.15/include/QtDBus -I/home/ilia/rpi-qt/qt5.15/include/QtCore -I. -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include/c++/10.3.1 -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include/c++/10.3.1/arm-linux-gnueabihf -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include/c++/10.3.1/backward -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/lib/gcc/arm-linux-gnueabihf/10.3.1/include -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/lib/gcc/arm-linux-gnueabihf/10.3.1/include-fixed -I/home/ilia/rpi-qt/tools/cross-pi-gcc-10.3.0-2/arm-linux-gnueabihf/include -I/home/ilia/rpi-qt/sysroot/usr/include ../drInkPi/mainwindow.h -o moc_mainwindow.cpp
@@ -1674,8 +1680,12 @@ ingredientitemwidget.o: ../drInkPi/ingredientitemwidget.cpp ../drInkPi/ingredien
 		../../../rpi-qt/qt5.15/include/QtWidgets/qgridlayout.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/QLabel \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qlabel.h \
-		../../../rpi-qt/qt5.15/include/QtWidgets/QSpinBox \
-		../../../rpi-qt/qt5.15/include/QtWidgets/qspinbox.h
+		../../../rpi-qt/qt5.15/include/QtWidgets/QLineEdit \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qlineedit.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qtextcursor.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qtextformat.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qpen.h \
+		../../../rpi-qt/qt5.15/include/QtGui/qtextoption.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ingredientitemwidget.o ../drInkPi/ingredientitemwidget.cpp
 
 listunitwidget.o: ../drInkPi/listunitwidget.cpp ../drInkPi/listunitwidget.h \
@@ -1920,6 +1930,7 @@ main.o: ../drInkPi/main.cpp ../drInkPi/mainwindow.h \
 		../drInkPi/ingredientitemwidget.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qlabel.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qframe.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qprocess.h \
 		../../../rpi-qt/qt5.15/include/QtCore/QJsonDocument \
 		../../../rpi-qt/qt5.15/include/QtCore/qjsondocument.h \
 		../../../rpi-qt/qt5.15/include/QtCore/qjsonvalue.h \
@@ -1957,6 +1968,11 @@ main.o: ../drInkPi/main.cpp ../drInkPi/mainwindow.h \
 		../../../rpi-qt/qt5.15/include/QtMultimediaWidgets/qvideowidget.h \
 		../../../rpi-qt/qt5.15/include/QtMultimediaWidgets/qtmultimediawidgetdefs.h \
 		../../../rpi-qt/qt5.15/include/QtMultimedia/qmediabindableinterface.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/QFileDialog \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qfiledialog.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qdir.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qfileinfo.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qdialog.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/QApplication \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qapplication.h \
 		../../../rpi-qt/qt5.15/include/QtCore/qcoreapplication.h \
@@ -1997,8 +2013,6 @@ main.o: ../drInkPi/main.cpp ../drInkPi/mainwindow.h \
 		../../../rpi-qt/qt5.15/include/QtCore/qcryptographichash.h \
 		../../../rpi-qt/qt5.15/include/QtCore/qdeadlinetimer.h \
 		../../../rpi-qt/qt5.15/include/QtCore/qelapsedtimer.h \
-		../../../rpi-qt/qt5.15/include/QtCore/qdir.h \
-		../../../rpi-qt/qt5.15/include/QtCore/qfileinfo.h \
 		../../../rpi-qt/qt5.15/include/QtCore/qdiriterator.h \
 		../../../rpi-qt/qt5.15/include/QtCore/qeasingcurve.h \
 		../../../rpi-qt/qt5.15/include/QtCore/qendian.h \
@@ -2038,7 +2052,6 @@ main.o: ../drInkPi/main.cpp ../drInkPi/mainwindow.h \
 		../../../rpi-qt/qt5.15/include/QtCore/qplugin.h \
 		../../../rpi-qt/qt5.15/include/QtCore/qpointer.h \
 		../../../rpi-qt/qt5.15/include/QtCore/qpluginloader.h \
-		../../../rpi-qt/qt5.15/include/QtCore/qprocess.h \
 		../../../rpi-qt/qt5.15/include/QtCore/qpropertyanimation.h \
 		../../../rpi-qt/qt5.15/include/QtCore/qvariantanimation.h \
 		../../../rpi-qt/qt5.15/include/QtCore/qqueue.h \
@@ -2199,7 +2212,6 @@ main.o: ../drInkPi/main.cpp ../drInkPi/mainwindow.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qcalendarwidget.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qcheckbox.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qcolordialog.h \
-		../../../rpi-qt/qt5.15/include/QtWidgets/qdialog.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qcolormap.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qcolumnview.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qcombobox.h \
@@ -2216,7 +2228,6 @@ main.o: ../drInkPi/main.cpp ../drInkPi/mainwindow.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qdockwidget.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qdrawutil.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qerrormessage.h \
-		../../../rpi-qt/qt5.15/include/QtWidgets/qfiledialog.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qfilesystemmodel.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qfocusframe.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qfontcombobox.h \
@@ -2422,6 +2433,7 @@ mainwindow.o: ../drInkPi/mainwindow.cpp ../drInkPi/mainwindow.h \
 		../drInkPi/ingredientitemwidget.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qlabel.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qframe.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qprocess.h \
 		../../../rpi-qt/qt5.15/include/QtCore/QJsonDocument \
 		../../../rpi-qt/qt5.15/include/QtCore/qjsondocument.h \
 		../../../rpi-qt/qt5.15/include/QtCore/qjsonvalue.h \
@@ -2459,8 +2471,12 @@ mainwindow.o: ../drInkPi/mainwindow.cpp ../drInkPi/mainwindow.h \
 		../../../rpi-qt/qt5.15/include/QtMultimediaWidgets/qvideowidget.h \
 		../../../rpi-qt/qt5.15/include/QtMultimediaWidgets/qtmultimediawidgetdefs.h \
 		../../../rpi-qt/qt5.15/include/QtMultimedia/qmediabindableinterface.h \
-		../../../rpi-qt/qt5.15/include/QtWidgets/qerrormessage.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/QFileDialog \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qfiledialog.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qdir.h \
+		../../../rpi-qt/qt5.15/include/QtCore/qfileinfo.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qdialog.h \
+		../../../rpi-qt/qt5.15/include/QtWidgets/qerrormessage.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/qmessagebox.h \
 		../../../rpi-qt/qt5.15/include/QtGui/qmovie.h \
 		../../../rpi-qt/qt5.15/include/QtGui/qimagereader.h \
@@ -2520,8 +2536,6 @@ mainwindow.o: ../drInkPi/mainwindow.cpp ../drInkPi/mainwindow.h \
 		../../../rpi-qt/qt5.15/include/QtWidgets/QVBoxLayout \
 		../../../rpi-qt/qt5.15/include/QtCore/QFile \
 		../../../rpi-qt/qt5.15/include/QtCore/QDir \
-		../../../rpi-qt/qt5.15/include/QtCore/qdir.h \
-		../../../rpi-qt/qt5.15/include/QtCore/qfileinfo.h \
 		../../../rpi-qt/qt5.15/include/QtCore/QDebug \
 		../../../rpi-qt/qt5.15/include/QtWidgets/QLayout \
 		../../../rpi-qt/qt5.15/include/QtWidgets/QScroller \
@@ -2598,7 +2612,6 @@ mainwindow.o: ../drInkPi/mainwindow.cpp ../drInkPi/mainwindow.h \
 		../../../rpi-qt/qt5.15/include/QtCore/qparallelanimationgroup.h \
 		../../../rpi-qt/qt5.15/include/QtCore/qpauseanimation.h \
 		../../../rpi-qt/qt5.15/include/QtCore/qpluginloader.h \
-		../../../rpi-qt/qt5.15/include/QtCore/qprocess.h \
 		../../../rpi-qt/qt5.15/include/QtCore/qpropertyanimation.h \
 		../../../rpi-qt/qt5.15/include/QtCore/qvariantanimation.h \
 		../../../rpi-qt/qt5.15/include/QtCore/qqueue.h \

@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[44];
-    char stringdata0[934];
+    QByteArrayData data[51];
+    char stringdata0[1098];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -75,7 +75,14 @@ QT_MOC_LITERAL(39, 838, 23), // "on_saveBeverage_clicked"
 QT_MOC_LITERAL(40, 862, 32), // "beverageItemSelectionChangedSlot"
 QT_MOC_LITERAL(41, 895, 14), // "selection_text"
 QT_MOC_LITERAL(42, 910, 19), // "beverageItemWidget*"
-QT_MOC_LITERAL(43, 930, 3) // "obj"
+QT_MOC_LITERAL(43, 930, 3), // "obj"
+QT_MOC_LITERAL(44, 934, 23), // "on_pushButton_2_clicked"
+QT_MOC_LITERAL(45, 958, 19), // "on_videoBtn_clicked"
+QT_MOC_LITERAL(46, 978, 21), // "on_pictureBtn_clicked"
+QT_MOC_LITERAL(47, 1000, 19), // "on_musicBtn_clicked"
+QT_MOC_LITERAL(48, 1020, 23), // "on_saveDrinkBtn_clicked"
+QT_MOC_LITERAL(49, 1044, 27), // "on_termsOfUseButton_clicked"
+QT_MOC_LITERAL(50, 1072, 25) // "on_visitWebButton_clicked"
 
     },
     "MainWindow\0focus_changed_slot\0\0QWidget*\0"
@@ -109,7 +116,11 @@ QT_MOC_LITERAL(43, 930, 3) // "obj"
     "on_saveBeverage_clicked\0"
     "beverageItemSelectionChangedSlot\0"
     "selection_text\0beverageItemWidget*\0"
-    "obj"
+    "obj\0on_pushButton_2_clicked\0"
+    "on_videoBtn_clicked\0on_pictureBtn_clicked\0"
+    "on_musicBtn_clicked\0on_saveDrinkBtn_clicked\0"
+    "on_termsOfUseButton_clicked\0"
+    "on_visitWebButton_clicked"
 };
 #undef QT_MOC_LITERAL
 
@@ -119,7 +130,7 @@ static const uint qt_meta_data_MainWindow[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-      32,   14, // methods
+      39,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -127,38 +138,45 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    2,  174,    2, 0x08 /* Private */,
-       6,    0,  179,    2, 0x08 /* Private */,
-       7,    1,  180,    2, 0x08 /* Private */,
-       9,    1,  183,    2, 0x08 /* Private */,
-      11,    1,  186,    2, 0x08 /* Private */,
-      13,    0,  189,    2, 0x08 /* Private */,
-      14,    0,  190,    2, 0x08 /* Private */,
-      15,    0,  191,    2, 0x08 /* Private */,
-      16,    0,  192,    2, 0x08 /* Private */,
-      17,    0,  193,    2, 0x08 /* Private */,
-      18,    0,  194,    2, 0x08 /* Private */,
-      19,    0,  195,    2, 0x08 /* Private */,
-      20,    0,  196,    2, 0x08 /* Private */,
-      21,    0,  197,    2, 0x08 /* Private */,
-      22,    0,  198,    2, 0x08 /* Private */,
-      23,    0,  199,    2, 0x08 /* Private */,
-      24,    0,  200,    2, 0x08 /* Private */,
-      25,    1,  201,    2, 0x08 /* Private */,
-      27,    0,  204,    2, 0x08 /* Private */,
-      28,    0,  205,    2, 0x08 /* Private */,
-      29,    0,  206,    2, 0x08 /* Private */,
-      30,    0,  207,    2, 0x08 /* Private */,
-      31,    0,  208,    2, 0x08 /* Private */,
-      32,    0,  209,    2, 0x08 /* Private */,
-      33,    0,  210,    2, 0x08 /* Private */,
-      34,    0,  211,    2, 0x08 /* Private */,
-      35,    0,  212,    2, 0x08 /* Private */,
-      36,    0,  213,    2, 0x08 /* Private */,
-      37,    0,  214,    2, 0x08 /* Private */,
-      38,    0,  215,    2, 0x08 /* Private */,
-      39,    0,  216,    2, 0x08 /* Private */,
-      40,    2,  217,    2, 0x08 /* Private */,
+       1,    2,  209,    2, 0x08 /* Private */,
+       6,    0,  214,    2, 0x08 /* Private */,
+       7,    1,  215,    2, 0x08 /* Private */,
+       9,    1,  218,    2, 0x08 /* Private */,
+      11,    1,  221,    2, 0x08 /* Private */,
+      13,    0,  224,    2, 0x08 /* Private */,
+      14,    0,  225,    2, 0x08 /* Private */,
+      15,    0,  226,    2, 0x08 /* Private */,
+      16,    0,  227,    2, 0x08 /* Private */,
+      17,    0,  228,    2, 0x08 /* Private */,
+      18,    0,  229,    2, 0x08 /* Private */,
+      19,    0,  230,    2, 0x08 /* Private */,
+      20,    0,  231,    2, 0x08 /* Private */,
+      21,    0,  232,    2, 0x08 /* Private */,
+      22,    0,  233,    2, 0x08 /* Private */,
+      23,    0,  234,    2, 0x08 /* Private */,
+      24,    0,  235,    2, 0x08 /* Private */,
+      25,    1,  236,    2, 0x08 /* Private */,
+      27,    0,  239,    2, 0x08 /* Private */,
+      28,    0,  240,    2, 0x08 /* Private */,
+      29,    0,  241,    2, 0x08 /* Private */,
+      30,    0,  242,    2, 0x08 /* Private */,
+      31,    0,  243,    2, 0x08 /* Private */,
+      32,    0,  244,    2, 0x08 /* Private */,
+      33,    0,  245,    2, 0x08 /* Private */,
+      34,    0,  246,    2, 0x08 /* Private */,
+      35,    0,  247,    2, 0x08 /* Private */,
+      36,    0,  248,    2, 0x08 /* Private */,
+      37,    0,  249,    2, 0x08 /* Private */,
+      38,    0,  250,    2, 0x08 /* Private */,
+      39,    0,  251,    2, 0x08 /* Private */,
+      40,    2,  252,    2, 0x08 /* Private */,
+      44,    0,  257,    2, 0x08 /* Private */,
+      45,    0,  258,    2, 0x08 /* Private */,
+      46,    0,  259,    2, 0x08 /* Private */,
+      47,    0,  260,    2, 0x08 /* Private */,
+      48,    0,  261,    2, 0x08 /* Private */,
+      49,    0,  262,    2, 0x08 /* Private */,
+      50,    0,  263,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void, 0x80000000 | 3, 0x80000000 | 3,    4,    5,
@@ -193,6 +211,13 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, QMetaType::QString, 0x80000000 | 42,   41,   43,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -235,6 +260,13 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 29: _t->on_removeBeverageBtn_clicked(); break;
         case 30: _t->on_saveBeverage_clicked(); break;
         case 31: _t->beverageItemSelectionChangedSlot((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< beverageItemWidget*(*)>(_a[2]))); break;
+        case 32: _t->on_pushButton_2_clicked(); break;
+        case 33: _t->on_videoBtn_clicked(); break;
+        case 34: _t->on_pictureBtn_clicked(); break;
+        case 35: _t->on_musicBtn_clicked(); break;
+        case 36: _t->on_saveDrinkBtn_clicked(); break;
+        case 37: _t->on_termsOfUseButton_clicked(); break;
+        case 38: _t->on_visitWebButton_clicked(); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -288,13 +320,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 32)
+        if (_id < 39)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 32;
+        _id -= 39;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 32)
+        if (_id < 39)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 32;
+        _id -= 39;
     }
     return _id;
 }

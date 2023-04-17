@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -22,34 +22,56 @@
      <height>71</height>
     </rect>
    </property>
-   <layout class="QHBoxLayout" name="horizontalLayout" stretch="7,1,1">
+   <layout class="QHBoxLayout" name="horizontalLayout" stretch="5,1,1">
     <item>
      <widget class="QComboBox" name="comboBox">
       <property name="font">
        <font>
+        <family>DejaVu Sans Mono</family>
         <pointsize>20</pointsize>
        </font>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QSpinBox" name="spinBox">
+     <widget class="QLineEdit" name="lineEdit">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="font">
        <font>
-        <pointsize>18</pointsize>
+        <pointsize>20</pointsize>
        </font>
+      </property>
+      <property name="maxLength">
+       <number>10</number>
+      </property>
+      <property name="frame">
+       <bool>true</bool>
+      </property>
+      <property name="clearButtonEnabled">
+       <bool>false</bool>
       </property>
      </widget>
     </item>
     <item>
      <widget class="QLabel" name="label">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="font">
        <font>
         <pointsize>20</pointsize>
        </font>
       </property>
       <property name="text">
-       <string>OZ</string>
+       <string>Oz</string>
       </property>
      </widget>
     </item>

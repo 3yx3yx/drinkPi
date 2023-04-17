@@ -14,7 +14,7 @@
 #include <QtDBus>
 #include <unistd.h>
 
-#define TEST
+//#define TEST
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -25,7 +25,7 @@ MainWindow::MainWindow(QWidget *parent)
     gpio_init();
     stop_all_pumps();
 
-#ifdef TEST
+/*#ifdef TEST
     clearConfigJson(); // for test
 
     Drink d;
@@ -51,16 +51,12 @@ MainWindow::MainWindow(QWidget *parent)
     d.videoPath = "/home/pi/Videos/smpa.mp4";
 
     addDrinkToJson(d);
-#endif
-
-
-
-
+#endif*/
 
     updateDrinkListMenu();
     loadBeveragesListMenu();
 
-    QScroller::grabGesture(ui->scrollAreaBeverages, QScroller::LeftMouseButtonGesture);
+    QScroller::grabGesture(ui->scrollAreaBeverages, QScroller::LeftMouseButtonGesture); // to scroll with one finger
     QScroller::grabGesture(ui->scrollArea, QScroller::LeftMouseButtonGesture);
     QScroller::grabGesture(ui->listWidgetBeverages, QScroller::LeftMouseButtonGesture);
 
@@ -81,10 +77,30 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->volumeSlider->setValue(50);
 
+    QProcess p;
+    QStringList args;
+    p.startDetached("onboard",args); // start onscreen keyboard
+    p.waitForStarted();
+    QTimer::singleShot(5500, []{
+        auto msg = QDBusMessage::createMethodCall("org.onboard.Onboard",
+                                                  "/org/onboard/Onboard/Keyboard",
+                                                  "org.onboard.Onboard.Keyboard",
+                                                  "Hide");
+
+        QDBusConnection::sessionBus().send(msg);
+            qDebug("keybd hide");
+        });
+    chromeProcess = new QProcess; // pointer to chrome browser process
+
 }
 
 MainWindow::~MainWindow()
 {
+    QProcess p;
+    QStringList args;
+    args.append("onboard");
+    p.startDetached("pkill",args); // stop onscreen keyboard
+    p.waitForStarted();
     delete ui;
 }
 
@@ -170,6 +186,7 @@ QVector<Drink> MainWindow::getDrinkList()
         d.audioPath = obj["audio"].toString("");
         d.videoPath = obj["video"].toString("");
         d.picturePath = obj["picture"].toString("");
+        d.muteVideo = obj["mute_video"].toInt(0);
 
         QJsonArray jArr = obj["ingredients"].toArray();
         // read the ingredients list from json and write it to ingredients qvector list
@@ -211,18 +228,18 @@ Drink MainWindow::getDrinkByName(QString name)
     for (const auto& d : list){
         if (d.name == name)
         {
-          for (const auto& ing : d.ingredients) {
-              QString beverageToSearch = ing.beverage.name;
-              if (getBeverageByName(beverageToSearch).name.isEmpty()) {
-                  QMessageBox mb;
-                  mb.setFont(QFont("Times", 23, QFont::Bold));
-                  mb.setInformativeText("cannot find beverage "+beverageToSearch);
-                  mb.setStandardButtons(QMessageBox::Ok);
-                  mb.exec();
-                  return Drink();
-              }
-          }
-          return d;
+            for (const auto& ing : d.ingredients) {
+                QString beverageToSearch = ing.beverage.name;
+                if (getBeverageByName(beverageToSearch).name.isEmpty()) {
+                    QMessageBox mb;
+                    mb.setFont(QFont("Times", 23, QFont::Bold));
+                    mb.setInformativeText("cannot find beverage "+beverageToSearch);
+                    mb.setStandardButtons(QMessageBox::Ok);
+                    mb.exec();
+                    return Drink();
+                }
+            }
+            return d;
         }
     }
 
@@ -268,6 +285,7 @@ void MainWindow::addDrinkToJson(Drink d)
     obj.insert("name", QJsonValue(d.name));
     obj.insert("note",QJsonValue(d.note));
     obj.insert("video",QJsonValue(d.videoPath));
+    obj.insert("mute_video",QJsonValue(d.muteVideo));
     obj.insert("audio",QJsonValue(d.audioPath));
     obj.insert("picture",QJsonValue(d.picturePath));
 
@@ -338,33 +356,33 @@ void MainWindow::addBeverageToJson(Beverage b)
 
 void MainWindow::deleteDrinkFromJson(QString name)
 {
-     QJsonDocument doc = QJsonDocument(getJsonMainObject());
-     QJsonObject root = doc.object();
-     if (root.isEmpty()) {
+    QJsonDocument doc = QJsonDocument(getJsonMainObject());
+    QJsonObject root = doc.object();
+    if (root.isEmpty()) {
 
-         qDebug()<<"json error empty root";
-         clearConfigJson();
+        qDebug()<<"json error empty root";
+        clearConfigJson();
 
-     }  else if (root.contains("drinks")) {
-         QJsonArray array = root["drinks"].toArray();
+    }  else if (root.contains("drinks")) {
+        QJsonArray array = root["drinks"].toArray();
 
-         int i = 0;
-         for (auto&& a : array) {
-             auto obj = a.toObject();
+        int i = 0;
+        for (auto&& a : array) {
+            auto obj = a.toObject();
 
-             if (obj.value("name").toString() == name) {
+            if (obj.value("name").toString() == name) {
                 array.removeAt(i);
                 break;
-             }
-             ++i;
-         }
-         root.remove("drinks");
-         root.insert("drinks", array);
+            }
+            ++i;
+        }
+        root.remove("drinks");
+        root.insert("drinks", array);
 
-     } else {
-         qDebug()<<"error json drinks arr key not found";
-         clearConfigJson();
-     }
+    } else {
+        qDebug()<<"error json drinks arr key not found";
+        clearConfigJson();
+    }
 
 
     rewriteJsonConfig(root);
@@ -388,7 +406,7 @@ void MainWindow::deleteBeverageFromJson(QString name)
             auto obj = a.toObject();
 
             if (obj.value("name").toString() == name) {
-               array.removeAt(i);
+                array.removeAt(i);
             }
             ++i;
         }
@@ -424,8 +442,9 @@ void MainWindow::clearConfigJson()
 
 void MainWindow::updateDrinkListMenu()
 {
-    delete _widget_scroll_main;
+
     delete _main_scroll_layout;
+    delete _widget_scroll_main;
 
     _widget_scroll_main = new QWidget (this);
     _main_scroll_layout = new QVBoxLayout;
@@ -485,8 +504,8 @@ void MainWindow::loadBeveragesListMenu()
         }
 
         if (!pump_found){
-             unit->setWidget(i,"none",list);
-             beverageListSelectedPrevList.append("none");
+            unit->setWidget(i,"none",list);
+            beverageListSelectedPrevList.append("none");
         }
 
 
@@ -614,7 +633,16 @@ void MainWindow::focus_changed_slot(QWidget *old, QWidget *now)
 
         QDBusConnection::sessionBus().send(msg);
 
-        this->showFullScreen();
+        if (chromeProcess != nullptr) {
+
+            if (chromeProcess->state() == QProcess::Running){
+                this->showMinimized();
+            } else{
+                this->showFullScreen();
+            }
+
+        }
+
     }
 
 
@@ -623,10 +651,6 @@ void MainWindow::focus_changed_slot(QWidget *old, QWidget *now)
 
 
 
-void MainWindow::on_addIngredientBtn_clicked()
-{
-   // ui->stackedWidget->setCurrentWidget(ui->beverageAssignPage);
-}
 
 
 void MainWindow::on_backSaveBeverage_clicked()
@@ -683,6 +707,25 @@ void MainWindow::on_menuPage_backBtn_clicked()
 void MainWindow::on_newRecipeButton_clicked()
 {
     ui->stackedWidget->setCurrentWidget(ui->createRecipePage);
+
+    delete    _ingredient_list_scroll_layout;
+    delete   _widget_scroll_ingredient_list;
+
+    _ingredient_list_scroll_layout = new QVBoxLayout;
+    _widget_scroll_ingredient_list = new QWidget;
+    _widget_scroll_ingredient_list->setLayout(_ingredient_list_scroll_layout);
+    ui->scrollAreaRecipe->setWidget(_widget_scroll_ingredient_list);
+
+    ui->lineEditDrinkName->clear();
+    ui->textEdit->clear(); // notes field
+    _new_drink = Drink();
+
+    ui->videoBtn->setChecked(false);
+    ui->musicBtn->setChecked(false);
+    ui->pictureBtn->setChecked(false);
+
+    ingredientWidgetsList.clear();
+
 }
 void MainWindow::on_AssignPumpButton_clicked()
 {
@@ -703,7 +746,10 @@ void MainWindow::on_calibratePumpButton_clicked()
 //drink prepare page slots
 void MainWindow::on_editRecipeBtn_clicked()
 {
-
+    _new_drink = _drink_to_prepare;
+    ui->stackedWidget->setCurrentWidget(ui->createRecipePage);
+    ui->lineEditDrinkName->setText(_new_drink.name);
+    ui->textEdit->setText(_new_drink.note);
 }
 void MainWindow::on_deleteDrinkButton_clicked()
 {
@@ -744,9 +790,9 @@ void MainWindow::on_drinkPrepare_prepareBtn_clicked()
 
     } else if (!_drink_to_prepare.picturePath.isEmpty()) {
         QString path  = _drink_to_prepare.picturePath;
-            show_picture->setGeometry(ui->videoWidget->geometry());
-            show_picture->show();
-            show_picture->raise();
+        show_picture->setGeometry(ui->videoWidget->geometry());
+        show_picture->show();
+        show_picture->raise();
         if (path.endsWith(".gif")){
             show_picture->setMovie(movie);
             movie->start();
@@ -761,7 +807,11 @@ void MainWindow::on_drinkPrepare_prepareBtn_clicked()
         player_audio->setMedia(QUrl::fromLocalFile(_drink_to_prepare.audioPath));
     }
 
-    player_video->setVolume(ui->volumeSlider->value());
+    if (_drink_to_prepare.muteVideo)
+        player_video->setVolume(0);
+    else
+        player_video->setVolume(ui->volumeSlider->value());
+
     player_audio->setVolume(ui->volumeSlider->value());
 
     if (hasVideo) {
@@ -774,10 +824,10 @@ void MainWindow::on_drinkPrepare_prepareBtn_clicked()
     }
     else if (hasAudio){
 
-      disconnect (player_video,&QMediaPlayer::positionChanged, this, &MainWindow::player_pos_slot);
-      connect (player_audio,&QMediaPlayer::positionChanged, this, &MainWindow::player_pos_slot);
-      disconnect (player_video,&QMediaPlayer::durationChanged, this, &MainWindow::player_duration_changed_slot);
-      connect (player_audio,&QMediaPlayer::durationChanged, this, &MainWindow::player_duration_changed_slot);
+        disconnect (player_video,&QMediaPlayer::positionChanged, this, &MainWindow::player_pos_slot);
+        connect (player_audio,&QMediaPlayer::positionChanged, this, &MainWindow::player_pos_slot);
+        disconnect (player_video,&QMediaPlayer::durationChanged, this, &MainWindow::player_duration_changed_slot);
+        connect (player_audio,&QMediaPlayer::durationChanged, this, &MainWindow::player_duration_changed_slot);
 
     }
 
@@ -888,7 +938,8 @@ void MainWindow::timer_slot()
 // player slots
 void MainWindow::on_volumeSlider_valueChanged(int value)
 {
-    player_video->setVolume(value);
+    if (!_drink_to_prepare.muteVideo) player_video->setVolume(value);
+
     player_audio->setVolume(value);
 
 }
@@ -903,6 +954,7 @@ void MainWindow::player_pos_slot (qint64 pos) {
 
 void MainWindow::on_stopMediaBtn_clicked()
 {
+    stop_all_pumps();
     player_video->stop();
     player_audio->stop();
 
@@ -1063,7 +1115,7 @@ void MainWindow::updateBeveragesListMenu (void){
             beverageListSelectedPrevList.append("none");
         }
 
-         unit->blockSignals(false);
+        unit->blockSignals(false);
 
     }
 
@@ -1130,5 +1182,220 @@ void MainWindow::beverageItemSelectionChangedSlot(QString selection_text, bevera
     addBeverageToJson(b);
     updateBeveragesListMenu();
 
+}
+
+
+// create recipe page
+void MainWindow::on_pushButton_2_clicked() // escape
+{
+    ui->stackedWidget->setCurrentWidget(ui->menuPage);
+}
+
+void MainWindow::on_addIngredientBtn_clicked()
+{
+    QStringList list;
+    QVector<Beverage> bevList = getBeveragesList();
+
+    for (const auto& b : bevList) {
+        if (b.pump != 0) list.append(b.name);
+    }
+
+    // delete used ingredients
+    if (!ingredientWidgetsList.isEmpty()) {
+        for (const auto& w : qAsConst(ingredientWidgetsList)) {
+            list.removeAll(w->getSelected());
+            qDebug()<<"new ingredient list remove previously selected "<<w->getSelected();
+        }
+    }
+
+    // if no free ingredients left
+    if (list.isEmpty()) return;
+
+    auto unit = new ingredientItemWidget(_widget_scroll_ingredient_list);
+
+    ingredientWidgetsList.append(unit);
+    unit->setList(list);
+    _ingredient_list_scroll_layout->addWidget(unit);
+    ui->scrollAreaRecipe->setWidgetResizable(true);
+
+}
+
+
+
+void MainWindow::on_videoBtn_clicked()
+{
+    QString path =
+            QFileDialog::getOpenFileName(this,
+                                         "Open Image", "/home/pi/Videos", "Video files (*.mp4 *.mov *.wmv *.avi *.webm);;All files (*.*)");
+
+    if (!path.isEmpty()) ui->videoBtn->setChecked(true);
+
+    _new_drink.videoPath = path;
+
+    if (!path.isEmpty() && !_new_drink.audioPath.isEmpty()) {
+        QMessageBox mb;
+        mb.setFont(QFont("Times", 23, QFont::Bold));
+        mb.setInformativeText("audio file was specified\n"
+                              "Mute video sound?");
+        mb.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+        int ret = mb.exec();
+        switch (ret) {
+        case QMessageBox::Yes:
+            _new_drink.muteVideo=1;
+            break;
+        case QMessageBox::No:
+            _new_drink.muteVideo=0;
+            break;
+        default: break;
+        }
+    }
+}
+
+void MainWindow::on_pictureBtn_clicked()
+{
+    QString path =
+            QFileDialog::getOpenFileName(this,
+                                         "Open Image", "/home/pi/Pictures", "Images (*.gif *.jpeg *.png *.bmp);;All files (*.*)");
+
+    if (!path.isEmpty()) ui->pictureBtn->setChecked(true);
+
+    _new_drink.picturePath = path;
+}
+
+
+void MainWindow::on_musicBtn_clicked()
+{
+    QString path =
+            QFileDialog::getOpenFileName(this,
+                                         "Open Image", "/home/pi/Music",
+                                         "Audio (*.mp3 *.wav *.aac *.flac *.ogg);;All files (*.*)");
+
+    if (!path.isEmpty()) ui->musicBtn->setChecked(true);
+
+    _new_drink.audioPath = path;
+
+    if (!path.isEmpty() && !_new_drink.videoPath.isEmpty()) {
+        QMessageBox mb;
+        mb.setFont(QFont("Times", 23, QFont::Bold));
+        mb.setInformativeText("video file was specified\n"
+                              "Mute video sound?");
+        mb.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+        int ret = mb.exec();
+        switch (ret) {
+        case QMessageBox::Yes:
+            _new_drink.muteVideo=1;
+            break;
+        case QMessageBox::No:
+            _new_drink.muteVideo=0;
+            break;
+        default: break;
+        }
+    }
+}
+
+void MainWindow::on_saveDrinkBtn_clicked()
+{
+    _new_drink.name = ui->lineEditDrinkName->text();
+    _new_drink.note = ui->textEdit->toPlainText();
+    _new_drink.ingredients.clear();
+
+    QVector<Drink> drinkList = getDrinkList();
+
+    for (const auto& d : drinkList) {
+
+        if (d.name == _new_drink.name) {
+            QMessageBox mb;
+            mb.setFont(QFont("Times", 23, QFont::Bold));
+            mb.setInformativeText("Drink name is already taken\n"
+                                  "Overwrite?");
+            mb.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+            int ret = mb.exec();
+
+            switch (ret) {
+            case QMessageBox::Yes:
+                deleteDrinkFromJson(d.name);
+                break;
+            case QMessageBox::No:
+                return;
+                break;
+            default:
+                break;
+            }
+        }
+    }
+
+    for (const auto& w : qAsConst(ingredientWidgetsList)) {
+
+        Ingredient ing;
+        ing.beverage.name = w->getSelected();
+        ing.portion = w->getOz();
+
+        if (ing.portion != 0) {
+            _new_drink.ingredients.append(ing);
+        } else {
+            QMessageBox mb;
+            mb.setFont(QFont("Times", 23, QFont::Bold));
+            mb.setInformativeText(ing.beverage.name+" portion = 0\n"
+                                                    "Exclude from a drink recipe?");
+            mb.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+            int ret = mb.exec();
+            switch (ret) {
+            case QMessageBox::Yes:
+
+                break;
+            case QMessageBox::No:
+                return;
+                break;
+            default: break;
+            }
+        }
+
+    }
+    addDrinkToJson(_new_drink);
+
+    updateDrinkListMenu();
+}
+    // edit recipe page end slots
+
+void MainWindow::on_termsOfUseButton_clicked()
+{
+    QString s;
+    QFile file;
+    file.setFileName("/home/pi/drInkPi/termsOfUse.txt");
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        s = file.readAll();
+    } else if (file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate)) {
+        file.write("terms of use:");
+    }
+    file.close();
+
+    QMessageBox mb;
+    mb.setInformativeText("Tems of use");
+    mb.setDetailedText(s);
+    mb.setStandardButtons(QMessageBox::Ok);
+    mb.exec();
+}
+
+
+
+
+void MainWindow::on_visitWebButton_clicked()
+{
+    QString s;
+    QFile file;
+    file.setFileName("/home/pi/drInkPi/webPageURL.txt");
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        s = file.readAll();
+    } else if (file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate)) {
+        file.write("google.com");
+    }
+    file.close();
+
+    QStringList args;
+    if (!s.isEmpty()) args.append(s);
+    else args.append("google.com");
+
+    chromeProcess->start("chromium-browser",args);
+    this->showMinimized();
 }
 

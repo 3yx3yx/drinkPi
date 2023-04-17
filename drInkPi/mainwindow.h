@@ -8,6 +8,7 @@
 #include "listunitwidget.h"
 #include "ingredientitemwidget.h"
 #include "qlabel.h"
+#include "qprocess.h"
 #include <QJsonDocument>
 #include <QJsonParseError>
 #include <QJsonObject>
@@ -16,6 +17,7 @@
 
 #include <QMediaPlayer>
 #include <QVideoWidget>
+#include <QFileDialog>
 
 #define PUMP_N 16
 
@@ -48,11 +50,13 @@ struct Drink {
     QVector<Ingredient> ingredients;
 
     QString videoPath;
+    int muteVideo;
     QString picturePath;
     QString audioPath;
 
     Drink(void) {
         name = "";
+        muteVideo=0;
     }
 };
 
@@ -106,6 +110,8 @@ private:
     QWidget* _widget_scroll_main = nullptr;
     QVBoxLayout* _pump_list_scroll_layout = nullptr;
     QWidget* _widget_scroll_pump_list = nullptr;
+    QVBoxLayout* _ingredient_list_scroll_layout = nullptr;
+    QWidget* _widget_scroll_ingredient_list = nullptr;
 
     QVector<ListUnitWidget*> drinksWidgetsList;
     QVector<ingredientItemWidget*> ingredientWidgetsList;
@@ -117,6 +123,7 @@ private:
     void updateBeveragesListMenu (void);
 
     Drink _drink_to_prepare;
+    Drink _new_drink;
 
     float _pump_oz_per_sec[PUMP_N] = {0.0f};
     float get_pump_oz_per_sec (int pump);
@@ -138,6 +145,8 @@ private:
     QVector <PumpStopEvent> pumpStopEvents;
 
     bool beverageList_editButtonPressed = false;
+
+    QProcess* chromeProcess = nullptr;
 
 private slots:
     void focus_changed_slot (QWidget* old, QWidget* now);
@@ -176,5 +185,12 @@ private slots:
     void on_saveBeverage_clicked();
 
     void beverageItemSelectionChangedSlot (QString selection_text, beverageItemWidget* obj);
+    void on_pushButton_2_clicked();
+    void on_videoBtn_clicked();
+    void on_pictureBtn_clicked();
+    void on_musicBtn_clicked();
+    void on_saveDrinkBtn_clicked();
+    void on_termsOfUseButton_clicked();
+    void on_visitWebButton_clicked();
 };
 #endif // MAINWINDOW_H
