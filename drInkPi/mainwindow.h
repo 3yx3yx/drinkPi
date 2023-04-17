@@ -110,9 +110,11 @@ private:
     QVector<ListUnitWidget*> drinksWidgetsList;
     QVector<ingredientItemWidget*> ingredientWidgetsList;
     QVector<beverageItemWidget*> beverageWidgetsList;
+    QStringList beverageListSelectedPrevList;
 
     void updateDrinkListMenu (void);
     void loadBeveragesListMenu (void);
+    void updateBeveragesListMenu (void);
 
     Drink _drink_to_prepare;
 
@@ -134,6 +136,8 @@ private:
 
     QTimer* timer;
     QVector <PumpStopEvent> pumpStopEvents;
+
+    bool beverageList_editButtonPressed = false;
 
 private slots:
     void focus_changed_slot (QWidget* old, QWidget* now);
@@ -167,5 +171,10 @@ private slots:
     void on_backButtonBeverages_clicked();
 
     void on_deleteDrinkButton_clicked();
+    void on_editBeverageNameBtn_clicked();
+    void on_removeBeverageBtn_clicked();
+    void on_saveBeverage_clicked();
+
+    void beverageItemSelectionChangedSlot (QString selection_text, beverageItemWidget* obj);
 };
 #endif // MAINWINDOW_H

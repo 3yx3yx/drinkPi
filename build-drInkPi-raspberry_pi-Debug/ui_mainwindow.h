@@ -62,9 +62,8 @@ public:
     QLabel *label_11;
     QListWidget *listWidgetNotes;
     QHBoxLayout *horizontalLayout_2;
-    QSpacerItem *horizontalSpacer_3;
     QPushButton *editRecipeBtn;
-    QSpacerItem *horizontalSpacer_15;
+    QPushButton *deleteDrinkButton;
     QHBoxLayout *horizontalLayout_13;
     QPushButton *drinkPrepare_backBtn;
     QPushButton *drinkPrepare_prepareBtn;
@@ -389,22 +388,25 @@ public:
         verticalLayout_9->addWidget(listWidgetNotes);
 
         horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setSpacing(44);
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
-        horizontalLayout_2->setContentsMargins(-1, -1, -1, 22);
-        horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout_2->addItem(horizontalSpacer_3);
-
+        horizontalLayout_2->setContentsMargins(33, -1, 33, 22);
         editRecipeBtn = new QPushButton(layoutWidget2);
         editRecipeBtn->setObjectName(QString::fromUtf8("editRecipeBtn"));
-        sizePolicy.setHeightForWidth(editRecipeBtn->sizePolicy().hasHeightForWidth());
-        editRecipeBtn->setSizePolicy(sizePolicy);
+        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Maximum);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(editRecipeBtn->sizePolicy().hasHeightForWidth());
+        editRecipeBtn->setSizePolicy(sizePolicy2);
 
         horizontalLayout_2->addWidget(editRecipeBtn);
 
-        horizontalSpacer_15 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        deleteDrinkButton = new QPushButton(layoutWidget2);
+        deleteDrinkButton->setObjectName(QString::fromUtf8("deleteDrinkButton"));
+        sizePolicy2.setHeightForWidth(deleteDrinkButton->sizePolicy().hasHeightForWidth());
+        deleteDrinkButton->setSizePolicy(sizePolicy2);
 
-        horizontalLayout_2->addItem(horizontalSpacer_15);
+        horizontalLayout_2->addWidget(deleteDrinkButton);
 
 
         verticalLayout_9->addLayout(horizontalLayout_2);
@@ -979,11 +981,11 @@ public:
 
         scrollAreaRecipe = new QScrollArea(layoutWidget8);
         scrollAreaRecipe->setObjectName(QString::fromUtf8("scrollAreaRecipe"));
-        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Expanding);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(scrollAreaRecipe->sizePolicy().hasHeightForWidth());
-        scrollAreaRecipe->setSizePolicy(sizePolicy2);
+        QSizePolicy sizePolicy3(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(scrollAreaRecipe->sizePolicy().hasHeightForWidth());
+        scrollAreaRecipe->setSizePolicy(sizePolicy3);
         scrollAreaRecipe->setMinimumSize(QSize(0, 330));
         scrollAreaRecipe->setWidgetResizable(true);
         scrollAreaWidgetContents_3 = new QWidget();
@@ -999,11 +1001,11 @@ public:
 
         textEdit = new QTextEdit(layoutWidget8);
         textEdit->setObjectName(QString::fromUtf8("textEdit"));
-        QSizePolicy sizePolicy3(QSizePolicy::Expanding, QSizePolicy::Preferred);
-        sizePolicy3.setHorizontalStretch(0);
-        sizePolicy3.setVerticalStretch(0);
-        sizePolicy3.setHeightForWidth(textEdit->sizePolicy().hasHeightForWidth());
-        textEdit->setSizePolicy(sizePolicy3);
+        QSizePolicy sizePolicy4(QSizePolicy::Expanding, QSizePolicy::Preferred);
+        sizePolicy4.setHorizontalStretch(0);
+        sizePolicy4.setVerticalStretch(0);
+        sizePolicy4.setHeightForWidth(textEdit->sizePolicy().hasHeightForWidth());
+        textEdit->setSizePolicy(sizePolicy4);
         textEdit->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
 
         verticalLayout_3->addWidget(textEdit);
@@ -1202,7 +1204,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        stackedWidget->setCurrentIndex(2);
+        stackedWidget->setCurrentIndex(7);
         newRecipeButton->setDefault(false);
 
 
@@ -1218,6 +1220,7 @@ public:
         label_10->setText(QCoreApplication::translate("MainWindow", "Ingredients:", nullptr));
         label_11->setText(QCoreApplication::translate("MainWindow", "Notes:", nullptr));
         editRecipeBtn->setText(QCoreApplication::translate("MainWindow", "EDIT", nullptr));
+        deleteDrinkButton->setText(QCoreApplication::translate("MainWindow", "DELETE", nullptr));
         drinkPrepare_backBtn->setText(QCoreApplication::translate("MainWindow", "BACK", nullptr));
         drinkPrepare_prepareBtn->setText(QCoreApplication::translate("MainWindow", "PREPARE", nullptr));
         menuPage_backBtn->setText(QCoreApplication::translate("MainWindow", "BACK", nullptr));

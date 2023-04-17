@@ -39,10 +39,14 @@ MainWindow::MainWindow(QWidget *parent)
     b.pump=2;
     addBeverageToJson(b);
     d.ingredients.append(Ingredient{b,3.1});
-    b.name="jin";
+    b.name="gin";
     b.pump=3;
     addBeverageToJson(b);
     d.ingredients.append(Ingredient{b,5.2});
+    b.name="soda";
+    b.pump=4;
+    addBeverageToJson(b);
+    d.ingredients.append(Ingredient{b,1.2});
     d.note = "blabla";
     d.videoPath = "/home/pi/Videos/smpa.mp4";
 
@@ -58,6 +62,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     QScroller::grabGesture(ui->scrollAreaBeverages, QScroller::LeftMouseButtonGesture);
     QScroller::grabGesture(ui->scrollArea, QScroller::LeftMouseButtonGesture);
+    QScroller::grabGesture(ui->listWidgetBeverages, QScroller::LeftMouseButtonGesture);
 
     player_video = new QMediaPlayer(this);
     player_video->setVideoOutput(ui->videoWidget);
@@ -442,19 +447,33 @@ void MainWindow::loadBeveragesListMenu()
     ui->listWidgetBeverages->clear();
     ui->listWidgetBeverages->addItems(list);
 
+    beverageListSelectedPrevList.clear();
+
     for (int i = 1; i<= PUMP_N; ++i) {
         auto unit = new beverageItemWidget (_widget_scroll_pump_list);
         beverageWidgetsList.append(unit);
+        bool pump_found = 0;
         for (const auto &b : beveragesList) {
             if (b.pump == i) {
                 unit->setWidget(i,b.name,list);
+                pump_found = 1;
+                beverageListSelectedPrevList.append(b.name);
+                break;
             }else {
-                unit->setWidget(i,"none",list);
+                pump_found = 0;
             }
-            _pump_list_scroll_layout->addWidget(unit,1,Qt::AlignHCenter);
-            ui->scrollAreaBeverages->setWidgetResizable(1);
-
         }
+
+        if (!pump_found){
+             unit->setWidget(i,"none",list);
+             beverageListSelectedPrevList.append("none");
+        }
+
+
+        _pump_list_scroll_layout->addWidget(unit,1,Qt::AlignHCenter);
+        ui->scrollAreaBeverages->setWidgetResizable(1);
+
+        connect (unit,&beverageItemWidget::selectionChanged,this,&MainWindow::beverageItemSelectionChangedSlot);
     }
 }
 
@@ -595,11 +614,6 @@ void MainWindow::on_backSaveBeverage_clicked()
     ui->stackedWidget->setCurrentWidget(ui->beverageAssignPage);
 }
 
-
-void MainWindow::on_addBeverageBtn_clicked()
-{
-    ui->stackedWidget->setCurrentWidget(ui->beverageSaveNamePage);
-}
 
 
 
@@ -951,8 +965,126 @@ void MainWindow::on_backButtonBeverages_clicked()
     ui->stackedWidget->setCurrentWidget(ui->menuPage);
 }
 
+void MainWindow::on_addBeverageBtn_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->beverageSaveNamePage);
+    beverageList_editButtonPressed = false;
+}
+
+void MainWindow::on_editBeverageNameBtn_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->beverageSaveNamePage);
+    QString s = ui->listWidgetBeverages->currentItem()->text();
+    ui->beveragelineEdit->setText(s);
+
+    beverageList_editButtonPressed = true;
+}
 
 
+void MainWindow::on_removeBeverageBtn_clicked()
+{
+    QString name = ui->listWidgetBeverages->currentItem()->text();
+
+    deleteBeverageFromJson(name);
+    updateBeveragesListMenu();
+}
+
+void MainWindow::updateBeveragesListMenu (void){
+
+    QVector<Beverage> beveragesList = getBeveragesList();
+    QStringList list;
+    for (const auto&b : beveragesList) list.append(b.name);
+
+    ui->listWidgetBeverages->clear();
+    ui->listWidgetBeverages->addItems(list);
+
+    beverageListSelectedPrevList.clear();
+
+    for (int i=1; i<=PUMP_N; ++i) {
+        auto unit = beverageWidgetsList.at(i-1);
+        bool pump_found = false;
+        unit->blockSignals(true);
+        for (const auto &b : beveragesList) {
+            if (b.pump == i) {
+                unit->setWidget(i,b.name,list);
+                pump_found = 1;
+                beverageListSelectedPrevList.append(b.name);
+                break;
+            }else {
+                pump_found = 0;
+            }
+        }
+        if (!pump_found){
+            unit->setWidget(i,"none",list);
+            beverageListSelectedPrevList.append("none");
+        }
+
+         unit->blockSignals(false);
+
+    }
+
+}
+
+void MainWindow::on_saveBeverage_clicked()
+{
+    QString name = ui->beveragelineEdit->text();
+    QVector<Beverage> beveragesList = getBeveragesList();
+    if (name.length() < 2) {
+        QMessageBox mb;
+        mb.setInformativeText("Name is too short");
+        mb.setStandardButtons(QMessageBox::Ok);
+        mb.exec();
+        return;
+    }
+    for (const auto &b : beveragesList) {
+        if (b.name == name) {
+            QMessageBox mb;
+            mb.setInformativeText("Name is already taken");
+            mb.setStandardButtons(QMessageBox::Ok);
+            mb.exec();
+            return;
+        }
+    }
+
+    if ( beverageList_editButtonPressed) {
+        QString prev_name = ui->listWidgetBeverages->currentItem()->text();
+        Beverage b = getBeverageByName(prev_name);
+        b.name = name;
+        deleteBeverageFromJson(prev_name);
+        addBeverageToJson(b);
+    } else {
+        Beverage b;
+        b.name = ui->beveragelineEdit->text();
+        b.pump=0;
+        addBeverageToJson(b);
+    }
+    updateBeveragesListMenu();
+
+    ui->stackedWidget->setCurrentWidget(ui->beverageAssignPage);
+}
+
+void MainWindow::beverageItemSelectionChangedSlot(QString selection_text, beverageItemWidget *obj)
+{
+
+    QStringList prevList = beverageListSelectedPrevList;
+
+    QString prevSelected = prevList.at(obj->getNumber()-1);
+
+    if (prevSelected != "none") {
+        qDebug()<<"prev selected"<<prevSelected<<"set pump to 0";
+        Beverage b  = getBeverageByName(prevSelected);
+        b.pump=0;
+        deleteBeverageFromJson(b.name);
+        addBeverageToJson(b);
+    }
 
 
+    Beverage b  = getBeverageByName(selection_text);
+    qDebug()<<"change pump"<<b.name<<"from"<<b.pump<<"to"<<obj->getNumber();
+    b.pump = obj->getNumber();
+    deleteBeverageFromJson(b.name);
+    addBeverageToJson(b);
+    updateBeveragesListMenu();
+
+}
 

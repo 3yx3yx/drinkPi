@@ -21,3 +21,19 @@ void beverageItemWidget::setWidget(int pumpN, QString s, QStringList list)
     ui->comboBox->addItems(list);
     ui->comboBox->setCurrentText(s);
 }
+
+QString beverageItemWidget::getText()
+{
+    return ui->comboBox->currentText();
+}
+
+int beverageItemWidget::getNumber()
+{
+    return ui->pumpNumLabel->text().toInt();
+}
+
+void beverageItemWidget::on_comboBox_currentTextChanged(const QString &arg1)
+{
+    emit selectionChanged(arg1, this);
+}
+

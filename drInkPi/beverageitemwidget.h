@@ -17,6 +17,15 @@ public:
 
     void setWidget (int pumpN, QString s, QStringList list);
 
+    QString getText (void);
+    int getNumber (void);
+
+signals:
+    void selectionChanged (QString s, beverageItemWidget *obj);
+
+private slots:
+    void on_comboBox_currentTextChanged(const QString &arg1);
+
 private:
     Ui::beverageItemWidget *ui;
 };
