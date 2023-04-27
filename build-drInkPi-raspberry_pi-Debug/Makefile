@@ -747,19 +747,37 @@ compiler_rcc_clean:
 qrc_resources.cpp: ../drInkPi/resources.qrc \
 		../../../rpi-qt/qt5.15/bin/rcc \
 		../drInkPi/assets/pump_calib_data.txt \
+		../drInkPi/assets/MINIMIZE-131994911324916820.png \
+		../drInkPi/assets/config.json \
+		../drInkPi/assets/about-12.png \
+		../drInkPi/assets/web.png \
+		../drInkPi/assets/go-back-2.png \
+		../drInkPi/assets/add-icon-sign-symbol-design-free-png.png \
+		../drInkPi/assets/pump_calib_data.txt \
 		../drInkPi/assets/config.json \
 		../drInkPi/assets/star\ (copy).png \
 		../drInkPi/assets/ok--v1.png \
-		../drInkPi/assets/2662443.png \
-		../drInkPi/assets/free-settings-icon-3110-thumb.png \
-		../drInkPi/assets/415556.png \
-		../drInkPi/assets/262038.png \
-		../drInkPi/assets/831001.png \
-		../drInkPi/assets/PLUS.png \
-		../drInkPi/assets/water-tap.png \
+		../drInkPi/assets/delete.png \
+		../drInkPi/assets/clipart1343000.png \
 		../drInkPi/assets/920605.png \
+		../drInkPi/assets/star.png \
+		../drInkPi/assets/hamburger_button_menu_icon_155296.png \
+		../drInkPi/assets/Speaker_Icon.svg.png \
+		../drInkPi/assets/free-settings-icon-3110-thumb.png \
+		../drInkPi/assets/music.png \
+		../drInkPi/assets/2662443.png \
+		../drInkPi/assets/free-video-icon-831-thumb.png \
+		../drInkPi/assets/water-tap.png \
+		../drInkPi/assets/262038.png \
+		../drInkPi/assets/stop\ icon.png \
+		../drInkPi/assets/831001.png \
+		../drInkPi/assets/edit.png \
 		../drInkPi/assets/3716513.png \
-		../drInkPi/assets/star.png
+		../drInkPi/assets/hamb.png \
+		../drInkPi/assets/PLUS.png \
+		../drInkPi/assets/1200px-Picture_icon_BLACK.svg.png \
+		../drInkPi/assets/save-44.png \
+		../drInkPi/assets/415556.png
 	/home/ilia/rpi-qt/qt5.15/bin/rcc -name resources ../drInkPi/resources.qrc -o qrc_resources.cpp
 
 compiler_moc_predefs_make_all: moc_predefs.h

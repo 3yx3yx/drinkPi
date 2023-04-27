@@ -51,6 +51,7 @@ public:
     QVideoWidget *videoWidget;
     QWidget *layoutWidget1;
     QHBoxLayout *horizontalLayout_14;
+    QPushButton *pushButton;
     QVBoxLayout *verticalLayout_10;
     QSlider *volumeSlider;
     QPushButton *stopMediaBtn;
@@ -77,6 +78,7 @@ public:
     QPushButton *calibratePumpButton;
     QPushButton *visitWebButton;
     QPushButton *termsOfUseButton;
+    QPushButton *goToDesktopBtn;
     QWidget *calibrationPage;
     QWidget *layoutWidget4;
     QVBoxLayout *verticalLayout_5;
@@ -191,27 +193,6 @@ public:
         MainWindow->setSizePolicy(sizePolicy);
         MainWindow->setMinimumSize(QSize(600, 800));
         MainWindow->setFocusPolicy(Qt::ClickFocus);
-        MainWindow->setStyleSheet(QString::fromUtf8("\n"
-"QPushButton {\n"
-"	\n"
-"	color: rgb(0, 0, 0);\n"
-"    border: 2px solid #8f8f91;\n"
-"    border-radius: 12px;\n"
-"    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
-"                                      stop: 0 #f6f7fa, stop: 1 #dadbde);\n"
-"    min-width: 80px;\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
-"                                      stop: 0 #dadbde, stop: 1 #f6f7fa);\n"
-"}\n"
-"QPushButton:checked {\n"
-"	\n"
-"	background-color: rgb(85, 84, 84);\n"
-"}\n"
-"\n"
-""));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         gridLayout = new QGridLayout(centralwidget);
@@ -223,24 +204,24 @@ public:
         startPage->setObjectName(QString::fromUtf8("startPage"));
         scrollArea = new QScrollArea(startPage);
         scrollArea->setObjectName(QString::fromUtf8("scrollArea"));
-        scrollArea->setGeometry(QRect(10, 70, 571, 921));
+        scrollArea->setGeometry(QRect(0, 90, 571, 911));
         scrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QString::fromUtf8("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 569, 919));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 569, 909));
         scrollArea->setWidget(scrollAreaWidgetContents);
         layoutWidget = new QWidget(startPage);
         layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
-        layoutWidget->setGeometry(QRect(10, 10, 571, 59));
+        layoutWidget->setGeometry(QRect(0, 10, 571, 73));
         horizontalLayout = new QHBoxLayout(layoutWidget);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
         settingButton = new QPushButton(layoutWidget);
         settingButton->setObjectName(QString::fromUtf8("settingButton"));
         QIcon icon;
-        icon.addFile(QString::fromUtf8(":/images/assets/free-settings-icon-3110-thumb.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon.addFile(QString::fromUtf8(":/images/assets/hamburger_button_menu_icon_155296.png"), QSize(), QIcon::Normal, QIcon::Off);
         settingButton->setIcon(icon);
-        settingButton->setIconSize(QSize(45, 45));
+        settingButton->setIconSize(QSize(65, 65));
         settingButton->setFlat(true);
 
         horizontalLayout->addWidget(settingButton);
@@ -332,9 +313,18 @@ public:
         layoutWidget1->setObjectName(QString::fromUtf8("layoutWidget1"));
         layoutWidget1->setGeometry(QRect(30, 830, 531, 163));
         horizontalLayout_14 = new QHBoxLayout(layoutWidget1);
-        horizontalLayout_14->setSpacing(33);
+        horizontalLayout_14->setSpacing(12);
         horizontalLayout_14->setObjectName(QString::fromUtf8("horizontalLayout_14"));
         horizontalLayout_14->setContentsMargins(0, 33, 0, 33);
+        pushButton = new QPushButton(layoutWidget1);
+        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+        QIcon icon1;
+        icon1.addFile(QString::fromUtf8(":/images/assets/Speaker_Icon.svg.png"), QSize(), QIcon::Normal, QIcon::Off);
+        pushButton->setIcon(icon1);
+        pushButton->setIconSize(QSize(32, 32));
+
+        horizontalLayout_14->addWidget(pushButton);
+
         verticalLayout_10 = new QVBoxLayout();
         verticalLayout_10->setObjectName(QString::fromUtf8("verticalLayout_10"));
         volumeSlider = new QSlider(layoutWidget1);
@@ -371,11 +361,15 @@ public:
         sizePolicy2.setVerticalStretch(0);
         sizePolicy2.setHeightForWidth(stopMediaBtn->sizePolicy().hasHeightForWidth());
         stopMediaBtn->setSizePolicy(sizePolicy2);
+        QIcon icon2;
+        icon2.addFile(QString::fromUtf8(":/images/assets/stop icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        stopMediaBtn->setIcon(icon2);
+        stopMediaBtn->setIconSize(QSize(67, 67));
 
         horizontalLayout_14->addWidget(stopMediaBtn);
 
-        horizontalLayout_14->setStretch(0, 3);
-        horizontalLayout_14->setStretch(1, 1);
+        horizontalLayout_14->setStretch(1, 3);
+        horizontalLayout_14->setStretch(2, 1);
         stackedWidget->addWidget(showPage);
         drinkSelectedPage = new QWidget();
         drinkSelectedPage->setObjectName(QString::fromUtf8("drinkSelectedPage"));
@@ -423,11 +417,15 @@ public:
         horizontalLayout_2->setContentsMargins(33, -1, 33, 22);
         editRecipeBtn = new QPushButton(layoutWidget2);
         editRecipeBtn->setObjectName(QString::fromUtf8("editRecipeBtn"));
-        QSizePolicy sizePolicy3(QSizePolicy::Expanding, QSizePolicy::Maximum);
+        QSizePolicy sizePolicy3(QSizePolicy::Maximum, QSizePolicy::Maximum);
         sizePolicy3.setHorizontalStretch(0);
         sizePolicy3.setVerticalStretch(0);
         sizePolicy3.setHeightForWidth(editRecipeBtn->sizePolicy().hasHeightForWidth());
         editRecipeBtn->setSizePolicy(sizePolicy3);
+        QIcon icon3;
+        icon3.addFile(QString::fromUtf8(":/images/assets/edit.png"), QSize(), QIcon::Normal, QIcon::Off);
+        editRecipeBtn->setIcon(icon3);
+        editRecipeBtn->setIconSize(QSize(56, 56));
 
         horizontalLayout_2->addWidget(editRecipeBtn);
 
@@ -435,6 +433,10 @@ public:
         deleteDrinkButton->setObjectName(QString::fromUtf8("deleteDrinkButton"));
         sizePolicy3.setHeightForWidth(deleteDrinkButton->sizePolicy().hasHeightForWidth());
         deleteDrinkButton->setSizePolicy(sizePolicy3);
+        QIcon icon4;
+        icon4.addFile(QString::fromUtf8(":/images/assets/delete.png"), QSize(), QIcon::Normal, QIcon::Off);
+        deleteDrinkButton->setIcon(icon4);
+        deleteDrinkButton->setIconSize(QSize(56, 56));
 
         horizontalLayout_2->addWidget(deleteDrinkButton);
 
@@ -442,20 +444,31 @@ public:
         verticalLayout_9->addLayout(horizontalLayout_2);
 
         horizontalLayout_13 = new QHBoxLayout();
-        horizontalLayout_13->setSpacing(44);
+        horizontalLayout_13->setSpacing(22);
         horizontalLayout_13->setObjectName(QString::fromUtf8("horizontalLayout_13"));
         horizontalLayout_13->setContentsMargins(33, 33, 33, -1);
         drinkPrepare_backBtn = new QPushButton(layoutWidget2);
         drinkPrepare_backBtn->setObjectName(QString::fromUtf8("drinkPrepare_backBtn"));
-        sizePolicy2.setHeightForWidth(drinkPrepare_backBtn->sizePolicy().hasHeightForWidth());
-        drinkPrepare_backBtn->setSizePolicy(sizePolicy2);
+        QSizePolicy sizePolicy4(QSizePolicy::Minimum, QSizePolicy::Expanding);
+        sizePolicy4.setHorizontalStretch(0);
+        sizePolicy4.setVerticalStretch(0);
+        sizePolicy4.setHeightForWidth(drinkPrepare_backBtn->sizePolicy().hasHeightForWidth());
+        drinkPrepare_backBtn->setSizePolicy(sizePolicy4);
+        QIcon icon5;
+        icon5.addFile(QString::fromUtf8(":/images/assets/go-back-2.png"), QSize(), QIcon::Normal, QIcon::Off);
+        drinkPrepare_backBtn->setIcon(icon5);
+        drinkPrepare_backBtn->setIconSize(QSize(67, 67));
 
         horizontalLayout_13->addWidget(drinkPrepare_backBtn);
 
         drinkPrepare_prepareBtn = new QPushButton(layoutWidget2);
         drinkPrepare_prepareBtn->setObjectName(QString::fromUtf8("drinkPrepare_prepareBtn"));
-        sizePolicy2.setHeightForWidth(drinkPrepare_prepareBtn->sizePolicy().hasHeightForWidth());
-        drinkPrepare_prepareBtn->setSizePolicy(sizePolicy2);
+        sizePolicy4.setHeightForWidth(drinkPrepare_prepareBtn->sizePolicy().hasHeightForWidth());
+        drinkPrepare_prepareBtn->setSizePolicy(sizePolicy4);
+        QIcon icon6;
+        icon6.addFile(QString::fromUtf8(":/images/assets/clipart1343000.png"), QSize(), QIcon::Normal, QIcon::Off);
+        drinkPrepare_prepareBtn->setIcon(icon6);
+        drinkPrepare_prepareBtn->setIconSize(QSize(67, 67));
 
         horizontalLayout_13->addWidget(drinkPrepare_prepareBtn);
 
@@ -474,43 +487,57 @@ public:
         menuPage_backBtn = new QPushButton(menuPage);
         menuPage_backBtn->setObjectName(QString::fromUtf8("menuPage_backBtn"));
         menuPage_backBtn->setGeometry(QRect(20, 20, 121, 61));
+        menuPage_backBtn->setIcon(icon5);
+        menuPage_backBtn->setIconSize(QSize(56, 56));
         layoutWidget3 = new QWidget(menuPage);
         layoutWidget3->setObjectName(QString::fromUtf8("layoutWidget3"));
-        layoutWidget3->setGeometry(QRect(20, 100, 561, 891));
+        layoutWidget3->setGeometry(QRect(0, 100, 578, 891));
         verticalLayout = new QVBoxLayout(layoutWidget3);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
         newRecipeButton = new QPushButton(layoutWidget3);
         newRecipeButton->setObjectName(QString::fromUtf8("newRecipeButton"));
-        newRecipeButton->setMinimumSize(QSize(84, 140));
+        newRecipeButton->setMinimumSize(QSize(0, 140));
         QFont font3;
         font3.setFamily(QString::fromUtf8("DejaVu Sans Mono"));
         font3.setPointSize(31);
-        font3.setBold(true);
+        font3.setBold(false);
         font3.setItalic(false);
         newRecipeButton->setFont(font3);
         newRecipeButton->setAutoFillBackground(false);
+        QIcon icon7;
+        icon7.addFile(QString::fromUtf8(":/images/assets/add-icon-sign-symbol-design-free-png.png"), QSize(), QIcon::Normal, QIcon::Off);
+        newRecipeButton->setIcon(icon7);
+        newRecipeButton->setIconSize(QSize(45, 45));
         newRecipeButton->setFlat(false);
 
         verticalLayout->addWidget(newRecipeButton);
 
         AssignPumpButton = new QPushButton(layoutWidget3);
         AssignPumpButton->setObjectName(QString::fromUtf8("AssignPumpButton"));
-        AssignPumpButton->setMinimumSize(QSize(84, 130));
+        AssignPumpButton->setMinimumSize(QSize(0, 130));
         QFont font4;
         font4.setFamily(QString::fromUtf8("DejaVu Sans Mono"));
         font4.setPointSize(31);
-        font4.setBold(true);
+        font4.setBold(false);
         AssignPumpButton->setFont(font4);
         AssignPumpButton->setAutoFillBackground(false);
+        QIcon icon8;
+        icon8.addFile(QString::fromUtf8(":/images/assets/920605.png"), QSize(), QIcon::Normal, QIcon::Off);
+        AssignPumpButton->setIcon(icon8);
+        AssignPumpButton->setIconSize(QSize(45, 45));
 
         verticalLayout->addWidget(AssignPumpButton);
 
         cleanPumpButton = new QPushButton(layoutWidget3);
         cleanPumpButton->setObjectName(QString::fromUtf8("cleanPumpButton"));
-        cleanPumpButton->setMinimumSize(QSize(84, 100));
+        cleanPumpButton->setMinimumSize(QSize(0, 100));
         cleanPumpButton->setFont(font4);
         cleanPumpButton->setAutoFillBackground(false);
+        QIcon icon9;
+        icon9.addFile(QString::fromUtf8(":/images/assets/water-tap.png"), QSize(), QIcon::Normal, QIcon::Off);
+        cleanPumpButton->setIcon(icon9);
+        cleanPumpButton->setIconSize(QSize(45, 45));
 
         verticalLayout->addWidget(cleanPumpButton);
 
@@ -519,9 +546,13 @@ public:
         QFont font5;
         font5.setFamily(QString::fromUtf8("DejaVu Sans Mono"));
         font5.setPointSize(30);
-        font5.setBold(true);
+        font5.setBold(false);
         calibratePumpButton->setFont(font5);
         calibratePumpButton->setAutoFillBackground(false);
+        QIcon icon10;
+        icon10.addFile(QString::fromUtf8(":/images/assets/free-settings-icon-3110-thumb.png"), QSize(), QIcon::Normal, QIcon::Off);
+        calibratePumpButton->setIcon(icon10);
+        calibratePumpButton->setIconSize(QSize(45, 45));
 
         verticalLayout->addWidget(calibratePumpButton);
 
@@ -532,6 +563,10 @@ public:
         font6.setPointSize(31);
         visitWebButton->setFont(font6);
         visitWebButton->setAutoFillBackground(false);
+        QIcon icon11;
+        icon11.addFile(QString::fromUtf8(":/text/assets/web.png"), QSize(), QIcon::Normal, QIcon::Off);
+        visitWebButton->setIcon(icon11);
+        visitWebButton->setIconSize(QSize(35, 35));
 
         verticalLayout->addWidget(visitWebButton);
 
@@ -539,8 +574,23 @@ public:
         termsOfUseButton->setObjectName(QString::fromUtf8("termsOfUseButton"));
         termsOfUseButton->setFont(font6);
         termsOfUseButton->setAutoFillBackground(false);
+        QIcon icon12;
+        icon12.addFile(QString::fromUtf8(":/text/assets/about-12.png"), QSize(), QIcon::Normal, QIcon::Off);
+        termsOfUseButton->setIcon(icon12);
+        termsOfUseButton->setIconSize(QSize(35, 35));
 
         verticalLayout->addWidget(termsOfUseButton);
+
+        goToDesktopBtn = new QPushButton(layoutWidget3);
+        goToDesktopBtn->setObjectName(QString::fromUtf8("goToDesktopBtn"));
+        goToDesktopBtn->setFont(font6);
+        goToDesktopBtn->setAutoFillBackground(false);
+        QIcon icon13;
+        icon13.addFile(QString::fromUtf8(":/text/assets/MINIMIZE-131994911324916820.png"), QSize(), QIcon::Normal, QIcon::Off);
+        goToDesktopBtn->setIcon(icon13);
+        goToDesktopBtn->setIconSize(QSize(35, 35));
+
+        verticalLayout->addWidget(goToDesktopBtn);
 
         verticalLayout->setStretch(0, 2);
         verticalLayout->setStretch(1, 1);
@@ -550,7 +600,7 @@ public:
         calibrationPage->setObjectName(QString::fromUtf8("calibrationPage"));
         layoutWidget4 = new QWidget(calibrationPage);
         layoutWidget4->setObjectName(QString::fromUtf8("layoutWidget4"));
-        layoutWidget4->setGeometry(QRect(0, 20, 603, 871));
+        layoutWidget4->setGeometry(QRect(0, 0, 603, 871));
         verticalLayout_5 = new QVBoxLayout(layoutWidget4);
         verticalLayout_5->setSpacing(33);
         verticalLayout_5->setObjectName(QString::fromUtf8("verticalLayout_5"));
@@ -559,12 +609,14 @@ public:
         horizontalLayout_7->setObjectName(QString::fromUtf8("horizontalLayout_7"));
         backBtnCalibrate = new QPushButton(layoutWidget4);
         backBtnCalibrate->setObjectName(QString::fromUtf8("backBtnCalibrate"));
-        QSizePolicy sizePolicy4(QSizePolicy::Fixed, QSizePolicy::Maximum);
-        sizePolicy4.setHorizontalStretch(0);
-        sizePolicy4.setVerticalStretch(0);
-        sizePolicy4.setHeightForWidth(backBtnCalibrate->sizePolicy().hasHeightForWidth());
-        backBtnCalibrate->setSizePolicy(sizePolicy4);
-        backBtnCalibrate->setMinimumSize(QSize(84, 45));
+        QSizePolicy sizePolicy5(QSizePolicy::Expanding, QSizePolicy::Maximum);
+        sizePolicy5.setHorizontalStretch(0);
+        sizePolicy5.setVerticalStretch(0);
+        sizePolicy5.setHeightForWidth(backBtnCalibrate->sizePolicy().hasHeightForWidth());
+        backBtnCalibrate->setSizePolicy(sizePolicy5);
+        backBtnCalibrate->setMinimumSize(QSize(0, 45));
+        backBtnCalibrate->setIcon(icon5);
+        backBtnCalibrate->setIconSize(QSize(56, 56));
 
         horizontalLayout_7->addWidget(backBtnCalibrate);
 
@@ -642,11 +694,9 @@ public:
         calibrationStart->setObjectName(QString::fromUtf8("calibrationStart"));
         sizePolicy2.setHeightForWidth(calibrationStart->sizePolicy().hasHeightForWidth());
         calibrationStart->setSizePolicy(sizePolicy2);
-        QFont font9;
-        font9.setFamily(QString::fromUtf8("DejaVu Sans Mono"));
-        font9.setPointSize(24);
-        font9.setBold(true);
-        calibrationStart->setFont(font9);
+        calibrationStart->setFont(font);
+        calibrationStart->setIcon(icon9);
+        calibrationStart->setIconSize(QSize(45, 45));
 
         verticalLayout_5->addWidget(calibrationStart);
 
@@ -666,9 +716,9 @@ public:
 
         lineEditCalibrate = new QLineEdit(layoutWidget4);
         lineEditCalibrate->setObjectName(QString::fromUtf8("lineEditCalibrate"));
-        QFont font10;
-        font10.setPointSize(24);
-        lineEditCalibrate->setFont(font10);
+        QFont font9;
+        font9.setPointSize(24);
+        lineEditCalibrate->setFont(font9);
         lineEditCalibrate->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         lineEditCalibrate->setInputMethodHints(Qt::ImhDigitsOnly);
 
@@ -692,8 +742,12 @@ public:
         calibrationSave->setObjectName(QString::fromUtf8("calibrationSave"));
         sizePolicy2.setHeightForWidth(calibrationSave->sizePolicy().hasHeightForWidth());
         calibrationSave->setSizePolicy(sizePolicy2);
-        calibrationSave->setFont(font9);
+        calibrationSave->setFont(font);
         calibrationSave->setStyleSheet(QString::fromUtf8(""));
+        QIcon icon14;
+        icon14.addFile(QString::fromUtf8(":/images/assets/save-44.png"), QSize(), QIcon::Normal, QIcon::Off);
+        calibrationSave->setIcon(icon14);
+        calibrationSave->setIconSize(QSize(45, 45));
 
         verticalLayout_5->addWidget(calibrationSave);
 
@@ -709,7 +763,7 @@ public:
         pumpClearPage->setObjectName(QString::fromUtf8("pumpClearPage"));
         layoutWidget5 = new QWidget(pumpClearPage);
         layoutWidget5->setObjectName(QString::fromUtf8("layoutWidget5"));
-        layoutWidget5->setGeometry(QRect(11, 21, 561, 47));
+        layoutWidget5->setGeometry(QRect(11, 7, 561, 61));
         horizontalLayout_4 = new QHBoxLayout(layoutWidget5);
         horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
         horizontalLayout_4->setContentsMargins(0, 0, 0, 0);
@@ -717,7 +771,9 @@ public:
         backBtnCleanPage->setObjectName(QString::fromUtf8("backBtnCleanPage"));
         sizePolicy2.setHeightForWidth(backBtnCleanPage->sizePolicy().hasHeightForWidth());
         backBtnCleanPage->setSizePolicy(sizePolicy2);
-        backBtnCleanPage->setMinimumSize(QSize(84, 45));
+        backBtnCleanPage->setMinimumSize(QSize(0, 45));
+        backBtnCleanPage->setIcon(icon5);
+        backBtnCleanPage->setIconSize(QSize(56, 56));
 
         horizontalLayout_4->addWidget(backBtnCleanPage);
 
@@ -798,7 +854,7 @@ public:
         selectAllPumps->setObjectName(QString::fromUtf8("selectAllPumps"));
         sizePolicy2.setHeightForWidth(selectAllPumps->sizePolicy().hasHeightForWidth());
         selectAllPumps->setSizePolicy(sizePolicy2);
-        selectAllPumps->setFont(font10);
+        selectAllPumps->setFont(font9);
         selectAllPumps->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
 
         horizontalLayout_5->addWidget(selectAllPumps);
@@ -819,9 +875,9 @@ public:
         verticalLayout_4->setContentsMargins(78, 0, 78, 0);
         pumpSelBtn = new QPushButton(layoutWidget7);
         pumpSelBtn->setObjectName(QString::fromUtf8("pumpSelBtn"));
-        QFont font11;
-        font11.setPointSize(18);
-        pumpSelBtn->setFont(font11);
+        QFont font10;
+        font10.setPointSize(18);
+        pumpSelBtn->setFont(font10);
         pumpSelBtn->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         pumpSelBtn->setCheckable(true);
         pumpSelBtn->setChecked(false);
@@ -830,7 +886,7 @@ public:
 
         pumpSelBtn_2 = new QPushButton(layoutWidget7);
         pumpSelBtn_2->setObjectName(QString::fromUtf8("pumpSelBtn_2"));
-        pumpSelBtn_2->setFont(font11);
+        pumpSelBtn_2->setFont(font10);
         pumpSelBtn_2->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         pumpSelBtn_2->setCheckable(true);
         pumpSelBtn_2->setChecked(false);
@@ -839,7 +895,7 @@ public:
 
         pumpSelBtn_4 = new QPushButton(layoutWidget7);
         pumpSelBtn_4->setObjectName(QString::fromUtf8("pumpSelBtn_4"));
-        pumpSelBtn_4->setFont(font11);
+        pumpSelBtn_4->setFont(font10);
         pumpSelBtn_4->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         pumpSelBtn_4->setCheckable(true);
         pumpSelBtn_4->setChecked(false);
@@ -848,7 +904,7 @@ public:
 
         pumpSelBtn_3 = new QPushButton(layoutWidget7);
         pumpSelBtn_3->setObjectName(QString::fromUtf8("pumpSelBtn_3"));
-        pumpSelBtn_3->setFont(font11);
+        pumpSelBtn_3->setFont(font10);
         pumpSelBtn_3->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         pumpSelBtn_3->setCheckable(true);
         pumpSelBtn_3->setChecked(false);
@@ -857,7 +913,7 @@ public:
 
         pumpSelBtn_8 = new QPushButton(layoutWidget7);
         pumpSelBtn_8->setObjectName(QString::fromUtf8("pumpSelBtn_8"));
-        pumpSelBtn_8->setFont(font11);
+        pumpSelBtn_8->setFont(font10);
         pumpSelBtn_8->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         pumpSelBtn_8->setCheckable(true);
         pumpSelBtn_8->setChecked(false);
@@ -866,7 +922,7 @@ public:
 
         pumpSelBtn_5 = new QPushButton(layoutWidget7);
         pumpSelBtn_5->setObjectName(QString::fromUtf8("pumpSelBtn_5"));
-        pumpSelBtn_5->setFont(font11);
+        pumpSelBtn_5->setFont(font10);
         pumpSelBtn_5->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         pumpSelBtn_5->setCheckable(true);
         pumpSelBtn_5->setChecked(false);
@@ -875,7 +931,7 @@ public:
 
         pumpSelBtn_7 = new QPushButton(layoutWidget7);
         pumpSelBtn_7->setObjectName(QString::fromUtf8("pumpSelBtn_7"));
-        pumpSelBtn_7->setFont(font11);
+        pumpSelBtn_7->setFont(font10);
         pumpSelBtn_7->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         pumpSelBtn_7->setCheckable(true);
         pumpSelBtn_7->setChecked(false);
@@ -884,7 +940,7 @@ public:
 
         pumpSelBtn_6 = new QPushButton(layoutWidget7);
         pumpSelBtn_6->setObjectName(QString::fromUtf8("pumpSelBtn_6"));
-        pumpSelBtn_6->setFont(font11);
+        pumpSelBtn_6->setFont(font10);
         pumpSelBtn_6->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         pumpSelBtn_6->setCheckable(true);
         pumpSelBtn_6->setChecked(false);
@@ -893,7 +949,7 @@ public:
 
         pumpSelBtn_12 = new QPushButton(layoutWidget7);
         pumpSelBtn_12->setObjectName(QString::fromUtf8("pumpSelBtn_12"));
-        pumpSelBtn_12->setFont(font11);
+        pumpSelBtn_12->setFont(font10);
         pumpSelBtn_12->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         pumpSelBtn_12->setCheckable(true);
         pumpSelBtn_12->setChecked(false);
@@ -902,7 +958,7 @@ public:
 
         pumpSelBtn_9 = new QPushButton(layoutWidget7);
         pumpSelBtn_9->setObjectName(QString::fromUtf8("pumpSelBtn_9"));
-        pumpSelBtn_9->setFont(font11);
+        pumpSelBtn_9->setFont(font10);
         pumpSelBtn_9->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         pumpSelBtn_9->setCheckable(true);
         pumpSelBtn_9->setChecked(false);
@@ -911,7 +967,7 @@ public:
 
         pumpSelBtn_11 = new QPushButton(layoutWidget7);
         pumpSelBtn_11->setObjectName(QString::fromUtf8("pumpSelBtn_11"));
-        pumpSelBtn_11->setFont(font11);
+        pumpSelBtn_11->setFont(font10);
         pumpSelBtn_11->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         pumpSelBtn_11->setCheckable(true);
         pumpSelBtn_11->setChecked(false);
@@ -920,7 +976,7 @@ public:
 
         pumpSelBtn_10 = new QPushButton(layoutWidget7);
         pumpSelBtn_10->setObjectName(QString::fromUtf8("pumpSelBtn_10"));
-        pumpSelBtn_10->setFont(font11);
+        pumpSelBtn_10->setFont(font10);
         pumpSelBtn_10->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         pumpSelBtn_10->setCheckable(true);
         pumpSelBtn_10->setChecked(false);
@@ -929,7 +985,7 @@ public:
 
         pumpSelBtn_16 = new QPushButton(layoutWidget7);
         pumpSelBtn_16->setObjectName(QString::fromUtf8("pumpSelBtn_16"));
-        pumpSelBtn_16->setFont(font11);
+        pumpSelBtn_16->setFont(font10);
         pumpSelBtn_16->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         pumpSelBtn_16->setCheckable(true);
         pumpSelBtn_16->setChecked(false);
@@ -938,7 +994,7 @@ public:
 
         pumpSelBtn_13 = new QPushButton(layoutWidget7);
         pumpSelBtn_13->setObjectName(QString::fromUtf8("pumpSelBtn_13"));
-        pumpSelBtn_13->setFont(font11);
+        pumpSelBtn_13->setFont(font10);
         pumpSelBtn_13->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         pumpSelBtn_13->setCheckable(true);
         pumpSelBtn_13->setChecked(false);
@@ -947,7 +1003,7 @@ public:
 
         pumpSelBtn_15 = new QPushButton(layoutWidget7);
         pumpSelBtn_15->setObjectName(QString::fromUtf8("pumpSelBtn_15"));
-        pumpSelBtn_15->setFont(font11);
+        pumpSelBtn_15->setFont(font10);
         pumpSelBtn_15->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         pumpSelBtn_15->setCheckable(true);
         pumpSelBtn_15->setChecked(false);
@@ -956,7 +1012,7 @@ public:
 
         pumpSelBtn_14 = new QPushButton(layoutWidget7);
         pumpSelBtn_14->setObjectName(QString::fromUtf8("pumpSelBtn_14"));
-        pumpSelBtn_14->setFont(font11);
+        pumpSelBtn_14->setFont(font10);
         pumpSelBtn_14->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         pumpSelBtn_14->setCheckable(true);
         pumpSelBtn_14->setChecked(false);
@@ -978,12 +1034,11 @@ public:
         horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
         pushButton_2 = new QPushButton(layoutWidget8);
         pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
-        QSizePolicy sizePolicy5(QSizePolicy::Minimum, QSizePolicy::Maximum);
-        sizePolicy5.setHorizontalStretch(0);
-        sizePolicy5.setVerticalStretch(0);
         sizePolicy5.setHeightForWidth(pushButton_2->sizePolicy().hasHeightForWidth());
         pushButton_2->setSizePolicy(sizePolicy5);
-        pushButton_2->setMinimumSize(QSize(84, 45));
+        pushButton_2->setMinimumSize(QSize(0, 45));
+        pushButton_2->setIcon(icon5);
+        pushButton_2->setIconSize(QSize(56, 56));
 
         horizontalLayout_3->addWidget(pushButton_2);
 
@@ -1008,6 +1063,10 @@ public:
 
         label_14 = new QLabel(layoutWidget8);
         label_14->setObjectName(QString::fromUtf8("label_14"));
+        QFont font11;
+        font11.setFamily(QString::fromUtf8("DejaVu Sans Mono"));
+        font11.setPointSize(19);
+        label_14->setFont(font11);
 
         verticalLayout_2->addWidget(label_14);
 
@@ -1025,6 +1084,7 @@ public:
 
         label_15 = new QLabel(layoutWidget8);
         label_15->setObjectName(QString::fromUtf8("label_15"));
+        label_15->setFont(font11);
 
         verticalLayout_3->addWidget(label_15);
 
@@ -1036,13 +1096,14 @@ public:
         scrollAreaRecipe->setWidgetResizable(true);
         scrollAreaWidgetContents_3 = new QWidget();
         scrollAreaWidgetContents_3->setObjectName(QString::fromUtf8("scrollAreaWidgetContents_3"));
-        scrollAreaWidgetContents_3->setGeometry(QRect(0, 0, 517, 363));
+        scrollAreaWidgetContents_3->setGeometry(QRect(0, 0, 517, 328));
         scrollAreaRecipe->setWidget(scrollAreaWidgetContents_3);
 
         verticalLayout_3->addWidget(scrollAreaRecipe);
 
         label_16 = new QLabel(layoutWidget8);
         label_16->setObjectName(QString::fromUtf8("label_16"));
+        label_16->setFont(font11);
 
         verticalLayout_3->addWidget(label_16);
 
@@ -1073,7 +1134,7 @@ public:
         sizePolicy7.setVerticalStretch(0);
         sizePolicy7.setHeightForWidth(label_12->sizePolicy().hasHeightForWidth());
         label_12->setSizePolicy(sizePolicy7);
-        label_12->setFont(font2);
+        label_12->setFont(font11);
         label_12->setAlignment(Qt::AlignCenter);
 
         verticalLayout_6->addWidget(label_12);
@@ -1083,21 +1144,33 @@ public:
         horizontalLayout_10->setObjectName(QString::fromUtf8("horizontalLayout_10"));
         musicBtn = new QPushButton(layoutWidget9);
         musicBtn->setObjectName(QString::fromUtf8("musicBtn"));
-        musicBtn->setMinimumSize(QSize(84, 66));
+        musicBtn->setMinimumSize(QSize(0, 66));
+        QIcon icon15;
+        icon15.addFile(QString::fromUtf8(":/images/assets/music.png"), QSize(), QIcon::Normal, QIcon::Off);
+        musicBtn->setIcon(icon15);
+        musicBtn->setIconSize(QSize(55, 55));
         musicBtn->setCheckable(true);
 
         horizontalLayout_10->addWidget(musicBtn);
 
         pictureBtn = new QPushButton(layoutWidget9);
         pictureBtn->setObjectName(QString::fromUtf8("pictureBtn"));
-        pictureBtn->setMinimumSize(QSize(84, 66));
+        pictureBtn->setMinimumSize(QSize(0, 66));
+        QIcon icon16;
+        icon16.addFile(QString::fromUtf8(":/images/assets/1200px-Picture_icon_BLACK.svg.png"), QSize(), QIcon::Normal, QIcon::Off);
+        pictureBtn->setIcon(icon16);
+        pictureBtn->setIconSize(QSize(55, 55));
         pictureBtn->setCheckable(true);
 
         horizontalLayout_10->addWidget(pictureBtn);
 
         videoBtn = new QPushButton(layoutWidget9);
         videoBtn->setObjectName(QString::fromUtf8("videoBtn"));
-        videoBtn->setMinimumSize(QSize(84, 66));
+        videoBtn->setMinimumSize(QSize(0, 66));
+        QIcon icon17;
+        icon17.addFile(QString::fromUtf8(":/images/assets/free-video-icon-831-thumb.png"), QSize(), QIcon::Normal, QIcon::Off);
+        videoBtn->setIcon(icon17);
+        videoBtn->setIconSize(QSize(55, 55));
         videoBtn->setCheckable(true);
         videoBtn->setChecked(false);
 
@@ -1111,13 +1184,17 @@ public:
         horizontalLayout_11->setObjectName(QString::fromUtf8("horizontalLayout_11"));
         addIngredientBtn = new QPushButton(layoutWidget9);
         addIngredientBtn->setObjectName(QString::fromUtf8("addIngredientBtn"));
-        addIngredientBtn->setMinimumSize(QSize(84, 66));
+        addIngredientBtn->setMinimumSize(QSize(0, 66));
+        addIngredientBtn->setIcon(icon7);
+        addIngredientBtn->setIconSize(QSize(45, 45));
 
         horizontalLayout_11->addWidget(addIngredientBtn);
 
         saveDrinkBtn = new QPushButton(layoutWidget9);
         saveDrinkBtn->setObjectName(QString::fromUtf8("saveDrinkBtn"));
-        saveDrinkBtn->setMinimumSize(QSize(84, 66));
+        saveDrinkBtn->setMinimumSize(QSize(0, 66));
+        saveDrinkBtn->setIcon(icon14);
+        saveDrinkBtn->setIconSize(QSize(45, 45));
 
         horizontalLayout_11->addWidget(saveDrinkBtn);
 
@@ -1176,6 +1253,8 @@ public:
         removeBeverageBtn->setObjectName(QString::fromUtf8("removeBeverageBtn"));
         sizePolicy2.setHeightForWidth(removeBeverageBtn->sizePolicy().hasHeightForWidth());
         removeBeverageBtn->setSizePolicy(sizePolicy2);
+        removeBeverageBtn->setIcon(icon4);
+        removeBeverageBtn->setIconSize(QSize(32, 32));
 
         verticalLayout_7->addWidget(removeBeverageBtn);
 
@@ -1183,6 +1262,8 @@ public:
         editBeverageNameBtn->setObjectName(QString::fromUtf8("editBeverageNameBtn"));
         sizePolicy2.setHeightForWidth(editBeverageNameBtn->sizePolicy().hasHeightForWidth());
         editBeverageNameBtn->setSizePolicy(sizePolicy2);
+        editBeverageNameBtn->setIcon(icon3);
+        editBeverageNameBtn->setIconSize(QSize(32, 32));
 
         verticalLayout_7->addWidget(editBeverageNameBtn);
 
@@ -1190,6 +1271,8 @@ public:
         addBeverageBtn->setObjectName(QString::fromUtf8("addBeverageBtn"));
         sizePolicy2.setHeightForWidth(addBeverageBtn->sizePolicy().hasHeightForWidth());
         addBeverageBtn->setSizePolicy(sizePolicy2);
+        addBeverageBtn->setIcon(icon7);
+        addBeverageBtn->setIconSize(QSize(55, 55));
 
         verticalLayout_7->addWidget(addBeverageBtn);
 
@@ -1210,16 +1293,9 @@ public:
         verticalLayout_8->setStretch(3, 3);
         backButtonBeverages = new QPushButton(beverageAssignPage);
         backButtonBeverages->setObjectName(QString::fromUtf8("backButtonBeverages"));
-        backButtonBeverages->setGeometry(QRect(13, 26, 141, 38));
-        QIcon icon1;
-        QString iconThemeName = QString::fromUtf8("edit-undo");
-        if (QIcon::hasThemeIcon(iconThemeName)) {
-            icon1 = QIcon::fromTheme(iconThemeName);
-        } else {
-            icon1.addFile(QString::fromUtf8("."), QSize(), QIcon::Normal, QIcon::Off);
-        }
-        backButtonBeverages->setIcon(icon1);
-        backButtonBeverages->setIconSize(QSize(32, 32));
+        backButtonBeverages->setGeometry(QRect(10, 10, 111, 61));
+        backButtonBeverages->setIcon(icon5);
+        backButtonBeverages->setIconSize(QSize(55, 55));
         stackedWidget->addWidget(beverageAssignPage);
         beverageSaveNamePage = new QWidget();
         beverageSaveNamePage->setObjectName(QString::fromUtf8("beverageSaveNamePage"));
@@ -1232,7 +1308,11 @@ public:
         gridLayout_3->setContentsMargins(5, 0, 5, 0);
         label_2 = new QLabel(layoutWidget11);
         label_2->setObjectName(QString::fromUtf8("label_2"));
-        label_2->setFont(font9);
+        QFont font14;
+        font14.setFamily(QString::fromUtf8("DejaVu Sans Mono"));
+        font14.setPointSize(24);
+        font14.setBold(true);
+        label_2->setFont(font14);
         label_2->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         label_2->setAlignment(Qt::AlignCenter);
         label_2->setWordWrap(true);
@@ -1243,9 +1323,9 @@ public:
         beveragelineEdit->setObjectName(QString::fromUtf8("beveragelineEdit"));
         sizePolicy1.setHeightForWidth(beveragelineEdit->sizePolicy().hasHeightForWidth());
         beveragelineEdit->setSizePolicy(sizePolicy1);
-        QFont font14;
-        font14.setPointSize(26);
-        beveragelineEdit->setFont(font14);
+        QFont font15;
+        font15.setPointSize(26);
+        beveragelineEdit->setFont(font15);
         beveragelineEdit->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 0);"));
         beveragelineEdit->setInputMethodHints(Qt::ImhLatinOnly);
         beveragelineEdit->setClearButtonEnabled(false);
@@ -1256,6 +1336,8 @@ public:
         saveBeverage->setObjectName(QString::fromUtf8("saveBeverage"));
         sizePolicy2.setHeightForWidth(saveBeverage->sizePolicy().hasHeightForWidth());
         saveBeverage->setSizePolicy(sizePolicy2);
+        saveBeverage->setIcon(icon14);
+        saveBeverage->setIconSize(QSize(77, 77));
 
         gridLayout_3->addWidget(saveBeverage, 2, 1, 1, 1);
 
@@ -1263,6 +1345,8 @@ public:
         backSaveBeverage->setObjectName(QString::fromUtf8("backSaveBeverage"));
         sizePolicy2.setHeightForWidth(backSaveBeverage->sizePolicy().hasHeightForWidth());
         backSaveBeverage->setSizePolicy(sizePolicy2);
+        backSaveBeverage->setIcon(icon5);
+        backSaveBeverage->setIconSize(QSize(77, 77));
 
         gridLayout_3->addWidget(backSaveBeverage, 2, 0, 1, 1);
 
@@ -1274,7 +1358,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        stackedWidget->setCurrentIndex(6);
+        stackedWidget->setCurrentIndex(3);
         newRecipeButton->setDefault(false);
 
 
@@ -1286,21 +1370,21 @@ public:
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
         settingButton->setText(QString());
         label->setText(QCoreApplication::translate("MainWindow", "Available drinks list:", nullptr));
-        stopMediaBtn->setText(QCoreApplication::translate("MainWindow", "STOP", nullptr));
+        pushButton->setText(QString());
+        stopMediaBtn->setText(QString());
         label_10->setText(QCoreApplication::translate("MainWindow", "Ingredients:", nullptr));
         label_11->setText(QCoreApplication::translate("MainWindow", "Notes:", nullptr));
-        editRecipeBtn->setText(QCoreApplication::translate("MainWindow", "EDIT", nullptr));
-        deleteDrinkButton->setText(QCoreApplication::translate("MainWindow", "DELETE", nullptr));
-        drinkPrepare_backBtn->setText(QCoreApplication::translate("MainWindow", "BACK", nullptr));
-        drinkPrepare_prepareBtn->setText(QCoreApplication::translate("MainWindow", "PREPARE", nullptr));
-        menuPage_backBtn->setText(QCoreApplication::translate("MainWindow", "BACK", nullptr));
-        newRecipeButton->setText(QCoreApplication::translate("MainWindow", "Create new recipe", nullptr));
-        AssignPumpButton->setText(QCoreApplication::translate("MainWindow", "Assign pump", nullptr));
-        cleanPumpButton->setText(QCoreApplication::translate("MainWindow", "Pump clean", nullptr));
-        calibratePumpButton->setText(QCoreApplication::translate("MainWindow", "Calibrate", nullptr));
-        visitWebButton->setText(QCoreApplication::translate("MainWindow", "Visit our web page", nullptr));
-        termsOfUseButton->setText(QCoreApplication::translate("MainWindow", "Terms of use ", nullptr));
-        backBtnCalibrate->setText(QCoreApplication::translate("MainWindow", "BACK", nullptr));
+        drinkPrepare_backBtn->setText(QCoreApplication::translate("MainWindow", "  Back  ", nullptr));
+        drinkPrepare_prepareBtn->setText(QCoreApplication::translate("MainWindow", "  Prepare", nullptr));
+        menuPage_backBtn->setText(QString());
+        newRecipeButton->setText(QCoreApplication::translate("MainWindow", " Create new recipe ", nullptr));
+        AssignPumpButton->setText(QCoreApplication::translate("MainWindow", "  Assign pump  ", nullptr));
+        cleanPumpButton->setText(QCoreApplication::translate("MainWindow", "  Pump clean  ", nullptr));
+        calibratePumpButton->setText(QCoreApplication::translate("MainWindow", "  Calibrate  ", nullptr));
+        visitWebButton->setText(QCoreApplication::translate("MainWindow", " Visit our web page ", nullptr));
+        termsOfUseButton->setText(QCoreApplication::translate("MainWindow", " Terms of use  ", nullptr));
+        goToDesktopBtn->setText(QCoreApplication::translate("MainWindow", " Go to desktop  ", nullptr));
+        backBtnCalibrate->setText(QString());
         label_5->setText(QCoreApplication::translate("MainWindow", "Pump calibration:", nullptr));
         label_6->setText(QCoreApplication::translate("MainWindow", "press start to turn\n"
 "on the pump for 1 sec. ", nullptr));
@@ -1322,13 +1406,13 @@ public:
         comboBoxCalibrate->setItemText(14, QCoreApplication::translate("MainWindow", "15", nullptr));
         comboBoxCalibrate->setItemText(15, QCoreApplication::translate("MainWindow", "16", nullptr));
 
-        calibrationStart->setText(QCoreApplication::translate("MainWindow", "START", nullptr));
+        calibrationStart->setText(QCoreApplication::translate("MainWindow", "  Start  ", nullptr));
         label_8->setText(QCoreApplication::translate("MainWindow", "enter the measured\n"
 "liquid volume", nullptr));
-        lineEditCalibrate->setText(QCoreApplication::translate("MainWindow", "1,8", nullptr));
-        label_9->setText(QCoreApplication::translate("MainWindow", "OZ", nullptr));
-        calibrationSave->setText(QCoreApplication::translate("MainWindow", "SAVE", nullptr));
-        backBtnCleanPage->setText(QCoreApplication::translate("MainWindow", "BACK", nullptr));
+        lineEditCalibrate->setText(QCoreApplication::translate("MainWindow", "0.0", nullptr));
+        label_9->setText(QCoreApplication::translate("MainWindow", "oz", nullptr));
+        calibrationSave->setText(QCoreApplication::translate("MainWindow", "  Save  ", nullptr));
+        backBtnCleanPage->setText(QString());
         label_4->setText(QCoreApplication::translate("MainWindow", "Select pumps to clean", nullptr));
         startClean->setText(QCoreApplication::translate("MainWindow", "START", nullptr));
         selectAllPumps->setText(QCoreApplication::translate("MainWindow", "Select all", nullptr));
@@ -1348,7 +1432,6 @@ public:
         pumpSelBtn_13->setText(QCoreApplication::translate("MainWindow", "PUMP 14", nullptr));
         pumpSelBtn_15->setText(QCoreApplication::translate("MainWindow", "PUMP 15", nullptr));
         pumpSelBtn_14->setText(QCoreApplication::translate("MainWindow", "PUMP 16", nullptr));
-        pushButton_2->setText(QCoreApplication::translate("MainWindow", "BACK", nullptr));
         label_3->setText(QCoreApplication::translate("MainWindow", "Create recipe", nullptr));
         label_14->setText(QCoreApplication::translate("MainWindow", "Enter drink name:", nullptr));
         lineEditDrinkName->setText(QString());
@@ -1361,20 +1444,18 @@ public:
 "</style></head><body style=\" font-family:'Ubuntu'; font-size:20pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:11pt;\"><br /></p></body></html>", nullptr));
         label_12->setText(QCoreApplication::translate("MainWindow", "Add show:", nullptr));
-        musicBtn->setText(QCoreApplication::translate("MainWindow", "MUSIC", nullptr));
-        pictureBtn->setText(QCoreApplication::translate("MainWindow", "PICTURE", nullptr));
-        videoBtn->setText(QCoreApplication::translate("MainWindow", "VIDEO", nullptr));
-        addIngredientBtn->setText(QCoreApplication::translate("MainWindow", "ADD INGREDIENT", nullptr));
-        saveDrinkBtn->setText(QCoreApplication::translate("MainWindow", "SAVE", nullptr));
+        musicBtn->setText(QString());
+        addIngredientBtn->setText(QCoreApplication::translate("MainWindow", "  Add ingredient", nullptr));
+        saveDrinkBtn->setText(QCoreApplication::translate("MainWindow", "  Save", nullptr));
         label_13->setText(QCoreApplication::translate("MainWindow", "Available beverages list", nullptr));
-        removeBeverageBtn->setText(QCoreApplication::translate("MainWindow", "REMOVE", nullptr));
-        editBeverageNameBtn->setText(QCoreApplication::translate("MainWindow", "EDIT", nullptr));
-        addBeverageBtn->setText(QCoreApplication::translate("MainWindow", "ADD", nullptr));
-        backButtonBeverages->setText(QCoreApplication::translate("MainWindow", "   Back", nullptr));
+        removeBeverageBtn->setText(QString());
+        editBeverageNameBtn->setText(QString());
+        addBeverageBtn->setText(QString());
+        backButtonBeverages->setText(QString());
         label_2->setText(QCoreApplication::translate("MainWindow", "New beverage name:", nullptr));
         beveragelineEdit->setText(QString());
-        saveBeverage->setText(QCoreApplication::translate("MainWindow", "SAVE", nullptr));
-        backSaveBeverage->setText(QCoreApplication::translate("MainWindow", "BACK", nullptr));
+        saveBeverage->setText(QString());
+        backSaveBeverage->setText(QString());
     } // retranslateUi
 
 };

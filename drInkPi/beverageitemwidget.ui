@@ -50,6 +50,7 @@
        </property>
        <property name="font">
         <font>
+         <family>DejaVu Sans Mono</family>
          <pointsize>27</pointsize>
         </font>
        </property>

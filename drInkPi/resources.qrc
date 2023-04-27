@@ -12,9 +12,27 @@
         <file>assets/262038.png</file>
         <file>assets/star.png</file>
         <file>assets/star (copy).png</file>
+        <file>assets/stop icon.png</file>
+        <file>assets/Speaker_Icon.svg.png</file>
+        <file>assets/save-44.png</file>
+        <file>assets/pump_calib_data.txt</file>
+        <file>assets/music.png</file>
+        <file>assets/hamburger_button_menu_icon_155296.png</file>
+        <file>assets/hamb.png</file>
+        <file>assets/go-back-2.png</file>
+        <file>assets/free-video-icon-831-thumb.png</file>
+        <file>assets/edit.png</file>
+        <file>assets/delete.png</file>
+        <file>assets/config.json</file>
+        <file>assets/add-icon-sign-symbol-design-free-png.png</file>
+        <file>assets/1200px-Picture_icon_BLACK.svg.png</file>
+        <file>assets/clipart1343000.png</file>
     </qresource>
     <qresource prefix="/text">
         <file>assets/config.json</file>
         <file>assets/pump_calib_data.txt</file>
+        <file>assets/web.png</file>
+        <file>assets/about-12.png</file>
+        <file>assets/MINIMIZE-131994911324916820.png</file>
     </qresource>
 </RCC>

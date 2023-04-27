@@ -3,6 +3,9 @@
 
 #include <QWidget>
 
+
+#define NONE_BEVERAGE_TXT "..."
+
 namespace Ui {
 class beverageItemWidget;
 }

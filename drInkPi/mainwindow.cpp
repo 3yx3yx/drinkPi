@@ -25,34 +25,6 @@ MainWindow::MainWindow(QWidget *parent)
     gpio_init();
     stop_all_pumps();
 
-//#ifdef TEST
-//    clearConfigJson(); // for test
-
-//    Drink d;
-//    d.name = "Whisky";
-//    Beverage b;
-//    b.name="whisky";
-//    b.pump=1;
-//    addBeverageToJson(b);
-//    d.ingredients.append(Ingredient{b,1.2});
-//    b.name="cola";
-//    b.pump=2;
-//    addBeverageToJson(b);
-//    d.ingredients.append(Ingredient{b,3.1});
-//    b.name="gin";
-//    b.pump=3;
-//    addBeverageToJson(b);
-//    d.ingredients.append(Ingredient{b,5.2});
-//    b.name="soda";
-//    b.pump=4;
-//    addBeverageToJson(b);
-//    d.ingredients.append(Ingredient{b,1.2});
-//    d.note = "blabla";
-//    d.videoPath = "/home/pi/Videos/smpa.mp4";
-
-//    addDrinkToJson(d);
-//#endif
-
     updateDrinkListMenu();
     loadBeveragesListMenu();
 
@@ -65,6 +37,8 @@ MainWindow::MainWindow(QWidget *parent)
     player_audio = new QMediaPlayer(this);
     movie = new QMovie(ui->videoWidget);
     show_picture = new QLabel(ui->videoWidget);
+    show_picture->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+
 
     timer = new QTimer(this);
     timer->setSingleShot(true);
@@ -79,6 +53,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     QProcess p;
     QStringList args;
+    args.append("&");
     p.startDetached("onboard",args); // start onscreen keyboard
     p.waitForStarted();
     QTimer::singleShot(5500, []{
@@ -94,7 +69,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     timer_chrome_running_check = new QTimer(this);
     connect (timer_chrome_running_check,&QTimer::timeout,this,&MainWindow::timer_chrome_running_check_slot);
-    timer_chrome_running_check->start(1000);
+    timer_chrome_running_check->start(2500);
 }
 
 MainWindow::~MainWindow()
@@ -235,7 +210,7 @@ Drink MainWindow::getDrinkByName(QString name)
                 QString beverageToSearch = ing.beverage.name;
                 if (getBeverageByName(beverageToSearch).name.isEmpty()) {
                     QMessageBox mb;
-                    mb.setFont(QFont("Times", 23, QFont::Bold));
+                    mb.setFont(QFont("Helvetica", 23, QFont::Bold));
                     mb.setInformativeText("cannot find beverage "+beverageToSearch);
                     mb.setStandardButtons(QMessageBox::Ok);
                     mb.exec();
@@ -507,8 +482,8 @@ void MainWindow::loadBeveragesListMenu()
         }
 
         if (!pump_found){
-            unit->setWidget(i,"none",list);
-            beverageListSelectedPrevList.append("none");
+            unit->setWidget(i,NONE_BEVERAGE_TXT,list);
+            beverageListSelectedPrevList.append(NONE_BEVERAGE_TXT);
         }
 
 
@@ -623,8 +598,10 @@ void MainWindow::focus_changed_slot(QWidget *old, QWidget *now)
                                                    "Show");
 
         QDBusConnection::sessionBus().send(msg);
+        if (!this->isMinimized()){
+            this->showMaximized();
+        }
 
-        this->showMaximized();
 
 
     } else {
@@ -641,7 +618,10 @@ void MainWindow::focus_changed_slot(QWidget *old, QWidget *now)
             if (chromeProcess->state() == QProcess::Running){
                 this->showMinimized();
             } else{
-                this->showFullScreen();
+                if (!this->isMinimized()){
+                    this->showFullScreen();
+                }
+
             }
 
         }
@@ -683,11 +663,12 @@ void MainWindow::drinkListBtnClicked(QString name)
 
         qDebug()<<"error in drink data";
         QMessageBox mb;
-        mb.setFont(QFont("Times", 23, QFont::Bold));
+        mb.setFont(QFont("Helvetica", 23, QFont::Bold));
         mb.setInformativeText("drink recipe reading error");
         mb.setStandardButtons(QMessageBox::Ok);
         mb.exec();
-
+        deleteDrinkFromJson("");
+        updateDrinkListMenu();
         return;
     }
 
@@ -774,6 +755,8 @@ void MainWindow::on_deleteDrinkButton_clicked()
         break;
     case QMessageBox::Yes:
         deleteDrinkFromJson(_drink_to_prepare.name);
+        updateDrinkListMenu();
+        ui->stackedWidget->setCurrentWidget(ui->startPage);
         break;
     default:
         break;
@@ -797,15 +780,24 @@ void MainWindow::on_drinkPrepare_prepareBtn_clicked()
     if (!_drink_to_prepare.videoPath.isEmpty()){
         player_video->setMedia(QUrl::fromLocalFile(_drink_to_prepare.videoPath));
         hasVideo = true;
+        ui->videoWidget->show();
+        show_picture->hide();
 
     } else if (!_drink_to_prepare.picturePath.isEmpty()) {
         QString path  = _drink_to_prepare.picturePath;
         show_picture->setGeometry(ui->videoWidget->geometry());
         show_picture->show();
         show_picture->raise();
+        movie->stop();
+        //ui->videoWidget->hide();
         if (path.endsWith(".gif")){
+            movie->setFileName(path);
+
             show_picture->setMovie(movie);
+
             movie->start();
+            qDebug()<<"starting gif "<<path;
+
         } else {
             QPixmap pix(path);
             show_picture->setPixmap(pix);
@@ -872,7 +864,7 @@ void MainWindow::on_drinkPrepare_prepareBtn_clicked()
         if (ing.beverage.pump < 1 || ing.beverage.pump > PUMP_N){
             qDebug()<<"no pump specified";
             QMessageBox mb;
-            mb.setFont(QFont("Times", 23, QFont::Bold));
+            mb.setFont(QFont("Helvetica", 23, QFont::Bold));
             mb.setInformativeText("no pump specified: "+ing.beverage.name);
             mb.setStandardButtons(QMessageBox::Ok);
             mb.exec();
@@ -1006,7 +998,7 @@ void MainWindow::on_calibrationSave_clicked()
     }
 
     QMessageBox mb;
-    mb.setFont(QFont("Times", 23, QFont::Bold));
+    mb.setFont(QFont("Helvetica", 23, QFont::Bold));
     mb.setInformativeText("Saved");
     mb.setStandardButtons(QMessageBox::Ok);
     mb.exec();
@@ -1128,8 +1120,8 @@ void MainWindow::updateBeveragesListMenu (void){
             }
         }
         if (!pump_found){
-            unit->setWidget(i,"none",list);
-            beverageListSelectedPrevList.append("none");
+            unit->setWidget(i,NONE_BEVERAGE_TXT,list);
+            beverageListSelectedPrevList.append(NONE_BEVERAGE_TXT);
         }
 
         unit->blockSignals(false);
@@ -1183,7 +1175,7 @@ void MainWindow::beverageItemSelectionChangedSlot(QString selection_text, bevera
 
     QString prevSelected = prevList.at(obj->getNumber()-1);
 
-    if (prevSelected != "none") {
+    if (prevSelected != NONE_BEVERAGE_TXT) {
         qDebug()<<"prev selected"<<prevSelected<<"set pump to 0";
         Beverage b  = getBeverageByName(prevSelected);
         b.pump=0;
@@ -1191,12 +1183,15 @@ void MainWindow::beverageItemSelectionChangedSlot(QString selection_text, bevera
         addBeverageToJson(b);
     }
 
+    if (selection_text != NONE_BEVERAGE_TXT){
+        Beverage b  = getBeverageByName(selection_text);
+        qDebug()<<"change pump"<<b.name<<"from"<<b.pump<<"to"<<obj->getNumber();
+        b.pump = obj->getNumber();
+        deleteBeverageFromJson(b.name);
+        addBeverageToJson(b);
+    }
 
-    Beverage b  = getBeverageByName(selection_text);
-    qDebug()<<"change pump"<<b.name<<"from"<<b.pump<<"to"<<obj->getNumber();
-    b.pump = obj->getNumber();
-    deleteBeverageFromJson(b.name);
-    addBeverageToJson(b);
+
     updateBeveragesListMenu();
 
 }
@@ -1252,7 +1247,7 @@ void MainWindow::on_videoBtn_clicked()
 
     if (!path.isEmpty() && !_new_drink.audioPath.isEmpty()) {
         QMessageBox mb;
-        mb.setFont(QFont("Times", 23, QFont::Bold));
+        mb.setFont(QFont("Helvetica", 23, QFont::Bold));
         mb.setInformativeText("audio file was specified\n"
                               "Mute video sound?");
         mb.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
@@ -1296,7 +1291,7 @@ void MainWindow::on_musicBtn_clicked()
 
     if (!path.isEmpty() && !_new_drink.videoPath.isEmpty()) {
         QMessageBox mb;
-        mb.setFont(QFont("Times", 23, QFont::Bold));
+        mb.setFont(QFont("Helvetica", 23, QFont::Bold));
         mb.setInformativeText("video file was specified\n"
                               "Mute video sound?");
         mb.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
@@ -1318,7 +1313,7 @@ void MainWindow::on_saveDrinkBtn_clicked()
     _new_drink.name = ui->lineEditDrinkName->text();
     if (_new_drink.name.length()<2) {
         QMessageBox mb;
-        mb.setFont(QFont("Times", 23, QFont::Bold));
+        mb.setFont(QFont("Helvetica", 23, QFont::Bold));
         mb.setInformativeText("Name is too short");
         mb.setStandardButtons(QMessageBox::Ok);
         mb.exec();
@@ -1333,7 +1328,7 @@ void MainWindow::on_saveDrinkBtn_clicked()
 
         if (d.name == _new_drink.name) {
             QMessageBox mb;
-            mb.setFont(QFont("Times", 23, QFont::Bold));
+            mb.setFont(QFont("Helvetica", 23, QFont::Bold));
             mb.setInformativeText("Drink name is already taken\n"
                                   "Overwrite?");
             mb.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
@@ -1364,7 +1359,7 @@ void MainWindow::on_saveDrinkBtn_clicked()
             QString name = iw->getSelected();
             if (name == ing.beverage.name && iw!=w) {
                 QMessageBox mb;
-                mb.setFont(QFont("Times", 23, QFont::Bold));
+                mb.setFont(QFont("Helvetica", 23, QFont::Bold));
                 mb.setInformativeText(name + " - multiple times selected");
                 mb.setStandardButtons(QMessageBox::Ok);
                 mb.exec();
@@ -1376,7 +1371,7 @@ void MainWindow::on_saveDrinkBtn_clicked()
             _new_drink.ingredients.append(ing);
         } else {
             QMessageBox mb;
-            mb.setFont(QFont("Times", 23, QFont::Bold));
+            mb.setFont(QFont("Helvetica", 23, QFont::Bold));
             mb.setInformativeText(ing.beverage.name+" portion = 0\n"
                                                     "Exclude from a drink recipe?");
             mb.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
@@ -1400,7 +1395,7 @@ void MainWindow::on_saveDrinkBtn_clicked()
     updateDrinkListMenu();
 
     QMessageBox mb;
-    mb.setFont(QFont("Times", 23, QFont::Bold));
+    mb.setFont(QFont("Helvetica", 23, QFont::Bold));
     mb.setInformativeText("Saved");
     mb.setStandardButtons(QMessageBox::Ok);
     mb.exec();
@@ -1433,21 +1428,10 @@ void MainWindow::on_termsOfUseButton_clicked()
 
 void MainWindow::on_visitWebButton_clicked()
 {
-    QString s;
-    QFile file;
-    file.setFileName("/home/pi/drInkPi/webPageURL.txt");
-    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        s = file.readAll();
-    } else if (file.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate)) {
-        file.write("google.com");
-    }
-    file.close();
-
     QStringList args;
-    if (!s.isEmpty()) args.append(s);
-    else args.append("google.com");
-
-    chromeProcess->start("chromium-browser",args);
+    args.append("/home/pi/drInkPi/startChrome.sh");
+    args.append("&");
+    chromeProcess->start("bash",args);
     this->showMinimized();
 }
 
@@ -1458,9 +1442,15 @@ void MainWindow::timer_chrome_running_check_slot()
         if (chromeProcess->state() == QProcess::Running){
             this->showMinimized();
         } else{
-            this->showFullScreen();
+//
         }
 
     }
+}
+
+
+void MainWindow::on_goToDesktopBtn_clicked()
+{
+    this->showMinimized();
 }
 

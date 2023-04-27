@@ -55,6 +55,7 @@ public:
         sizePolicy.setHeightForWidth(comboBox->sizePolicy().hasHeightForWidth());
         comboBox->setSizePolicy(sizePolicy);
         QFont font1;
+        font1.setFamily(QString::fromUtf8("DejaVu Sans Mono"));
         font1.setPointSize(27);
         comboBox->setFont(font1);
 

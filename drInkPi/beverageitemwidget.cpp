@@ -17,7 +17,7 @@ void beverageItemWidget::setWidget(int pumpN, QString s, QStringList list)
 {
     ui->pumpNumLabel->setText(QString::number(pumpN));
     ui->comboBox->clear();
-    ui->comboBox->addItem("none");
+    ui->comboBox->addItem(NONE_BEVERAGE_TXT);
     ui->comboBox->addItems(list);
     ui->comboBox->setCurrentText(s);
 }

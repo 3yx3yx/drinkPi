@@ -81,10 +81,6 @@ private:
     QMovie* movie;
     QLabel* show_picture;
 
-
-
-
-
     const QString json_config_path = "/home/pi/drInkPi/config.json";
     const QString pump_config_path = "/home/pi/drInkPi/calib.txt";
 
@@ -197,5 +193,6 @@ private slots:
     void on_visitWebButton_clicked();
 
     void timer_chrome_running_check_slot (void);
+    void on_goToDesktopBtn_clicked();
 };
 #endif // MAINWINDOW_H
